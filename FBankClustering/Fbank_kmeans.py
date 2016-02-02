@@ -1,76 +1,32 @@
-from time import time
+
 import matplotlib.pyplot as plt
 import operator
-from sklearn import metrics
-from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import scale
 import scipy.io as sio
 from sklearn.cluster import KMeans
 import numpy as np
-
-def drange(start, stop, step):
-    r = start
-    while r < stop:
-        yield r
-        r += step
-
-def include_period(p1,p2):
-    if((p1[0]<=p2[0]) and (p1[1]>=p2[1])):
-        return 1
-    elif((p1[0]<=p2[0]) and (p1[1]<p2[1])):
-        return 2
-    else:
-        return 3
+import math
+import preprocess
 
 
-
-
+# Read mat file and align file.
 filename = './data/Bref80_L4M01.mat'
 alignfile = './data/Bref80_L4M01.aligned'
-fband = sio.loadmat(filename)['d1']
-n_samples, n_features = fband.shape
-period = np.loadtxt(alignfile,delimiter=' ',usecols=(0,1))
-phoneme = np.loadtxt(alignfile,dtype= str ,delimiter=' ',usecols=[2])
-n_phoneme = len(np.unique(phoneme))
-cut_period = [[round(start,2),round(end,2)] for start,end in zip(drange(0,(n_samples+1)*0.01,0.01),drange(0.02,(n_samples+2)*0.01,0.01))]
-#cut_period = [(start,end) for start,end in zip(drange(0,(n_samples-1)/100,0.01),drange(0.02,n_samples/100,0.01))]
+fbank = sio.loadmat(filename)['d1']
+
+pho = preprocess.create_reference(fbank,alignfile)
 
 
-
-pho = [None]*n_samples
-
-
-i=0
-j=0
-
-while (i<n_samples and j<len(period)-1):
-    if(include_period(period[j],cut_period[i])==1):
-        pho[i] = phoneme[j]
-        i+=1
-    elif(include_period(period[j],cut_period[i])==2):
-        pho[i] = phoneme[j]#+'+'+phoneme[j+1]
-        j+=1
-        i+=1
-    elif (include_period(period[j],cut_period[i])==3):
-
-        pho[i-1]=phoneme[j]
-        j+=1
-while(i<n_samples):
-    pho[i]=phoneme[-1]
-    i+=1
-
-
-#print(pho)
-
-n_clusters = 3
+#cluster the data to n_clusters class.
+n_clusters = 10
 kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
-kmeans.fit(fband)
+kmeans.fit(fbank)
 
 centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
-cluster_pho = [None]*n_clusters
 
+#Calculate the number of each phoneme in each cluster
+cluster_pho = [None]*n_clusters
 for label,ph in zip(labels,pho):
     if(cluster_pho[label-1]==None):
         cluster_pho[label-1]= {ph:1}
@@ -78,28 +34,25 @@ for label,ph in zip(labels,pho):
         cluster_pho[label-1][ph]+=1
     else:
         cluster_pho[label-1][ph]=1
-
-
-
 cluster_pho[:]= [sorted(x.items(),key = operator.itemgetter(1),reverse=True)for x in cluster_pho]
 
-#first = cluster_pho[0];
-#temp = zip(*first)
-figures,axs  = plt.subplots(nrows = 2,ncols = 2)
+# use bar chart to visualize each class
+nrows = int(round(math.sqrt(n_clusters)))
+ncols = int(math.ceil(n_clusters/round(math.sqrt(n_clusters))))
+figures,axs  = plt.subplots(nrows = nrows,ncols = ncols)
 
 for ax,data in zip(axs.ravel(),cluster_pho):
     data = zip(*data)
     ax.bar(range(len(data[0])),data[1],width = 0.2)
     ax.set_xticks(np.arange(len(data[0]))+0.1)
     ax.set_xticklabels(data[0],rotation = 0)
-#plt.hist(temp[1],bins=temp[0])
 plt.show()
 
 print(cluster_pho)
 
 
-
-reduced_data = PCA(n_components=2).fit_transform(fband)
+#Visulization by PCA
+reduced_data = PCA(n_components=2).fit_transform(fbank)
 kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
 kmeans.fit(reduced_data)
 
