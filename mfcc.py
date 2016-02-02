@@ -50,9 +50,10 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
 
     #enregistrement de la matrice dans un fichier csv
     a = numpy.asarray(son_mfcc)
-    numpy.savetxt("mfcc.mat" , a )
+    numpy.save("mfcc.mat" , a )
     return son_mfcc
 
 
 piou = mfcc("/home/marianne/Developpement/Bref80_L4M01.wav" , 0.02 , 0.01 , 40)
+
 #print piou
