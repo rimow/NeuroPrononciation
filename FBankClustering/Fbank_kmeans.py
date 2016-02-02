@@ -16,7 +16,7 @@ fbank = sio.loadmat(filename)['d1']
 
 pho = preprocess.create_reference(fbank,alignfile)
 
-
+print(pho)
 #cluster the data to n_clusters class.
 n_clusters = 10
 kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
