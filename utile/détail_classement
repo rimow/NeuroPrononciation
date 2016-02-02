@@ -1,7 +1,7 @@
 			consonne(0)/voyelle(1)	non voisé(0)/voisé(1)
 sil silence 		-1			-1
-vcl pause		-1			-1
-cl pause		-1			-1
+vcl pause 		-1			-1
+cl pause 		-1			-1
 vl			-1			-1
 k [k] carte		0			0
 O [O] dodo		1			1
