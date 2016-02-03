@@ -139,6 +139,7 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
     # print 's_rate',s_rate
     # print 'longueur',wav.shape
     # print wav.shape[0]/s_rate
+    X = np.log(X)
     return np.transpose(X)
 
 # Exemple
