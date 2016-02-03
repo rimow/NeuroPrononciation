@@ -1,7 +1,7 @@
 			consonne(0)/voyelle(1)	non voisé(0)/voisé(1)
 sil silence 		-1			-1
-vcl pause 		-1			-1
-cl pause 		-1			-1
+vcl pause 		0			1
+cl pause 		0 (-1)			0 (-1)
 vl			-1			-1
 k [k] carte		0			0
 O [O] dodo		1			1
@@ -21,16 +21,16 @@ s [s] sable		0			0
 v [v] voler, cave	0			1
 b [b] bon		0			0
 z [z] je		0			1
-n [n] noix		0			0
+n [n] noix		0			1
 a [a] maman		1			1
-g [g] garage		0			0
+g [g] garage		0			1
 y [y] but, rue		1			1
 w [w] oui, louer	1			1
 f [f] femme		0			0
 a~ [a~] pâte, bas, pas	1			1
 S [intégrale] château	0			0
 e9 [epsilon] mère	1			1
-J [gn] compagnon	0			0
+J [gn] compagnon	0			1
 E [] mère, fer		1			1
 o~ [] mon, font		1			1
 @  [] devrait, le, se   1			1
