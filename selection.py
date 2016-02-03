@@ -21,14 +21,14 @@ def getPhonemeDict(path):
         dict[decomposed_line[0]] = liste
     return dict
 
-def getConsonnes(X,Y,path_aligned):
+def getConsonnes(X,Y,dict):
     """
     :param X: matrice contenant les feature vectors (n_vectors x n_param)
-    :param Y: tableau (numpy array) contenant le phoneme correspondant a chaque vecteur
-    :param path_aligned: chemin du fichier d'alignement
+    :param Y: tableau (numpy array) contenant les phonemes correspondant a chaque ligne de X
+    :param dict: le dictionnaire contenant les informations sur les phonemes
     :return: une matrice X ne contenant que les consonnes, et le tableau Y qui corresond
     """
-    dict = getPhonemeDict(path_aligned)
+    Y = np.array(Y)
     Y_consonnes_no = np.array([i for i,j in enumerate(Y) if dict[j][0]==0])
     X_consonnes = X[Y_consonnes_no,:]
     Y_consonnes = Y[np.array(Y_consonnes_no)]
