@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 
 def printRatios(X,nb_classes,Y_cluster,y_voise_non_voise):
 
@@ -52,3 +53,32 @@ def getY_v_non_v(Y,dict):
       y_voise_non_voise.append(dict[ph][1])
   y_voise_non_voise = np.array(y_voise_non_voise)
   return y_voise_non_voise
+  
+  
+  def CoeffsHistogrammes(X,bins,y_voise_non_voise,ind_min,ind_max):
+  """
+    :param X: matrice contenant les feature vectors (n_vectors x n_param)
+    :param bins: nombre de bandes dans les histogrammes
+    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
+    :param ind_min: indice correspondant au premier parametre dont on veut l'histogramme des coefficients
+    :param ind_max: indice correspondant au dernier parametre dont on veut l'histogramme des coefficients
+    :return: affiche, pour chaque parametre entre min et max, l'histogramme des coefficients pour les phonemes voises et non voises
+             et les silences
+  """
+  X_shape = X.shape
+  if ind_max>=ind_min and ind_max>0 and ind_min >=0 and ind_max<X_shape[1]:
+     indices_non_voise = [i for (i,j) in enumerate(y_voise_non_voise) if j==0]
+     indices_voise = [i for (i,j) in enumerate(y_voise_non_voise) if j==1]
+     indices_silence = [i for (i,j) in enumerate(y_voise_non_voise) if j==2]
+     for i in range(ind_min,ind_max+1):
+       ax = plt.figure()
+       bins1 = plt.hist(X[indices_non_voise,i],bins=bins,alpha=0.5,label='non voises')
+       plt.legend()
+       bins2 = plt.hist(X[indices_voise,i],bins=bins,alpha=0.5,label='voises')
+       plt.legend()
+       bins3 = plt.hist(X[indices_silence,i],bins=bins,alpha=0.5,label='silences')
+       plt.legend()
+       plt.title('Parametre (indice) : '+str(i))
+       plt.show()
+  else:
+    print 'Erreur : ind_max doit etre superieur ou egal a ind_min, et ind_max et ind_min doivent etre des indices corrects.'
