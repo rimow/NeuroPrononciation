@@ -3,19 +3,21 @@ from matplotlib import pyplot as plt
 import math
 import operator
 
-def printRatios(X,nb_classes,Y_cluster,y_voise_non_voise):
+def printRatiosVoisement(X,nb_classes,Y_cluster,Y,dict):
 
   """
     :param X:matrice contenant les feature vectors (n_vectors x n_param)
     :param nb_classes: le nombre de classes resultant du clustering
     :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
-    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
+    :param Y: tableau contenant les phonemes correspondant a chaque ligne de X
+    :param dict: le dictionnaire contenant les informations sur les phonemes
     :return: Pour chacune des classes, ecris le pourcentage de voyelles, consonnes et silences, et le pourcentage de
             voises, non voises et silences (pourcentage du total des phoneme)
   """
   #Au cas ou :
   Y_cluster = np.array(Y_cluster)
 
+  y_voise_non_voise = getY_v_non_v(Y,dict)
   #Cree les listes des indices correpondant a chacune des classes
   classes = []
   for cl in range(nb_classes):
@@ -33,16 +35,18 @@ def printRatios(X,nb_classes,Y_cluster,y_voise_non_voise):
   #   p3 = 100.*len([ i for i in y_cons_voy[classes[cl]] if i == 2 ])/len(Y_cluster) # % classe cl et silence
   #   print '   Classe ',cl,':'
   #   print '     Consonnes :',p1,'\n     Voyelles :',p2,'\n     Silences :',p3,'\n'
+
   nb_silences = len([ i for i in y_voise_non_voise if i == 2 ])
   nb_voises =  len([ i for i in y_voise_non_voise if i == 1 ])
   nb_n_voises = len([ i for i in y_voise_non_voise if i == 0 ])
-  print 'Pourcentage des voises, non voises et silences :'
+  print 'Voises et non voises (en pourcentage du total des phonemes) :'
   for cl in range(nb_classes):
     p1 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 0 ])/nb_n_voises # % classe cl et non voise
     p2 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 1 ])/nb_voises # % classe cl et voise
     p3 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 2 ])/nb_silences # % classe cl et silence
     print '   Classe ',cl,':'
     print '     Non voises :',p1,'\n    Voises :',p2,'\n   Silences :',p3,'\n'
+
 
 
 def getY_v_non_v(Y,dict):
