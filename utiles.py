@@ -20,6 +20,41 @@ def getPhonemeDict(path):
             liste.append(int(decomposed_line[i]))
         dict[decomposed_line[0]] = liste
     return dict
+    
+def getY(X,path_aligned,hop_span):
+    """
+    :param X: chemin du dictionnaire
+    :param path_aligned: chemin du fichier d'alignement
+    :param hop_span: taille de la fenetre (0.01s par exemple)
+    :return: Renvoie un vecteur Y faisant la longueur de X et contenant les phonemes correspondant a chaque fenetre
+    """
+    nb_vectors, nb_features = X.shape
+    #Initialisation du tableau contenant les donnees d'alignement
+    beginning = []
+    end = []
+    phonemes = []
+    #lecture fichier alignement
+    alignement = open(path_aligned)
+    lines  = alignement.readlines()
+    alignement.close()
+    for line in lines:
+       decomposed_line = line.split(' ')
+       beginning.append(float(decomposed_line[0]))
+       end.append(float(decomposed_line[1]))
+       ph = decomposed_line[2].split('\n')
+       phonemes.append(ph[0])
+
+    #Creation du vecteur Y contenant le phoneme correspondant pour chacun des vecteurs
+    phoneme_courant = 0
+    Y = []
+    for i in range(nb_vectors):
+        if (end[phoneme_courant]<hop_span*i and phoneme_courant<len(phonemes)-2): #on enleve le dernier qui ne compte pas
+          phoneme_courant = phoneme_courant + 1
+          #if not(phoneme_courant==len(phonemes)-2):
+        Y.append(phonemes[phoneme_courant])   #On peut faire plus precis sans doute
+    #return(Y)
+    return(np.array(Y))
+
 
 def getConsonnes(X,Y,dict):
     """
