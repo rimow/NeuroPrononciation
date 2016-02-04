@@ -61,8 +61,59 @@ def getY_v_non_v(Y,dict):
   y_voise_non_voise = np.array(y_voise_non_voise)
   return y_voise_non_voise
   
+def getY_categorie(Y,dict):
+  """
+    :param Y: tableau contenant les phonemes correspondant a chaque ligne de X
+    :param dict: le dictionnaire contenant les informations sur les phonemes
+    :return: un vecteur contenant, respectivement a chaque phoneme de Y, 0 si occlusive, 1 si fricative, 2 si nsale, 3 si voyelle, 4 semiConsonne, 5 silence, 6 vibrante
+  """
+  y_categorie = [] #contient pour chaque phoneme de Y sa classe
+  for ph in Y:
+      y_categorie.append(dict[ph][2])
+  y_categorie = np.array(y_categorie)
+  return y_categorie
   
-  def CoeffsHistogrammes(X,bins,y_voise_non_voise,ind_min,ind_max):
+def printRatiosCategories(X,nb_classes,Y_cluster,y_categorie):
+
+  """
+    :param X:matrice contenant les feature vectors (n_vectors x n_param)
+    :param nb_classes: le nombre de classes resultant du clustering
+    :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
+    :param y_categorie: vecteur contenant les classes : 0 occlusive, 1 fricative ...
+    :return: Pour chacune des classes, ecris le pourcentage de fricatives, occlusives ... dans chaque classe
+  """
+  #Au cas ou :
+  Y_cluster = np.array(Y_cluster)
+
+  #Cree les listes des indices correpondant a chacune des classes
+  classes = []
+  for cl in range(nb_classes):
+      classes.append(np.array([j for (j,i) in enumerate(Y_cluster) if i==cl]))
+
+
+  print 'La classe i contient x pour cent du total de la categorie nasales par exemple:'
+  nb_occlusives = len([ i for i in y_categorie if i == 0 ])
+  nb_fricative = len([ i for i in y_categorie if i == 1 ])
+  nb_nasale = len([ i for i in y_categorie if i == 2 ])
+  nb_voyelle = len([ i for i in y_categorie if i == 3 ])
+  nb_semi_consone = len([ i for i in y_categorie if i == 4 ])
+  nb_silence = len([ i for i in y_categorie if i == 5 ])
+  nb_vibrante = len([ i for i in y_categorie if i == 6 ])
+
+  for cl in range(nb_classes):
+    p1 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 0 ])/nb_occlusives # % classe cl et non voise
+    p2 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 1 ])/nb_fricative # % classe cl et voise
+    p3 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 2 ])/nb_nasale # % classe cl et silence
+    p4 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 3 ])/nb_voyelle # % classe cl et silence
+    p5 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 4 ])/nb_semi_consone # % classe cl et silence
+    p6 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 5 ])/nb_silence # % classe cl et silence
+    p7 = 100.*len([ i for i in y_categorie[classes[cl]] if i == 6 ])/nb_vibrante # % classe cl et silence
+
+    print '   Classe ',cl,':'
+    print '     Occlusives :',p1,'\n    Fricatives :',p2,'\n   Nasale :',p3,'\n  Voyelle :',p4,'\n  Semi_consonne :',p5,'\n  Silences :',p6,'\n Vibrante :',p7,'\n'
+
+  
+def CoeffsHistogrammes(X,bins,y_voise_non_voise,ind_min,ind_max):
   """
     :param X: matrice contenant les feature vectors (n_vectors x n_param)
     :param bins: nombre de bandes dans les histogrammes
