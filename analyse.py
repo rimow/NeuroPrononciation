@@ -33,13 +33,14 @@ def printRatios(X,nb_classes,Y_cluster,y_voise_non_voise):
   #   p3 = 100.*len([ i for i in y_cons_voy[classes[cl]] if i == 2 ])/len(Y_cluster) # % classe cl et silence
   #   print '   Classe ',cl,':'
   #   print '     Consonnes :',p1,'\n     Voyelles :',p2,'\n     Silences :',p3,'\n'
-
-
-  print 'Voises et non voises (en pourcentage du total des phonemes) :'
+  nb_silences = len([ i for i in y_voise_non_voise if i == 2 ])
+  nb_voises =  len([ i for i in y_voise_non_voise if i == 1 ])
+  nb_n_voises = len([ i for i in y_voise_non_voise if i == 0 ])
+  print 'Pourcentage des voises, non voises et silences :'
   for cl in range(nb_classes):
-    p1 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 0 ])/len(Y_cluster) # % classe cl et non voise
-    p2 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 1 ])/len(Y_cluster) # % classe cl et voise
-    p3 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 2 ])/len(Y_cluster) # % classe cl et silence
+    p1 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 0 ])/nb_n_voises # % classe cl et non voise
+    p2 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 1 ])/nb_voises # % classe cl et voise
+    p3 = 100.*len([ i for i in y_voise_non_voise[classes[cl]] if i == 2 ])/nb_silences # % classe cl et silence
     print '   Classe ',cl,':'
     print '     Non voises :',p1,'\n    Voises :',p2,'\n   Silences :',p3,'\n'
 
