@@ -1,5 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
+import math
+import operator
 
 def printRatios(X,nb_classes,Y_cluster,y_voise_non_voise):
 
@@ -82,3 +84,32 @@ def getY_v_non_v(Y,dict):
        plt.show()
   else:
     print 'Erreur : ind_max doit etre superieur ou egal a ind_min, et ind_max et ind_min doivent etre des indices corrects.'
+
+def histogrammesPhonemes(n_clusters,labels,pho):
+  """
+    :param n_clusters: le nombre de clusters
+    :param labels: le tableau representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
+    :param pho: tableau contenant les phonemes correspondant a chaque feature vector
+    :return: affiche, pour chaque classe, l'histogramme des phonemes 
+  """
+  cluster_pho = [None] * n_clusters
+  for label, ph in zip(labels, pho):
+    if (cluster_pho[label - 1] == None):
+      cluster_pho[label - 1] = {ph: 1}
+    elif ph in cluster_pho[label - 1].keys():
+      cluster_pho[label - 1][ph] += 1
+    else:
+      cluster_pho[label - 1][ph] = 1
+  cluster_pho[:] = [sorted(x.items(), key=operator.itemgetter(1), reverse=True) for x in cluster_pho]
+
+  # use bar chart to visualize each class
+  nrows = int(round(math.sqrt(n_clusters)))
+  ncols = int(math.ceil(n_clusters / round(math.sqrt(n_clusters))))
+  figures, axs = plt.subplots(nrows=nrows, ncols=ncols)
+
+  for ax, data in zip(axs.ravel(), cluster_pho):
+    data = zip(*data)
+    ax.bar(range(len(data[0])), data[1], width=0.2)
+    ax.set_xticks(np.arange(len(data[0])) + 0.1)
+    ax.set_xticklabels(data[0], rotation=0)
+  plt.show()
