@@ -77,6 +77,8 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
     #acquisition du signal avec le taux d'echantillonage par defaut (22050)
     son, sr  = librosa.core.load(path)
     duree = librosa.core.get_duration(son)
+    #normalisation du signal
+    son_normalized = librosa.util.normalize(son)
 
     #exceptions sur les parametres de la fonction
     if taille_fenetre>duree:
@@ -84,30 +86,35 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
     if overlapping>duree:
         raise Exception
 
-    #calcul du nombre de fenetres total
-    nb_ech_fenetre = sr*taille_fenetre
-    nb_fenetres = int(math.floor(duree/overlapping))
-    if (nb_fenetres-1)*overlapping+taille_fenetre > duree:
-        nb_fenetres = nb_fenetres-1
-
-    #pour chacune des fenetres, calcul et stockage de la mfcc
-    son_mfcc = [None]*nb_fenetres
-    for i in range(nb_fenetres):
-        son_inter = son[i*overlapping:nb_ech_fenetre]
-        son_inter2 = librosa.feature.mfcc(son_inter,sr,None,nb_mel)
-        son_mfcc[i] = son_inter2.T[0]
+    #calcul de la mfcc pour les deux sons
+    son_mfcc  = librosa.feature.mfcc(son,sr,None,nb_mel, hop_length = int(numpy.floor(overlapping*sr)), n_fft=int(numpy.floor(taille_fenetre*sr)))
+    son_mfcc_normalized  = librosa.feature.mfcc(son_normalized,sr,None,nb_mel, hop_length = int(numpy.floor(overlapping*sr)), n_fft=int(numpy.floor(taille_fenetre*sr)))
     #print shape(son_mfcc)
-    #print nb_fenetres, nb_mel
-    #print son_mfcc
+    #print shape(son_mfcc_normalized)
 
-    #enregistrement de la matrice dans un fichier csv
-    #a = numpy.asarray(son_mfcc)
-    #numpy.savetxt("generation mfcc.csv" , a , delimiter=",")
-    return son_mfcc
+    son2 =  numpy.asarray(son_mfcc)
 
-#Exemple:
-#piou = mfcc("/home/marianne/Developpement/Bref80_L4M01.wav" , 0.02 , 0.01 , 40)
-#print piou
+    son3 =  numpy.asarray(son_mfcc_normalized)
+
+
+    # #affichage des matrices
+    # plt.figure(0)
+    # librosa.display.specshow(son2, sr, overlapping, x_axis='frames', y_axis='log', n_xticks = 20, n_yticks = 20, fmin = 50, fmax = 1000)
+    # plt.title('MFCC')
+    # plt.figure(1)
+    # librosa.display.specshow(son3, sr, overlapping, x_axis='frames', y_axis='log', n_xticks = 20, n_yticks = 20, fmin = 50, fmax = 1000)
+    # plt.title('MFCC normalized')
+    # plt.show()
+
+    #enregistrement des matrices sous forme numpyArray avec une taille sr
+    numpy.save("mfcc" , numpy.transpose(son2))
+    numpy.save("mfcc normalized" , numpy.transpose(son3))
+    # plt.savefig("mfcc.png")
+    # plt.savefig("mfcc normalized.png")
+
+
+    return  numpy.transpose(son_mfcc)
+
 
 def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
     """
