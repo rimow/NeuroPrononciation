@@ -164,16 +164,28 @@ def histogrammesPhonemes(n_clusters , labels , pho):
     :param n_clusters: le nombre de clusters
     :param labels: le tableau representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
     :param pho: tableau contenant les phonemes correspondant a chaque feature vector
-    :return: affiche, pour chaque classe, l'histogramme des phonemes
+    :return: affiche, pour chaque classe, l'histogramme des phonemes (pourcentage par rapport au nombre total de ce phoneme)
   """
+    nbs_pho = {}
+    for ph in set(pho):
+        nbs_pho[ph] = 0
+
+    for ph in pho:
+        nbs_pho[ph] = nbs_pho[ph] + 1
+
     cluster_pho = [None] * n_clusters
     for label , ph in zip(labels , pho):
-        if (cluster_pho[label - 1] == None):
-            cluster_pho[label - 1] = {ph: 1}
-        elif ph in cluster_pho[label - 1].keys():
-            cluster_pho[label - 1][ph] += 1
+        if (cluster_pho[label] == None):
+            cluster_pho[label] = {ph: 1}
+        elif ph in cluster_pho[label].keys():
+            cluster_pho[label][ph] += 1
         else:
-            cluster_pho[label - 1][ph] = 1
+            cluster_pho[label][ph] = 1
+
+    for label in range(n_clusters):
+      for ph in cluster_pho[label].keys():
+        cluster_pho[label][ph] = 100.*cluster_pho[label][ph]/nbs_pho[ph]
+
     cluster_pho[:] = [sorted(x.items() , key=operator.itemgetter(1) , reverse=True) for x in cluster_pho]
 
     # use bar chart to visualize each class
