@@ -10,7 +10,7 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     '''
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
-    :param dict: chemin du classement des phonemes selon leur caractéristiques (voise, consonne, fricative...)
+    :param dict: chemin du classement des phonemes selon leur caractéristiques (consonne = 1, voise = 2, fricative... = 3)
     :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives?
     :return:
     '''
@@ -19,16 +19,15 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     Y_v_non_v = getY_v_non_v(Y , dict , type_separation)
 
     if type_separation == 1:
-        printRatiosVoise(Y , n_clusters , labels , Y_v_non_v)
-    elif type_separation == 2:
         printRatiosConsonnes(Y , n_clusters , labels , Y_v_non_v)
+    elif type_separation == 2:
+        printRatiosVoise(Y , n_clusters , labels , Y_v_non_v)
     else:
         printRatiosCategories(Y , n_clusters , labels , Y_v_non_v)
 
 
-def printRatiosConsonnes(X , nb_classes , Y_cluster , y_cons_voy):
+def printRatiosConsonnes(nb_classes , Y_cluster , y_cons_voy):
     """
-    :param X:matrice contenant les feature vectors (n_vectors x n_param)
     :param nb_classes: le nombre de classes resultant du clustering
     :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
     :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
@@ -55,9 +54,8 @@ def printRatiosConsonnes(X , nb_classes , Y_cluster , y_cons_voy):
         print '     Consonnes :' , p1 , '\n     Voyelles :' , p2 , '\n     Silences :' , p3 , '\n'
 
 
-def printRatiosVoise(X , nb_classes , Y_cluster , y_voise_non_voise):
+def printRatiosVoise(nb_classes , Y_cluster , y_voise_non_voise):
     """
-    :param X:matrice contenant les feature vectors (n_vectors x n_param)
     :param nb_classes: le nombre de classes resultant du clustering
     :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
     :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
@@ -84,9 +82,8 @@ def printRatiosVoise(X , nb_classes , Y_cluster , y_voise_non_voise):
         print '     Non voises :' , p1 , '\n    Voises :' , p2 , '\n   Silences :' , p3 , '\n'
 
 
-def printRatiosCategories(X , nb_classes , Y_cluster , y_categorie):
+def printRatiosCategories(nb_classes , Y_cluster , y_categorie):
     """
-    :param X:matrice contenant les feature vectors (n_vectors x n_param)
     :param nb_classes: le nombre de classes resultant du clustering
     :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
     :param y_categorie: vecteur contenant les classes : 0 occlusive, 1 fricative ...
@@ -117,7 +114,7 @@ def printRatiosCategories(X , nb_classes , Y_cluster , y_categorie):
         p6 = 100. * len([i for i in y_categorie[classes[cl]] if i == 5]) / nb_silence  # % classe cl et silence
 
         print '   Classe ' , cl , ':'
-        print '     Occlusives :' , p1 , '\n    Fricatives :' , p2 , '\n   Nasale :' , p3 , '\n  Voyelle :' , p4 , '\n  Semi_consonne :' , p5 , '\n  Silences :' , p6 , '\n' 
+        print '     Occlusives :' , p1 , '\n    Fricatives :' , p2 , '\n   Nasale :' , p3 , '\n  Voyelle :' , p4 , '\n  Semi_consonne :' , p5 , '\n  Silences :' , p6 , '\n'
 
 
 def getY_v_non_v(Y , dict , type_separation):
@@ -128,7 +125,7 @@ def getY_v_non_v(Y , dict , type_separation):
   """
     y_voise_non_voise = []  # contient pour chaque phoneme de Y sa classe en tant que voise ou non voise ou rien
     for ph in Y:
-        y_voise_non_voise.append(dict[ph][type_separation])
+        y_voise_non_voise.append(dict[ph][type_separation-1])#indexation des separations de 1 a 3  mais des colonnes de 0 a 2
     y_voise_non_voise = np.array(y_voise_non_voise)
     return y_voise_non_voise
 
@@ -167,7 +164,7 @@ def histogrammesPhonemes(n_clusters , labels , pho):
     :param n_clusters: le nombre de clusters
     :param labels: le tableau representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
     :param pho: tableau contenant les phonemes correspondant a chaque feature vector
-    :return: affiche, pour chaque classe, l'histogramme des phonemes 
+    :return: affiche, pour chaque classe, l'histogramme des phonemes
   """
     cluster_pho = [None] * n_clusters
     for label , ph in zip(labels , pho):
