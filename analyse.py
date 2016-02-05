@@ -10,7 +10,7 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     '''
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
-    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 1, voise = 2, fricative... = 3)
+    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 0, voise = 1, fricative... = 2)
     :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives?
     :return:
     '''
@@ -18,9 +18,9 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     dict = getPhonemeDict(dict_path)
     Y_v_non_v = getY_v_non_v(Y , dict , type_separation)
 
-    if type_separation == 1:
+    if type_separation == 0:
         printRatiosConsonnes(n_clusters , labels , Y_v_non_v)
-    elif type_separation == 2:
+    elif type_separation == 1:
         printRatiosVoise(n_clusters , labels , Y_v_non_v)
     else:
         printRatiosCategories(n_clusters , labels , Y_v_non_v)
@@ -125,7 +125,7 @@ def getY_v_non_v(Y , dict , type_separation):
   """
     y_voise_non_voise = []  # contient pour chaque phoneme de Y sa classe en tant que voise ou non voise ou rien
     for ph in Y:
-        y_voise_non_voise.append(dict[ph][type_separation-1])#indexation des separations de 1 a 3  mais des colonnes de 0 a 2
+        y_voise_non_voise.append(dict[ph][type_separation])#indexation des separations de 1 a 3  mais des colonnes de 0 a 2
     y_voise_non_voise = np.array(y_voise_non_voise)
     return y_voise_non_voise
 
