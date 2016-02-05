@@ -199,3 +199,17 @@ def histogrammesPhonemes(n_clusters , labels , pho):
         ax.set_xticks(np.arange(len(data[0])) + 0.1)
         ax.set_xticklabels(data[0] , rotation=0)
     plt.show()
+
+def getMeanVectors(X,classes):
+    """
+    :param X: matrice contenant les feature vectors (n_vectors x n_param)
+    :param classes: tableau contenant les classes correspondant a chaque ligne de X (phonemes, voises/non voises/silences ...)
+    :return: un dictionnaire de la forme {classe1: vecteur_moyen1, classe2 : vecteur_moyen2, ...}, par ex classe1 vaut 'sil' ou 1 ou 2
+    """
+    y_set = list(set(classes))
+    print y_set
+    means = {}
+    for i in range(len(y_set)):
+        indices = [jj for (jj,j) in enumerate(classes) if j==y_set[i]]
+        means[y_set[i]]= np.mean(X[indices,:],axis=0)
+    return means
