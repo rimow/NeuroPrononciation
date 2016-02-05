@@ -1,0 +1,38 @@
+			consonne(0)/voyelle(1)	non voisé(0)/voisé(1)
+sil silence 		-1			-1
+vcl	 		0			1
+cl 			0			0
+vl 			0			1
+k [k] carte		0			0
+O [O] dodo		1			1
+m [m] mouton		0			1
+l [l] lit		0			1
+e [é] clé		1			1
+p [p] petit		0			0
+i [i] ami		1			1
+j [j] yeux		1			1
+o [o] fort		1			1
+t [t] tortue		0			0
+Z [Z] zéro, rose	0			1
+u [u] mou		1			1
+R [R] racine 		0			1
+d [d] divin		0			1
+s [s] sable		0			0
+v [v] voler, cave	0			1
+b [b] bon		0			1
+z [z] je		0			1
+n [n] noix		0			1
+a [a] maman		1			1
+g [g] garage		0			1
+y [y] but, rue		1			1
+w [w] oui, louer	1			1
+f [f] femme		0			0
+a~ [a~] pâte, bas, pas	1			1
+S [intégrale,ch] château 0			0
+e9 [epsilon] mère	1			1
+J [gn] compagnon	0			1
+E [è] mère, fer		1			1
+o~ [on] mon, font	1			1
+@  [e] devrait, le, se  1			1
+H [ui] lui,huile,lueur	1			1
+U~ [in] fin, pain	1			1
