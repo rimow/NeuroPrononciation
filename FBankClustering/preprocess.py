@@ -44,6 +44,7 @@ def create_reference(X,alignfile):
     n_samples, n_features = X.shape
     #get the time periods
     period = np.loadtxt(alignfile,delimiter=' ',usecols=(0,1))[0:-1]
+    print([(y-x)*1000 for x,y in period])
     # get the phoneme for different time periods
     phoneme = np.loadtxt(alignfile,dtype= str ,delimiter=' ',usecols=[2])[0:-1]
     n_phoneme = len(np.unique(phoneme))

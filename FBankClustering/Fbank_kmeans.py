@@ -7,21 +7,46 @@ from sklearn.cluster import KMeans
 import numpy as np
 import math
 import preprocess
-
+import gap
 
 # Read mat file and align file.
 filename = './data/Bref80_L4M01.mat'
 alignfile = './data/Bref80_L4M01.aligned'
 fbank = sio.loadmat(filename)['d1']
-
+reduced_data = PCA(n_components=2).fit_transform(fbank)
+fbank = reduced_data
 pho = preprocess.create_reference(fbank,alignfile)
 
-print(pho)
-#cluster the data to n_clusters class.
+ks, logWks, logWkbs, sk = gap.gap_statistic(fbank,40,50)
+
+plt.plot(ks,logWks)
+plt.plot(ks,logWkbs)
+gap_diff = []
+for i in range(0,len(logWkbs)-1):
+    gap_diff.append(logWkbs[i]-(logWkbs[i+1]-sk[i+1]))
+plt.plot(ks[0:-1],gap_diff)
+
+print(gap_diff)
+
+print ks,logWks,logWkbs,sk
+
+# inertias=[]
+# #cluster the data to n_clusters class.
+# for n_clusters in range(50,60):
+#     kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
+#     kmeans.fit(fbank)
+#     inertias.append(kmeans.inertia_)
+
+# plt.plot(range(50,60),inertias)
+# plt.xlabel("cluster number")
+# plt.ylabel("inertia")
+# plt.title("Inertia -Cluster number")
+# plt.show()
+
+
 n_clusters = 10
 kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
 kmeans.fit(fbank)
-
 centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 
@@ -35,6 +60,7 @@ for label,ph in zip(labels,pho):
     else:
         cluster_pho[label-1][ph]=1
 cluster_pho[:]= [sorted(x.items(),key = operator.itemgetter(1),reverse=True)for x in cluster_pho]
+
 
 # use bar chart to visualize each class
 nrows = int(round(math.sqrt(n_clusters)))
