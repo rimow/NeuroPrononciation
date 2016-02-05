@@ -19,11 +19,11 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     Y_v_non_v = getY_v_non_v(Y , dict , type_separation)
 
     if type_separation == 1:
-        printRatiosConsonnes(Y , n_clusters , labels , Y_v_non_v)
+        printRatiosConsonnes(n_clusters , labels , Y_v_non_v)
     elif type_separation == 2:
-        printRatiosVoise(Y , n_clusters , labels , Y_v_non_v)
+        printRatiosVoise(n_clusters , labels , Y_v_non_v)
     else:
-        printRatiosCategories(Y , n_clusters , labels , Y_v_non_v)
+        printRatiosCategories(n_clusters , labels , Y_v_non_v)
 
 
 def printRatiosConsonnes(nb_classes , Y_cluster , y_cons_voy):
