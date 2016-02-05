@@ -10,7 +10,7 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     '''
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
-    :param dict: chemin du classement des phonemes selon leur caractéristiques (consonne = 1, voise = 2, fricative... = 3)
+    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 1, voise = 2, fricative... = 3)
     :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives?
     :return:
     '''
