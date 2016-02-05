@@ -107,7 +107,6 @@ def printRatiosCategories(X , nb_classes , Y_cluster , y_categorie):
     nb_voyelle = len([i for i in y_categorie if i == 3])
     nb_semi_consone = len([i for i in y_categorie if i == 4])
     nb_silence = len([i for i in y_categorie if i == 5])
-    nb_vibrante = len([i for i in y_categorie if i == 6])
 
     for cl in range(nb_classes):
         p1 = 100. * len([i for i in y_categorie[classes[cl]] if i == 0]) / nb_occlusives  # % classe cl et non voise
@@ -116,10 +115,9 @@ def printRatiosCategories(X , nb_classes , Y_cluster , y_categorie):
         p4 = 100. * len([i for i in y_categorie[classes[cl]] if i == 3]) / nb_voyelle  # % classe cl et silence
         p5 = 100. * len([i for i in y_categorie[classes[cl]] if i == 4]) / nb_semi_consone  # % classe cl et silence
         p6 = 100. * len([i for i in y_categorie[classes[cl]] if i == 5]) / nb_silence  # % classe cl et silence
-        p7 = 100. * len([i for i in y_categorie[classes[cl]] if i == 6]) / nb_vibrante  # % classe cl et silence
 
         print '   Classe ' , cl , ':'
-        print '     Occlusives :' , p1 , '\n    Fricatives :' , p2 , '\n   Nasale :' , p3 , '\n  Voyelle :' , p4 , '\n  Semi_consonne :' , p5 , '\n  Silences :' , p6 , '\n Vibrante :' , p7 , '\n'
+        print '     Occlusives :' , p1 , '\n    Fricatives :' , p2 , '\n   Nasale :' , p3 , '\n  Voyelle :' , p4 , '\n  Semi_consonne :' , p5 , '\n  Silences :' , p6 , '\n' 
 
 
 def getY_v_non_v(Y , dict , type_separation):
