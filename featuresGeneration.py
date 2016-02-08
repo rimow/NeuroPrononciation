@@ -157,3 +157,24 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
 # fmax = 8000
 # path = "/home/guery/Documents/n7/ProjetLong/data/Bref80_L4M01.wav"
 # X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax)
+
+#fBank en prenant plusieurs fichiers en entrée
+def fbankPlus(paths_wav,paths_aligned,fft_span,hop_span,n_mels,fmin,fmax):
+  """
+    :param paths_wav: tableau des chemins des fichiers sons
+    :param paths_aligned: tableau des chemins des fichiers d'alignement
+    :param fft_span: fenetre pour la fft
+    :param hop_span: pas d'une fenetre a une autre
+    :param n_mels: nombre de plage de mels
+    :param fmin: frequence miniamale
+    :param fmax: frequence maximale
+    :return: X (les vecteurs representants le signal, nb_vectors x nb_features)
+             et Y (phoneme correspondant a chaque vecteur)
+  """
+  X = []
+  Y = []
+  for path,path_a in zip(paths_wav,paths_aligned):
+    x = fbank(path,fft_span,hop_span,n_mels,fmin,fmax)
+    X.append(x)
+    Y.append(getY(x,path_a,hop_span))
+  return np.concatenate(np.array(X)),np.concatenate(np.array(Y))
