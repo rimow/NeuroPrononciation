@@ -9,18 +9,22 @@ from librosa import util
 import matplotlib.pyplot as plt
 import math
 from numpy import shape
+from Erreurs import initialisationError
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 
 
-def FourierTransform(signal, sampling_rate, n_fft, hop_length):
+
+def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels):
 
     '''
      Fonction de generation des parametres de fourier
-    :param signal: C'est le fichier audio a traiter
-    :param sampling_rate: La frequence d'echantillonageb faire : signal,sampling_rate = librosa.load(<le signal audio>)
+    :param signal_path: C'est le chemin vers le fichier audio a traiter
     :param n_fft: La taille de la fenetre
     :param hop_length: La fenetre glissante glisse d'une periode de hop_length
+    :param fmin: frequence minimale
+    :param fmax: frequence maximale
+    :param nBands: nombre de bandes
     :return: La matrice D dont les lignes sont des durees de temps de la fenetre et les colonnes contiennent les parametres
     '''
 
@@ -28,13 +32,14 @@ def FourierTransform(signal, sampling_rate, n_fft, hop_length):
 
     #S=librosa.feature.melspectrogram(y=s1, sr=sr, S=None, n_fft=441, hop_length=221, n_mels=40)
     #D = scipy.fft(S)
-    D=librosa.core.stft(y=signal, n_fft= n_fft, hop_length=hop_length, window=None)
-    D = np.abs(D).transpose()
+    signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
+    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=n_mels, fmin=fmin, fmax=fmax)
+    #D = np.abs(D).transpose()
     return D;
 
 #Exemple de fonctionnement : Avec une fenetre de 20ms et un glissement de 10ms
 #signal, sampling_rate = librosa.load('1.wav')
-#FourierTransform(signal, sampling_rate, int(0.02*sampling_rate), int(0.01*sampling_rate))
+#FourierTransform('1.wav', int(0.02*sampling_rate), int(0.01*sampling_rate))
 
 def waveletsTransform(audioPath, windowLength, hopLength, fmin,fmax,nBands):
     '''
@@ -64,6 +69,8 @@ def waveletsTransform(audioPath, windowLength, hopLength, fmin,fmax,nBands):
     np.save('S.npy',S)
 
 
+
+
 def mfcc(path, taille_fenetre, overlapping, nb_mel):
     '''
     :genere les coefficients cepstraux du fichier son, en utilisant une fenetre glissante
@@ -78,40 +85,35 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
     son, sr  = librosa.core.load(path)
     duree = librosa.core.get_duration(son)
     #normalisation du signal
-    son_normalized = librosa.util.normalize(son)
+    #son_normalized = librosa.util.normalize(son)
 
     #exceptions sur les parametres de la fonction
-    if taille_fenetre>duree:
-        raise Exception
-    if overlapping>duree:
-        raise Exception
+
+    try:
+        taille_fenetre<duree
+    except initialisationError:
+        print "la fenetre glissante doit etre plus petite que la duree de l'enregistrement"
+
+    try:
+        overlapping<duree
+    except initialisationError:
+        print "la duree du hop_lenght doit etre plus petite que la duree de l'enregistrement"
+
+
 
     #calcul de la mfcc pour les deux sons
     son_mfcc  = librosa.feature.mfcc(son,sr,None,nb_mel, hop_length = int(numpy.floor(overlapping*sr)), n_fft=int(numpy.floor(taille_fenetre*sr)))
-    son_mfcc_normalized  = librosa.feature.mfcc(son_normalized,sr,None,nb_mel, hop_length = int(numpy.floor(overlapping*sr)), n_fft=int(numpy.floor(taille_fenetre*sr)))
-    #print shape(son_mfcc)
-    #print shape(son_mfcc_normalized)
 
-    son2 =  numpy.asarray(son_mfcc)
-
-    son3 =  numpy.asarray(son_mfcc_normalized)
-
+    # #enregistrement de la matrice sous forme numpyArray avec une taille sr
+    # son2 =  numpy.asarray(son_mfcc)
+    # numpy.save("data/mfcc" , numpy.transpose(son2))
 
     # #affichage des matrices
     # plt.figure(0)
     # librosa.display.specshow(son2, sr, overlapping, x_axis='frames', y_axis='log', n_xticks = 20, n_yticks = 20, fmin = 50, fmax = 1000)
+    # plt.savefig("mfcc.jpg")
     # plt.title('MFCC')
-    # plt.figure(1)
-    # librosa.display.specshow(son3, sr, overlapping, x_axis='frames', y_axis='log', n_xticks = 20, n_yticks = 20, fmin = 50, fmax = 1000)
-    # plt.title('MFCC normalized')
     # plt.show()
-
-    #enregistrement des matrices sous forme numpyArray avec une taille sr
-    numpy.save("mfcc" , numpy.transpose(son2))
-    numpy.save("mfcc normalized" , numpy.transpose(son3))
-    # plt.savefig("mfcc.png")
-    # plt.savefig("mfcc normalized.png")
-
 
     return  numpy.transpose(son_mfcc)
 

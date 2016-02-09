@@ -8,9 +8,11 @@ from sklearn.preprocessing import scale
 import scipy.io as sio
 from sklearn.cluster import KMeans,MiniBatchKMeans
 import numpy as np
-from selection import *
-from analyse import *
+from phonemesAnalysis.utiles import *
+from phonemesAnalysis.analyse import *
+from phonemesAnalysis.featuresGeneration import *
 import Erreurs
+
 
 def drange(start, stop, step):
     r = start
@@ -142,8 +144,8 @@ def minibatchkmeans_avec_initialisation_centres(X, n_clusters, path_classement, 
         print(e.value)
 
 
-filename = 'S.npy'
-alignfile = '11.aligned'
-fband = np.load('S.npy')
-fband = fband.transpose()
-minibatchkmeans_avec_initialisation_centres(fband, 6, 'classement1', '11.aligned',0)
+signal, sampling_rate = librosa.load('1.wav') #load du fichier audio
+fband = FourierTransform('1.wav', 441, 221, 40, 50, 8000)
+alignfile = '11.aligned' # le fichier contenant les annotations expert
+minibatchkmeans_avec_initialisation_centres(fband.transpose(), 6, 'classement1', alignfile,0)
+
