@@ -30,7 +30,7 @@ def FourierTransform(signal_path, n_fft, hop_length):
     #S=librosa.feature.melspectrogram(y=s1, sr=sr, S=None, n_fft=441, hop_length=221, n_mels=40)
     #D = scipy.fft(S)
     signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
-    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=512, hop_length=221, n_mels=40, fmin=50, fmax=8000)
+    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=40, fmin=50, fmax=8000)
     #D = np.abs(D).transpose()
     return D;
 
