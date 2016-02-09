@@ -1,7 +1,8 @@
+"""
 #Cree un dictionnaire en lisant le fichier path
 # renvoie un dictionnaire de la forme : {'phoneme1':[1,0], ...}
 # La premiere valeur du tableau vaut 1 si le phoneme est une voyelle, 0 si c'est une consonne, 2 si c'est un silence
-# La seconde valeur du tableau vaut 1 si le phoneme est voise, 0 si non voise, 2 si c'est un silence
+# La seconde valeur du tableau vaut 1 si le phoneme est voise, 0 si non voise, 2 si c'est un silence"""
 def getPhonemeDict(path):
     dict = {}
     file= open(path)
