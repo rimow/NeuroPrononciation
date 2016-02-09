@@ -12,9 +12,11 @@ phonemesAnalysis/
    utiles.py : fonctions utiles pour l'analyse
 resultats/
    resultats_clustering_phonemes_fr_jap.txt : resultats du script clustering_phonemes_fr_jap.py
+data/
+   classement : fichier utilisé pour construire le dictionnaire (qui indique quel phonème est voisé, voyelle, etc)
+   detail_classement : fichier expliquant plus précisément ce qu'il y a dans classement (car classement a un format spécifique pour être lu facilement par un programme)
 
-
-Bibliothèques utilisées:
+Bibliothèques utilisées (avec python 2.7):
 -librosa pour le traitement du signal
 -pywavelet pour la transformée en ondelettes
 -scikit-learn pour le clustering
