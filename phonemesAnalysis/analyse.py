@@ -8,10 +8,11 @@ from fonctions_utiles import getPhonemeDict
 
 def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     '''
+    :param Y: veceteur contenant les phonemes correpondant a chaque vecteur (taille n_vectors)
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
-    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 0, voise = 1, fricative... = 2)
-    :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives?
+    :param dict_path: chemin du classement des phonemes selon leur caracteristiques (consonne = 0, voise = 1, fricative... = 2)
+    :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives? (voir data/classement et data/detail_classement)
     :return:
     '''
 
@@ -29,8 +30,8 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
 def printRatiosConsonnes(nb_classes , Y_cluster , y_cons_voy):
     """
     :param nb_classes: le nombre de classes resultant du clustering
-    :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
-    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
+    :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X (taille n_vectors)
+    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence (taile n_vectors)
     :return: Pour chacune des classes, ecris le pourcentage de voyelles, consonnes et silences, et le pourcentage de
             voises, non voises et silences (pourcentage du total des phoneme)
   """
@@ -57,8 +58,8 @@ def printRatiosConsonnes(nb_classes , Y_cluster , y_cons_voy):
 def printRatiosVoise(nb_classes , Y_cluster , y_voise_non_voise):
     """
     :param nb_classes: le nombre de classes resultant du clustering
-    :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
-    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
+    :param Y_cluster: tableau (taille n_vectors) contenant les classes attribuees a chaque fenetre de X (taille n_vectors x n_parametres)
+    :param y_voise_non_voise: tableau (taille n_vectors) contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
     :return: Pour chacune des classes, ecris le pourcentage de voyelles, consonnes et silences, et le pourcentage de
             voises, non voises et silences (pourcentage du total des phoneme)
   """
@@ -85,8 +86,8 @@ def printRatiosVoise(nb_classes , Y_cluster , y_voise_non_voise):
 def printRatiosCategories(nb_classes , Y_cluster , y_categorie):
     """
     :param nb_classes: le nombre de classes resultant du clustering
-    :param Y_cluster: tableau contenat les classes attribuees a chaque fenetre de X
-    :param y_categorie: vecteur contenant les classes : 0 occlusive, 1 fricative ...
+    :param Y_cluster: tableau (taille n_vectors) contenant les classes attribuees a chaque fenetre de X (taille n_vectors x n_parametres)
+    :param y_categorie: tableau (taille n_vectors) contenant les classes : 0 occlusive, 1 fricative ...
     :return: Pour chacune des classes, ecris le pourcentage de fricatives, occlusives ... dans chaque classe
   """
     # Au cas ou :
@@ -119,8 +120,8 @@ def printRatiosCategories(nb_classes , Y_cluster , y_categorie):
 
 def getY_v_non_v(Y , dict , type_separation):
     """
-    :param Y: tableau contenant les phonemes correspondant a chaque ligne de X
-    :param dict: le dictionnaire contenant les informations sur les phonemes
+    :param Y: tableau (taille n_vectors) contenant les phonemes correspondant a chaque ligne de X 
+    :param dict: le dictionnaire contenant les informations sur les phonemes (voir data/classement)
     :return: un vecteur contenant, respectivement a chaque phoneme de Y, 0 si non voise, 1 si voise, 2 si silence
   """
     y_voise_non_voise = []  # contient pour chaque phoneme de Y sa classe en tant que voise ou non voise ou rien
@@ -134,7 +135,7 @@ def CoeffsHistogrammes(X , bins , y_voise_non_voise , ind_min , ind_max):
     """
     :param X: matrice contenant les feature vectors (n_vectors x n_param)
     :param bins: nombre de bandes dans les histogrammes
-    :param y_voise_non_voise: vecteur contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
+    :param y_voise_non_voise: vecteur (taille n_vectors) contenant les classes : 0 pour non voise, 1 pour voise, 2 pour silence
     :param ind_min: indice correspondant au premier parametre dont on veut l'histogramme des coefficients
     :param ind_max: indice correspondant au dernier parametre dont on veut l'histogramme des coefficients
     :return: affiche, pour chaque parametre entre min et max, l'histogramme des coefficients pour les phonemes voises et non voises
@@ -162,8 +163,8 @@ def CoeffsHistogrammes(X , bins , y_voise_non_voise , ind_min , ind_max):
 def histogrammesPhonemes(n_clusters , labels , pho):
     """
     :param n_clusters: le nombre de clusters
-    :param labels: le tableau representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
-    :param pho: tableau contenant les phonemes correspondant a chaque feature vector
+    :param labels: le tableau de taille n_vectors representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
+    :param pho: (<=>Y) tableau de taille n_vectors contenant les phonemes correspondant a chaque feature vector
     :return: affiche, pour chaque classe, l'histogramme des phonemes (pourcentage par rapport au nombre total de ce phoneme)
   """
     nbs_pho = {}
@@ -203,8 +204,9 @@ def histogrammesPhonemes(n_clusters , labels , pho):
 def getMeanVectors(X,classes):
     """
     :param X: matrice contenant les feature vectors (n_vectors x n_param)
-    :param classes: tableau contenant les classes correspondant a chaque ligne de X (phonemes, voises/non voises/silences ...)
+    :param classes: tableau de taille n_vectors contenant les classes correspondant a chaque ligne de X (phonemes, voises/non voises/silences ...)
     :return: un dictionnaire de la forme {classe1: vecteur_moyen1, classe2 : vecteur_moyen2, ...}, par ex classe1 vaut 'sil' ou 1 ou 2
+     On peut ensuite utiliser ce dictionnaire pour connaitre le vecteur moyen d'une certaine classe. mean_classe1 = return_dict[classe1]
     """
     y_set = list(set(classes))
     print y_set
