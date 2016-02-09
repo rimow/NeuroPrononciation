@@ -145,7 +145,7 @@ def minibatchkmeans_avec_initialisation_centres(X, n_clusters, path_classement, 
 
 
 signal, sampling_rate = librosa.load('1.wav') #load du fichier audio
-fband = FourierTransform('1.wav', int(0.02*sampling_rate), int(0.01*sampling_rate))
+fband = FourierTransform('1.wav', 441, 221, 40, 50, 8000)
 alignfile = '11.aligned' # le fichier contenant les annotations expert
 minibatchkmeans_avec_initialisation_centres(fband.transpose(), 6, 'classement1', alignfile,0)
 
