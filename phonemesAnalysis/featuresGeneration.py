@@ -15,13 +15,16 @@ from Erreurs import initialisationError
 
 
 
-def FourierTransform(signal_path, n_fft, hop_length):
+def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels):
 
     '''
      Fonction de generation des parametres de fourier
     :param signal_path: C'est le chemin vers le fichier audio a traiter
     :param n_fft: La taille de la fenetre
     :param hop_length: La fenetre glissante glisse d'une periode de hop_length
+    :param fmin: frequence minimale
+    :param fmax: frequence maximale
+    :param nBands: nombre de bandes
     :return: La matrice D dont les lignes sont des durees de temps de la fenetre et les colonnes contiennent les parametres
     '''
 
@@ -30,7 +33,7 @@ def FourierTransform(signal_path, n_fft, hop_length):
     #S=librosa.feature.melspectrogram(y=s1, sr=sr, S=None, n_fft=441, hop_length=221, n_mels=40)
     #D = scipy.fft(S)
     signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
-    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=40, fmin=50, fmax=8000)
+    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=n_mels, fmin=fmin, fmax=fmax)
     #D = np.abs(D).transpose()
     return D;
 
