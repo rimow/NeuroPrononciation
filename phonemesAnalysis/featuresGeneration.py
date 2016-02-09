@@ -13,10 +13,13 @@ from Erreurs import initialisationError
 import utiles
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
+# Specification pour toutes les fonctions:
+#    - path des parametres doit être valide et etre le nom d'un fichier audio
+#    - la taille des fenetres doit etre inferieur a la duree des signaux
 
 
 
-def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage):
+def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage=False):
 
     '''
      Fonction de generation des parametres de fourier
@@ -26,6 +29,7 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage
     :param fmin: frequence minimale
     :param fmax: frequence maximale
     :param nBands: nombre de bandes
+    :param affichage: True si on veut afficher le spectrogramme
     :return: La matrice D dont les lignes sont des durees de temps de la fenetre et les colonnes contiennent les parametres
     '''
 
@@ -81,6 +85,7 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
     :param taille_fenetre: (secondes) taille de la fenetre glissante : extraction des parametres pour les fenetres de cette taille
     :param overlapping: (secondes)  deplacement de la fenetre
     :param nb_mel: (int) nombre de coefficients a generer
+    :param affichage: True si on veut afficher le spectrogramme
     :return: matrice (liste de tableaux) nb_fenetres*nb_mel : les coefficients pour chaque fenetre
     '''
 
@@ -131,6 +136,7 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax,affichage=False):
     :param n_mels: nombre de bandes de frequences mel
     :param fmin: frequence minimale de la decomposition
     :param fmax: frequence maximale de la decomposition
+    :param affichage: True si on veut afficher le spectrogramme
     :return: Renvoie les vecteurs fbank representant le signal
              X matrice representant la decomposition fbank au cours du temps (une ligne = une decomposition pour une periode hop_span, de taille n_mels)
     """
@@ -156,15 +162,6 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax,affichage=False):
     if affichage:
       afficherSpec(X,s_rate,hop_span)
     return np.transpose(X)
-
-# Exemple
-# fft_span = 0.02
-# hop_span = 0.01
-# n_mels = 40
-# fmin = 50
-# fmax = 8000
-# path = "/home/guery/Documents/n7/ProjetLong/data/Bref80_L4M01.wav"
-# X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax)
 
 #fBank en prenant plusieurs fichiers en entree
 def fbankPlus(paths_wav,paths_aligned,fft_span,hop_span,n_mels,fmin,fmax):
@@ -201,6 +198,7 @@ def afficherSpec(X,s_rate,hop_span):
     plt.show()
 
 
+#Tests des fonction ci-dessus : la verification s'effectue grace aux spectrogrammes
 # #Tests
 # fft_span = 0.02
 # hop_span = 0.01
