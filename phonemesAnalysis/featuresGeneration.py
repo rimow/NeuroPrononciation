@@ -13,12 +13,12 @@ from numpy import shape
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 
 
-def FourierTransform(signal, sampling_rate, n_fft, hop_length):
+
+def FourierTransform(signal_path, n_fft, hop_length):
 
     '''
      Fonction de generation des parametres de fourier
-    :param signal: C'est le fichier audio a traiter
-    :param sampling_rate: La frequence d'echantillonageb faire : signal,sampling_rate = librosa.load(<le signal audio>)
+    :param signal_path: C'est le chemin vers le fichier audio a traiter
     :param n_fft: La taille de la fenetre
     :param hop_length: La fenetre glissante glisse d'une periode de hop_length
     :return: La matrice D dont les lignes sont des durees de temps de la fenetre et les colonnes contiennent les parametres
@@ -28,13 +28,14 @@ def FourierTransform(signal, sampling_rate, n_fft, hop_length):
 
     #S=librosa.feature.melspectrogram(y=s1, sr=sr, S=None, n_fft=441, hop_length=221, n_mels=40)
     #D = scipy.fft(S)
-    D=librosa.core.stft(y=signal, n_fft= n_fft, hop_length=hop_length, window=None)
-    D = np.abs(D).transpose()
+    signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
+    D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=512, hop_length=221, n_mels=40, fmin=50, fmax=8000)
+    #D = np.abs(D).transpose()
     return D;
 
 #Exemple de fonctionnement : Avec une fenetre de 20ms et un glissement de 10ms
 #signal, sampling_rate = librosa.load('1.wav')
-#FourierTransform(signal, sampling_rate, int(0.02*sampling_rate), int(0.01*sampling_rate))
+#FourierTransform('1.wav', int(0.02*sampling_rate), int(0.01*sampling_rate))
 
 def waveletsTransform(audioPath, windowLength, hopLength, fmin,fmax,nBands):
     '''
