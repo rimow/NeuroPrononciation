@@ -40,6 +40,7 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage
     signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
     D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=n_mels, fmin=fmin, fmax=fmax)
     #D = np.abs(D).transpose()
+    D = np.log(D)
     if affichage:
       afficherSpec(np.log(D),sampling_rate,hop_length)
     return D;
