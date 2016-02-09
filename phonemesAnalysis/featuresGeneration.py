@@ -10,12 +10,13 @@ import matplotlib.pyplot as plt
 import math
 from numpy import shape
 from Erreurs import initialisationError
+import utiles
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 
 
 
-def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels):
+def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage):
 
     '''
      Fonction de generation des parametres de fourier
@@ -35,6 +36,8 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels):
     signal, sampling_rate = librosa.load(signal_path) #load du fichier audio
     D=librosa.feature.melspectrogram(y=signal, sr=sampling_rate, S=None, n_fft=n_fft, hop_length=hop_length, n_mels=n_mels, fmin=fmin, fmax=fmax)
     #D = np.abs(D).transpose()
+    if affichage:
+      afficherSpec(np.log(D),sampling_rate,hop_length)
     return D;
 
 #Exemple de fonctionnement : Avec une fenetre de 20ms et un glissement de 10ms
@@ -71,7 +74,7 @@ def waveletsTransform(audioPath, windowLength, hopLength, fmin,fmax,nBands):
 
 
 
-def mfcc(path, taille_fenetre, overlapping, nb_mel):
+def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
     '''
     :genere les coefficients cepstraux du fichier son, en utilisant une fenetre glissante
     :param path: (string) chemin du fichier son sur la machine utilisateur
@@ -102,7 +105,7 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
 
 
     #calcul de la mfcc pour les deux sons
-    son_mfcc  = librosa.feature.mfcc(son,sr,None,nb_mel, hop_length = int(numpy.floor(overlapping*sr)), n_fft=int(numpy.floor(taille_fenetre*sr)))
+    son_mfcc  = librosa.feature.mfcc(son,sr,None,nb_mel, hop_length = int(np.floor(overlapping*sr)), n_fft=int(np.floor(taille_fenetre*sr)))
 
     # #enregistrement de la matrice sous forme numpyArray avec une taille sr
     # son2 =  numpy.asarray(son_mfcc)
@@ -114,11 +117,13 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel):
     # plt.savefig("mfcc.jpg")
     # plt.title('MFCC')
     # plt.show()
+    if affichage:
+      afficherSpec(son_mfcc,sr,hop_span)
 
-    return  numpy.transpose(son_mfcc)
+    return  np.transpose(son_mfcc)
 
 
-def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
+def fbank(path, fft_span, hop_span, n_mels, fmin, fmax,affichage=False):
     """
     :param path: emplacement du fichier
     :param fft_span: taille de la fenetre pour la transformee de fourrier en seconde
@@ -148,6 +153,8 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
     # print 'longueur',wav.shape
     # print wav.shape[0]/s_rate
     X = np.log(X)
+    if affichage:
+      afficherSpec(X,s_rate,hop_span)
     return np.transpose(X)
 
 # Exemple
@@ -159,7 +166,7 @@ def fbank(path, fft_span, hop_span, n_mels, fmin, fmax):
 # path = "/home/guery/Documents/n7/ProjetLong/data/Bref80_L4M01.wav"
 # X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax)
 
-#fBank en prenant plusieurs fichiers en entrée
+#fBank en prenant plusieurs fichiers en entree
 def fbankPlus(paths_wav,paths_aligned,fft_span,hop_span,n_mels,fmin,fmax):
   """
     :param paths_wav: tableau des chemins des fichiers sons
@@ -179,3 +186,31 @@ def fbankPlus(paths_wav,paths_aligned,fft_span,hop_span,n_mels,fmin,fmax):
     X.append(x)
     Y.append(getY(x,path_a,hop_span))
   return np.concatenate(np.array(X)),np.concatenate(np.array(Y))
+
+def afficherSpec(X,s_rate,hop_span):
+    """
+    :param X: matrice dont on veut le spectrogramme
+    :param s_rate: frequence d echantillonnage
+    :param hop_span: pas d'une fenetre a une autre
+    :return: affiche une spectrogram avec librosa.specshow
+    """
+    plt.figure()
+    plt.title('Spectrogrammes : librosa.specshow')
+    librosa.display.specshow(X,y_axis='mel', fmax=8000, x_axis='time',sr=s_rate,hop_length=int(np.floor(hop_span * s_rate)))
+    plt.colorbar(format='%+2.0f dB')
+    plt.show()
+
+
+# #Tests
+# fft_span = 0.02
+# hop_span = 0.01
+# n_mels = 40
+# fmin = 50
+# fmax = 8000
+# path = "./data/Bref80_L4/Bref80_L4M01.wav"
+# # Fbank
+# X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax,affichage=True)
+# # mfcc
+# X = mfcc(path, fft_span, hop_span, n_mels,affichage=True)
+# #FFT
+# FourierTransform(path, 441,221,fmin, fmax, n_mels,affichage=True)
