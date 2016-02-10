@@ -8,27 +8,45 @@ import numpy as np
 import math
 import preprocess
 import gap
+import analyse
 
 # Read mat file and align file.
 filename = './data/Bref80_L4M01.mat'
 alignfile = './data/Bref80_L4M01.aligned'
 fbank = sio.loadmat(filename)['d1']
 reduced_data = PCA(n_components=2).fit_transform(fbank)
-fbank = reduced_data
+#fbank = reduced_data
 pho = preprocess.create_reference(fbank,alignfile)
 
-ks, logWks, logWkbs, sk = gap.gap_statistic(fbank,40,50)
+
+ks, logWks, logWkbs, sk = gap.gap_statistic(fbank,20,30)
+
 
 plt.plot(ks,logWks)
+plt.xlabel("number of cluster  K")
+plt.ylabel("log W")
+plt.show()
+
 plt.plot(ks,logWkbs)
+plt.xlabel("number of cluster  K")
+plt.ylabel("gap")
+plt.show()
 gap_diff = []
 for i in range(0,len(logWkbs)-1):
     gap_diff.append(logWkbs[i]-(logWkbs[i+1]-sk[i+1]))
-plt.plot(ks[0:-1],gap_diff)
 
-print(gap_diff)
+ax = plt.subplot(111)
+ax.bar(range(len(ks[0:-1])),gap_diff,width = 0.6)
+ax.set_xticks(np.arange(len(ks[0:-1]))+0.3)
+ax.set_xticklabels(ks[0:-1],rotation = 0)
+plt.xlabel("number of cluster  K")
+plt.ylabel("gap(k)-(gap(k+1)-s(k+1)")
+plt.show()
 
-print ks,logWks,logWkbs,sk
+#
+# print(gap_diff)
+#
+# print ks,logWks,logWkbs,sk
 
 # inertias=[]
 # #cluster the data to n_clusters class.
@@ -44,12 +62,13 @@ print ks,logWks,logWkbs,sk
 # plt.show()
 
 
-n_clusters = 10
+n_clusters = 3
 kmeans = KMeans(init='k-means++', n_clusters=n_clusters, n_init=10)
 kmeans.fit(fbank)
 centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 
+analyse.pourcentage(pho,n_clusters,labels,"../classement",1)
 #Calculate the number of each phoneme in each cluster
 cluster_pho = [None]*n_clusters
 for label,ph in zip(labels,pho):

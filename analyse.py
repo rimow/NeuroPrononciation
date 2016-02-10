@@ -3,14 +3,14 @@ from matplotlib import pyplot as plt
 import math
 import operator
 
-from fonctions_utiles import getPhonemeDict
+from utiles import getPhonemeDict
 
 
 def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     '''
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
-    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 1, voise = 2, fricative... = 3)
+    :param dict: chemin du classement des phonemes selon leur caracteristiques (consonne = 0, voise = 1, fricative... = 2)
     :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives?
     :return:
     '''
@@ -18,9 +18,9 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation):
     dict = getPhonemeDict(dict_path)
     Y_v_non_v = getY_v_non_v(Y , dict , type_separation)
 
-    if type_separation == 1:
+    if type_separation == 0:
         printRatiosConsonnes(n_clusters , labels , Y_v_non_v)
-    elif type_separation == 2:
+    elif type_separation == 1:
         printRatiosVoise(n_clusters , labels , Y_v_non_v)
     else:
         printRatiosCategories(n_clusters , labels , Y_v_non_v)
@@ -125,7 +125,7 @@ def getY_v_non_v(Y , dict , type_separation):
   """
     y_voise_non_voise = []  # contient pour chaque phoneme de Y sa classe en tant que voise ou non voise ou rien
     for ph in Y:
-        y_voise_non_voise.append(dict[ph][type_separation-1])#indexation des separations de 1 a 3  mais des colonnes de 0 a 2
+        y_voise_non_voise.append(dict[ph][type_separation])#indexation des separations de 1 a 3  mais des colonnes de 0 a 2
     y_voise_non_voise = np.array(y_voise_non_voise)
     return y_voise_non_voise
 
@@ -164,16 +164,28 @@ def histogrammesPhonemes(n_clusters , labels , pho):
     :param n_clusters: le nombre de clusters
     :param labels: le tableau representant l'attribution des classes des feature vectors (tableau obtenu par un algo de clustering)
     :param pho: tableau contenant les phonemes correspondant a chaque feature vector
-    :return: affiche, pour chaque classe, l'histogramme des phonemes
+    :return: affiche, pour chaque classe, l'histogramme des phonemes (pourcentage par rapport au nombre total de ce phoneme)
   """
+    nbs_pho = {}
+    for ph in set(pho):
+        nbs_pho[ph] = 0
+
+    for ph in pho:
+        nbs_pho[ph] = nbs_pho[ph] + 1
+
     cluster_pho = [None] * n_clusters
     for label , ph in zip(labels , pho):
-        if (cluster_pho[label - 1] == None):
-            cluster_pho[label - 1] = {ph: 1}
-        elif ph in cluster_pho[label - 1].keys():
-            cluster_pho[label - 1][ph] += 1
+        if (cluster_pho[label] == None):
+            cluster_pho[label] = {ph: 1}
+        elif ph in cluster_pho[label].keys():
+            cluster_pho[label][ph] += 1
         else:
-            cluster_pho[label - 1][ph] = 1
+            cluster_pho[label][ph] = 1
+
+    for label in range(n_clusters):
+      for ph in cluster_pho[label].keys():
+        cluster_pho[label][ph] = 100.*cluster_pho[label][ph]/nbs_pho[ph]
+
     cluster_pho[:] = [sorted(x.items() , key=operator.itemgetter(1) , reverse=True) for x in cluster_pho]
 
     # use bar chart to visualize each class
@@ -187,3 +199,17 @@ def histogrammesPhonemes(n_clusters , labels , pho):
         ax.set_xticks(np.arange(len(data[0])) + 0.1)
         ax.set_xticklabels(data[0] , rotation=0)
     plt.show()
+
+def getMeanVectors(X,classes):
+    """
+    :param X: matrice contenant les feature vectors (n_vectors x n_param)
+    :param classes: tableau contenant les classes correspondant a chaque ligne de X (phonemes, voises/non voises/silences ...)
+    :return: un dictionnaire de la forme {classe1: vecteur_moyen1, classe2 : vecteur_moyen2, ...}, par ex classe1 vaut 'sil' ou 1 ou 2
+    """
+    y_set = list(set(classes))
+    print y_set
+    means = {}
+    for i in range(len(y_set)):
+        indices = [jj for (jj,j) in enumerate(classes) if j==y_set[i]]
+        means[y_set[i]]= np.mean(X[indices,:],axis=0)
+    return means

@@ -6,8 +6,7 @@ from sklearn.cluster import KMeans
 
 def Wk(mu, clusters):
     K = len(mu)
-    return sum([np.linalg.norm(mu[i]-c)**2/(2*len(c)) \
-               for i in range(K) for c in clusters[i]])
+    return sum([np.linalg.norm(mu[i]-c)**2  for i in range(K) for c in clusters[i]])
 
 def bounding_box(X):
     mins = []
@@ -46,6 +45,7 @@ def gap_statistic(X,low,high):
         labels = kmeans.labels_
         for i,data in zip(labels,X):
             clusters[i].append(data)
+        #print(clusters)
         Wks[indk] = np.log(Wk(mu, clusters))
         # Create B reference datasets
         B = 10
