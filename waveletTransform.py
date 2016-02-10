@@ -117,7 +117,7 @@ from analyse import *
 from utiles import *
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
-from minibatchkmeans_initialisation_centres import minibatchkmeans
+from minibatchKmeans import minibatchkmeans
 
 nb_classes = 3
 hop_span = 0.01
