@@ -81,6 +81,7 @@ for ph in phonemes_presents:
   X_b = np.concatenate([X_b_jap,X_b_fr])
   Y_b = np.concatenate([np.array(np.ones(X_b_fr.shape[0])),np.array(np.zeros(X_b_jap.shape[0]))])
   #Pour tout les types de clustering
+  f_res.write('nb phonemes jap : '+str(X_b_jap.shape[0])+' nb phonemes fr :'+str(X_b_fr.shape[0])+'\n')
   for iclus in range(nb_cluss):
     f_res.write('Methode'+str(iclus)+':\n')
     clus = cluss[iclus]
