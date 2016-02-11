@@ -1,10 +1,9 @@
-from featuresGeneration import mfcc
-from utiles import *
-from sklearn.cluster import KMeans, MiniBatchKMeans
+from phonemesAnalysis.utiles import *
+from phonemesAnalysis.featuresGeneration import *
+from sklearn.cluster import MiniBatchKMeans
 from sklearn.cluster import AgglomerativeClustering
 from sklearn import cluster
-from analyse import pourcentage, histogrammesPhonemes
-from utiles import getY, getPhonemeDict, initialisation_centres
+from phonemesAnalysis.analyse import pourcentage, histogrammesPhonemes
 
 
 ##########################################################################################################################
@@ -12,11 +11,11 @@ from utiles import getY, getPhonemeDict, initialisation_centres
 ##########################################################################################################################
 
 #Chemin du fichier ou on souhaite ecrire les resultats, peut s'ouvrir avec Excel
-fichier = "data/test2.csv"
+fichier = "../resultats/MFCC_clustering13Coeffs.csv"
 
-path = "data/Bref80_L4M01.wav"
-path_aligned = "data/Bref80_L4M01.aligned"
-dict_path = "classement"
+path = "../data/Bref80_L4M01.wav"
+path_aligned = "../data/Bref80_L4M01.aligned"
+dict_path = "../data/classement"
 dict = getPhonemeDict(dict_path)
 
 fft_span = 0.02
