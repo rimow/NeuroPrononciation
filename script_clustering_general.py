@@ -96,20 +96,9 @@ y = clus.fit_predict(X)
 pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
-#meanShift
 
 #meanShift
 clus = cluster.MeanShift(bandwidth=None, seeds=None, bin_seeding=False, min_bin_freq=1, cluster_all=True, n_jobs=1)
-clus = cluster.AgglomerativeClustering(nb_cluster)
-f = open(fichier, "a")
-f.write("Agglomerative clustering 6 clusters\n")
-f.close()
-y = clus.fit_predict(X)
-pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
-
-#ecrire le type d'algorithme qu'on utilise : KMEANS, MeanShift...
 f = open(fichier, "a")
 f.write("MeanShift\n")
 f.close()
