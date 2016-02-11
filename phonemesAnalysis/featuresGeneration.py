@@ -150,7 +150,7 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
     # plt.title('MFCC')
     # plt.show()
     if affichage:
-      afficherSpec(son_mfcc,sr,hop_span)
+      afficherSpec(son_mfcc,sr,overlapping)
 
     return  np.transpose(son_mfcc)
 
