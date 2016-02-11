@@ -207,29 +207,26 @@ def histogrammesPhonemes(n_clusters , labels , pho):
 
     for ph in pho:
         nbs_pho[ph] +=  1
-    print(nbs_pho)
-    unique_pho = set(pho)
-    cluster_pho = [{i:0 for i in unique_pho}] * n_clusters
+
+    cluster_pho = [{i:0 for i in set(pho)}] * n_clusters
 
     for label,ph in zip(labels , pho):
         cluster_pho[label][ph] += 1
-    print cluster_pho
+
     for label in range(n_clusters):
-        for ph in unique_pho:
-            cluster_pho[label][ph] = 100.0*cluster_pho[label][ph]/nbs_pho[ph]
+        for ph in set(pho):
+            cluster_pho[label][ph] = (100.0*cluster_pho[label][ph])/nbs_pho[ph]
 
     #cluster_pho[:] = [sorted(x.items() , key=operator.itemgetter(1) , reverse=True) for x in cluster_pho]
-    print(cluster_pho)
     # use bar chart to visualize each class
     nrows = int(round(math.sqrt(n_clusters)))
     ncols = int(math.ceil(n_clusters / round(math.sqrt(n_clusters))))
     figures , axs = plt.subplots(nrows=nrows , ncols=ncols)
-
     for ax , data in zip(axs.ravel() , cluster_pho):
-        data = zip(*data)
-        ax.bar(range(len(data[0])) , data[1] , width=0.2)
-        ax.set_xticks(np.arange(len(data[0])) + 0.1)
-        ax.set_xticklabels(data[0] , rotation=0)
+        #data = zip(*data)
+        ax.bar(range(len(data.keys())) , data.values() , width=0.2)
+        ax.set_xticks(np.arange(len(data.keys())) + 0.1)
+        ax.set_xticklabels(data.keys() , rotation=0)
     plt.show()
 
 def getMeanVectors(X,classes):
