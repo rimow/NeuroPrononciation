@@ -1,10 +1,10 @@
-from phonemesAnalysis.utiles import *
-from phonemesAnalysis.analyse import *
+from ../phonemesAnalysis.utiles import *
 from sklearn.cluster import KMeans, MiniBatchKMeans
 from sklearn.cluster import AgglomerativeClustering
-from phonemesAnalysis.featuresGeneration import waveletsTransformContinue
 from sklearn import cluster
-import numpy as np
+from ../phonemesAnalysis.analyse import pourcentage, histogrammesPhonemes
+from ../phonemesAnalysis.featuresGeneration import *
+#from utiles import getY, getPhonemeDict, initialisation_centres
 
 
 ##########################################################################################################################
@@ -12,26 +12,34 @@ import numpy as np
 ##########################################################################################################################
 
 #Chemin du fichier ou on souhaite ecrire les resultats, peut s'ouvrir avec Excel
-fichier = "../results/waveletsClustering.csv"
+fichier = "../resultats/melClustering.csv"
 
 dt=0.01
 dj=0.5
-signalPath = '../data/Bref80_L4M01.wav' #A adapter suivant l'emplacement du fichier audio
-path_aligned = "../data/Bref80_L4M01.aligned" #A adapter suivant l'emplacement du fichier d'alignement
-path_dict = "../data/classement" #A adapter suivant l'emplacement du fichier de classement
+#signal_path = '1.wav' #A adapter suivant l'emplacement du fichier audio
+signal_path = '../data/Bref80_L4M01.wav'
+#path_aligned = '11.aligned'
+path_aligned = "../data/Bref80_L4M01.txt" #A adapter suivant l'emplacement du fichier d'alignement
+#path_dict = "classement" #A adapter suivant l'emplacement du fichier de classement
+path_dict = "../data/classement"
 dict = getPhonemeDict(path_dict) #realisation de la matrice verite-terrain
 
 ##########################################################################################################################
 ############################################ MATRICE DE CLUSTERING #######################################################
 ################### Matrice choisie pour le clustering: Matrice "moyenne" en utilisant l'ondelette Paul ##################
 ##########################################################################################################################
+n_fft=512
+hop_length = 221
+fmin = 50
+fmax = 8000
+n_mels = 40
 
 #Soit on effectue la transformation
-# X = waveletsTransformContinue(signalPath,'paul',2,dt,dj,affichageSpectrogram=False)
+X = FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage=False)
 
 #Soit on charge la matrice si elle est deja enregistree
-X = np.load('../data/paulmoy.npy')
-
+#X = np.load('S.npy')
+#X = X.transpose()
 
 nb_features,nb_vectors = X.shape
 Y = getY(X,path_aligned, dt) #Initialisation du tableau contenant les donnees d'alignement
@@ -41,7 +49,7 @@ Y = getY(X,path_aligned, dt) #Initialisation du tableau contenant les donnees d'
 ##########################################################################################################################
 
 print 'Clustering 3 classes : \n'
-
+print 'Clustering miniBatch K-means non supervise : \n'
 #nombre de clusters
 nb_cluster = 3
 
@@ -59,6 +67,7 @@ pourcentage(Y , nb_cluster, labels , path_dict , 0, fichier)
 pourcentage(Y , nb_cluster, labels , path_dict , 1, fichier)
 
 #KMEANS initialise 3 classes
+print 'Clustering miniBatch k-means supervise : \n'
 sous = initialisation_centres(nb_cluster, X)
 clus = MiniBatchKMeans(n_clusters = nb_cluster, init=sous,  batch_size=700,
                                   n_init=10, max_no_improvement=10, verbose=0)
@@ -71,7 +80,8 @@ pourcentage(Y , nb_cluster, labels , path_dict , 0, fichier)
 pourcentage(Y , nb_cluster, labels , path_dict , 1, fichier)
 
 #Agglomerative clustering 3 classes
-clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+print 'Clustering agglomerative clustering : \n'
+clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 3 clusters\n")
 f.close()
@@ -89,6 +99,7 @@ print 'Clustering 6 classes : \n'
 nb_cluster = 6
 
 #KMEANS non initialise 6 classes
+print 'Clustering miniBatch k-means non supervise : \n'
 clus = MiniBatchKMeans(n_clusters = nb_cluster, init='k-means++',  batch_size=700,
                                   n_init=10, max_no_improvement=10, verbose=0)
 f = open(fichier, "a")
@@ -100,6 +111,7 @@ pourcentage(Y , nb_cluster, labels , path_dict , 2, fichier)
 
 
 #KMEANS initialise 6 classes
+print 'Clustering miniBatch k-means supervise : \n'
 sous = initialisation_centres(nb_cluster, X)
 clus = MiniBatchKMeans(n_clusters = nb_cluster, init=sous,  batch_size=700,
                                   n_init=10, max_no_improvement=10, verbose=0)
@@ -111,7 +123,8 @@ labels = clus.labels_
 pourcentage(Y , nb_cluster, labels , path_dict , 2, fichier)
 
 #Agglomerative clustering 6 classes
-clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+print 'Aglomerative clustering : \n'
+clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 6 clusters\n")
 f.close()
@@ -128,11 +141,10 @@ clus = cluster.MeanShift(bandwidth=None, seeds=None, bin_seeding=False, min_bin_
 f = open(fichier, "a")
 f.write("MeanShift\n")
 f.close()
-clus.fit(X)
-labels = clus.labels_
-nmax = max(labels) +1
-pourcentage(Y , nmax, labels , path_dict , 1, fichier)
-pourcentage(Y , nmax, labels , path_dict , 2, fichier)
+y = clus.fit_predict(X)
+nmax = max(y) +1
+pourcentage(Y , nmax, y , path_dict , 1, fichier)
+pourcentage(Y , nmax, y , path_dict , 2, fichier)
 
 
 
