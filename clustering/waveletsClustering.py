@@ -1,12 +1,10 @@
-from analyse import *
-from utiles import *
+from phonemesAnalysis.utiles import *
+from phonemesAnalysis.analyse import *
 from sklearn.cluster import KMeans, MiniBatchKMeans
 from sklearn.cluster import AgglomerativeClustering
-from minibatchKmeans import minibatchkmeans
-from featuresGeneration import waveletsTransformContinue
+from phonemesAnalysis.featuresGeneration import waveletsTransformContinue
 from sklearn import cluster
-from analyse import pourcentage, histogrammesPhonemes
-from utiles import getY, getPhonemeDict, initialisation_centres
+import numpy as np
 
 
 ##########################################################################################################################
@@ -14,13 +12,13 @@ from utiles import getY, getPhonemeDict, initialisation_centres
 ##########################################################################################################################
 
 #Chemin du fichier ou on souhaite ecrire les resultats, peut s'ouvrir avec Excel
-fichier = "waveletsClustering.csv"
+fichier = "../results/waveletsClustering.csv"
 
 dt=0.01
 dj=0.5
-signalPath = '1.wav' #A adapter suivant l'emplacement du fichier audio
-path_aligned = "11.aligned" #A adapter suivant l'emplacement du fichier d'alignement
-path_dict = "classement" #A adapter suivant l'emplacement du fichier de classement
+signalPath = '../data/Bref80_L4M01.wav' #A adapter suivant l'emplacement du fichier audio
+path_aligned = "../data/Bref80_L4M01.aligned" #A adapter suivant l'emplacement du fichier d'alignement
+path_dict = "../data/classement" #A adapter suivant l'emplacement du fichier de classement
 dict = getPhonemeDict(path_dict) #realisation de la matrice verite-terrain
 
 ##########################################################################################################################
@@ -32,7 +30,7 @@ dict = getPhonemeDict(path_dict) #realisation de la matrice verite-terrain
 # X = waveletsTransformContinue(signalPath,'paul',2,dt,dj,affichageSpectrogram=False)
 
 #Soit on charge la matrice si elle est deja enregistree
-X = np.load('paulmoy.npy')
+X = np.load('../data/paulmoy.npy')
 
 
 nb_features,nb_vectors = X.shape
@@ -73,7 +71,7 @@ pourcentage(Y , nb_cluster, labels , path_dict , 0, fichier)
 pourcentage(Y , nb_cluster, labels , path_dict , 1, fichier)
 
 #Agglomerative clustering 3 classes
-clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 3 clusters\n")
 f.close()
@@ -113,7 +111,7 @@ labels = clus.labels_
 pourcentage(Y , nb_cluster, labels , path_dict , 2, fichier)
 
 #Agglomerative clustering 6 classes
-clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 6 clusters\n")
 f.close()
@@ -130,10 +128,11 @@ clus = cluster.MeanShift(bandwidth=None, seeds=None, bin_seeding=False, min_bin_
 f = open(fichier, "a")
 f.write("MeanShift\n")
 f.close()
-y = clus.fit_predict(X)
-nmax = max(y) +1
-pourcentage(Y , nmax, y , path_dict , 1, fichier)
-pourcentage(Y , nmax, y , path_dict , 2, fichier)
+clus.fit(X)
+labels = clus.labels_
+nmax = max(labels) +1
+pourcentage(Y , nmax, labels , path_dict , 1, fichier)
+pourcentage(Y , nmax, labels , path_dict , 2, fichier)
 
 
 
