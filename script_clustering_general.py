@@ -44,7 +44,7 @@ pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
-sous = initialisation_centres(nb_cluster, X.transpose())
+sous = initialisation_centres(nb_cluster, X)
 clus = cluster.KMeans(n_clusters=nb_cluster, init=sous, n_init=50, max_iter=3000, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=1)
 f = open(fichier, "a")
 f.write("KMEANS initialise 3 clusters\n")
@@ -77,7 +77,7 @@ pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
-sous = initialisation_centres(nb_cluster, X.transpose())
+sous = initialisation_centres(nb_cluster, X)
 clus = cluster.KMeans(n_clusters=nb_cluster, init=sous, n_init=50, max_iter=3000, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=1)
 f = open(fichier, "a")
 f.write("KMEANS initialise 6 clusters\n")
@@ -96,20 +96,9 @@ y = clus.fit_predict(X)
 pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
 pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
-#meanShift
 
 #meanShift
 clus = cluster.MeanShift(bandwidth=None, seeds=None, bin_seeding=False, min_bin_freq=1, cluster_all=True, n_jobs=1)
-clus = cluster.AgglomerativeClustering(nb_cluster)
-f = open(fichier, "a")
-f.write("Agglomerative clustering 6 clusters\n")
-f.close()
-y = clus.fit_predict(X)
-pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
-
-#ecrire le type d'algorithme qu'on utilise : KMEANS, MeanShift...
 f = open(fichier, "a")
 f.write("MeanShift\n")
 f.close()
