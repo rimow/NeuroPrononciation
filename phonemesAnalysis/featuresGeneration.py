@@ -1,4 +1,3 @@
-import pywt
 import numpy as np
 import scipy as sc
 import scipy.io.wavfile
@@ -15,7 +14,7 @@ import mlpy.wavelet as wave
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 # Specification pour toutes les fonctions:
-#    - path des parametres doit être valide et etre le nom d'un fichier audio
+#    - path des parametres doit etre valide et etre le nom d'un fichier audio
 #    - la taille des fenetres doit etre inferieur a la duree des signaux
 
 ##########################################################################################################################
@@ -150,7 +149,7 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
     # plt.title('MFCC')
     # plt.show()
     if affichage:
-      afficherSpec(son_mfcc,sr,hop_span)
+      afficherSpec(son_mfcc,sr,overlapping)
 
     return  np.transpose(son_mfcc)
 

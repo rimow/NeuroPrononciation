@@ -4,6 +4,8 @@ from sklearn.cluster import KMeans
 import phonemesAnalysis.utiles as utiles
 import phonemesAnalysis.analyse as analyse
 
+
+
 # Read mat file and align file.
 filename = './data/Bref80_L4M01.mat'
 alignfile = './data/Bref80_L4M01.aligned'
@@ -38,6 +40,6 @@ centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 analyse.pourcentage(Y,n_clusters,labels,classementPath,2,csv)
 
-
+analyse.histogrammesPhonemes(n_clusters,labels,Y)
 
 
