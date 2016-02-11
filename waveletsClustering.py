@@ -73,7 +73,7 @@ pourcentage(Y , nb_cluster, labels , path_dict , 0, fichier)
 pourcentage(Y , nb_cluster, labels , path_dict , 1, fichier)
 
 #Agglomerative clustering 3 classes
-clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 3 clusters\n")
 f.close()
@@ -113,7 +113,7 @@ labels = clus.labels_
 pourcentage(Y , nb_cluster, labels , path_dict , 2, fichier)
 
 #Agglomerative clustering 6 classes
-clus = cluster.AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
+clus = AgglomerativeClustering(nb_cluster,affinity='cosine',linkage='complete')
 f = open(fichier, "a")
 f.write("Agglomerative clustering 6 clusters\n")
 f.close()
