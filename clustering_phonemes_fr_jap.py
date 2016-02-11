@@ -1,53 +1,52 @@
 from sklearn.cluster import KMeans, AgglomerativeClustering
-from phonemesAnalysis.analyse import *
-from phonemesAnalysis.utiles import *
-from phonemesAnalysis.utiles import *
+from ../phonemesAnalysis.analyse import *
+from ../phonemesAnalysis.utiles import *
 
 # Script faisant le clustering (Kmeans, Kmeans supervise, agglomerative clustering) de phonemes prononces par un francais et un japonais
 # Pour un phoneme donne, recherche de ceux prononces par le francais et par le japonais, ce qui donne un ensemble a clusteriser (en 2 classes)
 # On fait cela pour tous les phonemes
 # Ecriture des resultats dans le fichier ./data/japonais_resultats.txt
 
-paths_wav = ['./data/Bref80_L4/Bref80_L4M01.wav',
-              './data/Bref80_L4/Bref80_L4M02.wav']
-              #'./data/Bref80_L4/Bref80_L4M03.wav',
-              #'./data/Bref80_L4/Bref80_L4M04.wav',
-              #'./data/Bref80_L4/Bref80_L4M05.wav',
-              #'./data/Bref80_L4/Bref80_L4M06.wav',
-              #'./data/Bref80_L4/Bref80_L4M07.wav',
-              #'./data/Bref80_L4/Bref80_L4M08.wav',
-              #'./data/Bref80_L4/Bref80_L4M09.wav']
+paths_wav = ['../data/Bref80_L4/Bref80_L4M01.wav',
+              '../data/Bref80_L4/Bref80_L4M02.wav']
+              #'../data/Bref80_L4/Bref80_L4M03.wav',
+              #'../data/Bref80_L4/Bref80_L4M04.wav',
+              #'../data/Bref80_L4/Bref80_L4M05.wav',
+              #'../data/Bref80_L4/Bref80_L4M06.wav',
+              #'../data/Bref80_L4/Bref80_L4M07.wav',
+              #'../data/Bref80_L4/Bref80_L4M08.wav',
+              #'../data/Bref80_L4/Bref80_L4M09.wav']
 
-paths_aligned = ['./data/Bref80_L4/Bref80_L4M01.txt',
-              './data/Bref80_L4/Bref80_L4M02.txt']
-              #'./data/Bref80_L4/Bref80_L4M03.txt',
-              # './data/Bref80_L4/Bref80_L4M04.txt',
-              # './data/Bref80_L4/Bref80_L4M05.txt',
-              # './data/Bref80_L4/Bref80_L4M06.txt',
-              # './data/Bref80_L4/Bref80_L4M07.txt',
-              # './data/Bref80_L4/Bref80_L4M08.txt',
-              # './data/Bref80_L4/Bref80_L4M09.txt']
+paths_aligned = ['../data/Bref80_L4/Bref80_L4M01.txt',
+              '../data/Bref80_L4/Bref80_L4M02.txt']
+              #'../data/Bref80_L4/Bref80_L4M03.txt',
+              # '../data/Bref80_L4/Bref80_L4M04.txt',
+              # '../data/Bref80_L4/Bref80_L4M05.txt',
+              # '../data/Bref80_L4/Bref80_L4M06.txt',
+              # '../data/Bref80_L4/Bref80_L4M07.txt',
+              # '../data/Bref80_L4/Bref80_L4M08.txt',
+              # '../data/Bref80_L4/Bref80_L4M09.txt']
 
 
-paths_wav_jap = ['./data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_01.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_02.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_03.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_04.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_05.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_06.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_07.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_08.wav',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_09.wav']
+paths_wav_jap = ['../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_01.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_02.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_03.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_04.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_05.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_06.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_07.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_08.wav',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_09.wav']
 
-paths_aligned_jap = ['./data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_01.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_02.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_03.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_04.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_05.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_06.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_07.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_08.txt',
-                 './data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_09.txt']
+paths_aligned_jap = ['../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_01.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_02.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_03.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_04.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_05.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_06.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_07.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_08.txt',
+                 '../data/fichiers_AYA_WASAKA_MOTS/AYA-WAKASA-production_phon-imFINAL-MOTS_09.txt']
 
 fft_span = 0.02
 hop_span = 0.01
@@ -55,8 +54,8 @@ n_mels = 40
 fmin = 50
 fmax = 8000
 nb_classes = 2 # (2 classes pour deux langues)
-path_dict = "./data/classement"
-f_res = open('./data/japonais_resultats.txt', 'w')
+path_dict = "../data/classement"
+f_res = open('../resultats/japonais_resultats.txt', 'w')
 
 dict = getPhonemeDict(path_dict)
 
