@@ -11,14 +11,16 @@ import math
 from numpy import shape
 from Erreurs import initialisationError
 import utiles
+import mlpy.wavelet as wave
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 # Specification pour toutes les fonctions:
 #    - path des parametres doit être valide et etre le nom d'un fichier audio
 #    - la taille des fenetres doit etre inferieur a la duree des signaux
 
-
-
+##########################################################################################################################
+############################################ FOURIER TRANSFORM ###########################################################
+##########################################################################################################################
 def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage=False):
 
     '''
@@ -32,8 +34,6 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage
     :param affichage: True si on veut afficher le spectrogramme
     :return: La matrice D dont les lignes sont des durees de temps de la fenetre et les colonnes contiennent les parametres
     '''
-
-
 
     #S=librosa.feature.melspectrogram(y=s1, sr=sr, S=None, n_fft=441, hop_length=221, n_mels=40)
     #D = scipy.fft(S)
@@ -49,36 +49,61 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage
 #signal, sampling_rate = librosa.load('1.wav')
 #FourierTransform('1.wav', int(0.02*sampling_rate), int(0.01*sampling_rate))
 
-def waveletsTransform(audioPath, windowLength, hopLength, fmin,fmax,nBands):
+##########################################################################################################################
+
+
+
+
+##########################################################################################################################
+############################################ WAVELET TRANSFORM ###########################################################
+##########################################################################################################################
+def waveletsTransformContinue(signalPath, wf, wf_param, dt, dj, affichageSpectrogram):
     '''
-        Effectue la transformee en ondelettes du signal audio en entree
-    :param audioPath: Chemin du signal audio
-    :param windowLength: Taille de la fenetre de decoupage (=fonctionEchantillonage*dureeEnSecondes)
-    :param hopLength: Saut (=fonctionEchantillonage*dureeEnSecondes)
-    :param fmin: frequence minimale
-    :param fmax: frequence maximale
-    :param nBands: nombre de bandes
-    :return: Matrice nBands*xx, ou chaque ligne represente les coefficients pour une fenetre
-    :Example: waveletsTransform('1.wav',441 ,221, 50,8000,40)
+    Calcule la transformee en ondelettes continue du signal
+    :param signalPath: Le chemin du signal audio
+    :param wf: La fonction de l'ondelette ('morlet', 'paul', 'dog')
+    :param wf_param: Parametre de la l'ondelette (8 pour morlet, 2 pour dog et paul)
+    :param dt: Pas (10ms par exemple)
+    :param dj: Resolution de l'echelle (plus dj est petit plus la resolution est fine)
+    :return: la transformee en ondelettes continue du signal, matrice 40*len(signal)
     '''
 
-    #Load the wav file, y is the data and sr the sampling frequency
-    y, sr = librosa.load(audioPath)
+    # Load the wav file, y is the data and sr the sampling frequency
+    signal, fe = librosa.load(signalPath)
 
-    #Fenetres 20 ms et saut de 10ms, 40 bandes
-    M=librosa.feature.melspectrogram(y=y, sr=sr, S=None, n_fft=windowLength, hop_length=hopLength, n_mels=nBands, fmin=fmin, fmax=fmax)
+    scales = wave.autoscales(len(signal), dt=dt, dj=dj, wf=wf, p=wf_param)
+    spec = wave.cwt(signal, dt=dt, scales=scales, wf=wf, p=wf_param)
+    spec= np.abs(spec)
+    wvtransform=spec.transpose()
+    wvtransform= moyennerMatrice(wvtransform) #A decommenter si l'on veut avoir une matrice 40*len(signal)
+    if affichageSpectrogram:
+        afficherSpec(wvtransform,fe,dt)
+    return wvtransform
 
-    #Transformee en ondelettes sur le signal S
-    cA, cD = pywt.dwt(M, 'db2')
+## AMELIORATION RESULTATS C.W.T
+def moyennerMatrice(x):
+    '''
+    Effectue la moyenne sur les lignes suivant des fenetres de 20ms avec un saut de 10ms
+    :param x: Matrice resultante de la transformee en ondelettes continue, 40*len(signal)
+    :return: Matrice 3449*40
+    '''
+    out=[]
+    y=np.array(x)
+    for i in range(0,len(x)):
+        if i % 221 == 0:
+            sousMatrice = np.array(y[i:i+441,:])
+            moyenne = sousMatrice.mean(0)
+            out.append(moyenne)
+    out=np.array(out)
+    return out
 
-    #Utile pour le clustering
-    S = np.column_stack((cA,cD))
-    S=S.transpose()
-    np.save('S.npy',S)
+
+##########################################################################################################################
 
 
-
-
+##########################################################################################################################
+############################################### MFCC TRANSFORM ###########################################################
+##########################################################################################################################
 def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
     '''
     :genere les coefficients cepstraux du fichier son, en utilisant une fenetre glissante
@@ -128,7 +153,13 @@ def mfcc(path, taille_fenetre, overlapping, nb_mel,affichage=False):
 
     return  np.transpose(son_mfcc)
 
+##########################################################################################################################
 
+
+
+##########################################################################################################################
+############################################## FBANK TRANSFORM ###########################################################
+##########################################################################################################################
 def fbank(path, fft_span, hop_span, n_mels, fmin, fmax,affichage=False):
     """
     :param path: emplacement du fichier
@@ -198,6 +229,12 @@ def afficherSpec(X,s_rate,hop_span):
     plt.colorbar(format='%+2.0f dB')
     plt.show()
 
+##########################################################################################################################
+
+
+##########################################################################################################################
+############################################## TESTS DES TRANSFORMATIONS #################################################
+##########################################################################################################################
 
 #Tests des fonction ci-dessus : la verification s'effectue grace aux spectrogrammes
 # #Tests
@@ -206,6 +243,8 @@ def afficherSpec(X,s_rate,hop_span):
 # n_mels = 40
 # fmin = 50
 # fmax = 8000
+# dt=0.01
+# dj=0.5
 # path = "./data/Bref80_L4/Bref80_L4M01.wav"
 # # Fbank
 # X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax,affichage=True)
@@ -213,3 +252,5 @@ def afficherSpec(X,s_rate,hop_span):
 # X = mfcc(path, fft_span, hop_span, n_mels,affichage=True)
 # #FFT
 # FourierTransform(path, 441,221,fmin, fmax, n_mels,affichage=True)
+# #WAVELETS
+# waveletsTransformContinue(path, 'paul', 2, dt, dj, affichageSpectrogram=True)
