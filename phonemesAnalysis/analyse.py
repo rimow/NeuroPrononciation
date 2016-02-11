@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import math
 import operator
 
-from fonctions_utiles import getPhonemeDict
+from utiles import getPhonemeDict
 
 
 def pourcentage(Y , n_clusters , labels , dict_path , type_separation, fichier = None):
