@@ -1,0 +1,15 @@
+classes,consonnes,voyelles,silences,,,
+0,39,82,7,,,
+1,24,10,12,,,
+2,37,8,81,,,
+classes,non-voisees,voisees,silences,,,
+0,30,15,12,,,
+1,12,70,7,,,
+2,58,15,81,,,
+classes,occlusives,fricatives,nasales,voyelles,semi-consonnes,silences
+0,12,16,48,38,19,3
+1,33,23,0,1,3,56
+2,17,9,12,27,48,2
+3,11,18,38,28,19,4
+4,20,5,2,4,0,33
+5,7,29,0,2,10,2
