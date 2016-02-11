@@ -30,7 +30,7 @@ kmeans.fit(fbank)
 centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 analyse.pourcentage(Y,n_clusters,labels,classementPath,1,csv)
-
+analyse.histogrammesPhonemes(n_clusters,labels,Y)
 #Kmeans withous initialzation 6 classes
 
 n_clusters = 6
@@ -40,6 +40,6 @@ centroids = kmeans.cluster_centers_
 labels = kmeans.labels_
 analyse.pourcentage(Y,n_clusters,labels,classementPath,2,csv)
 
-analyse.histogrammesPhonemes(n_clusters,labels,Y)
+
 
 

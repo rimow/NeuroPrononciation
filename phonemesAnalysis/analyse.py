@@ -208,15 +208,14 @@ def histogrammesPhonemes(n_clusters , labels , pho):
     for ph in pho:
         nbs_pho[ph] +=  1
 
-    unique_pho = set(pho)
-    cluster_pho = [{i:0 for i in unique_pho}] * n_clusters
+    cluster_pho = [{i:0 for i in set(pho)}] * n_clusters
 
     for label,ph in zip(labels , pho):
         cluster_pho[label][ph] += 1
-    print cluster_pho
+
     for label in range(n_clusters):
-        for ph in unique_pho:
-            cluster_pho[label][ph] = 100.0*cluster_pho[label][ph]/nbs_pho[ph]
+        for ph in set(pho):
+            cluster_pho[label][ph] = (100.0*cluster_pho[label][ph])/nbs_pho[ph]
 
     #cluster_pho[:] = [sorted(x.items() , key=operator.itemgetter(1) , reverse=True) for x in cluster_pho]
     # use bar chart to visualize each class
