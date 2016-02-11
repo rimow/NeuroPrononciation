@@ -1,11 +1,18 @@
 from sklearn.cluster import KMeans, AgglomerativeClustering
 from phonemesAnalysis.analyse import *
 from phonemesAnalysis.utiles import *
+from phonemesAnalysis.featuresGeneration import *
 
 # Script faisant le clustering (Kmeans, Kmeans supervise, agglomerative clustering) de phonemes prononces par un francais et un japonais
 # Pour un phoneme donne, recherche de ceux prononces par le francais et par le japonais, ce qui donne un ensemble a clusteriser (en 2 classes)
 # On fait cela pour tous les phonemes
 # Ecriture des resultats dans le fichier ./data/japonais_resultats.txt
+
+
+
+def getPhoneme(X,Y,ph):
+    y_ph = [i for i,j in enumerate(Y) if j==ph]
+    return X[y_ph,:]
 
 paths_wav = ['../data/Bref80_L4/Bref80_L4M01.wav',
               '../data/Bref80_L4/Bref80_L4M02.wav']
