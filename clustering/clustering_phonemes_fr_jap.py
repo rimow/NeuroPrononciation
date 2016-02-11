@@ -62,7 +62,7 @@ fmin = 50
 fmax = 8000
 nb_classes = 2 # (2 classes pour deux langues)
 path_dict = "../data/classement"
-f_res = open('../resultats/japonais_resultats.txt', 'w')
+f_res = open('../resultats/resultatsClustering/japonais_resultats.txt', 'w')
 
 dict = getPhonemeDict(path_dict)
 
