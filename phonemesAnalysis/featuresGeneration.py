@@ -42,7 +42,8 @@ def FourierTransform(signal_path, n_fft, hop_length,fmin, fmax, n_mels,affichage
     #D = np.abs(D).transpose()
     D = np.log(D)
     if affichage:
-      afficherSpec(np.log(D),sampling_rate,hop_length)
+      afficherSpec(D,sampling_rate,hop_length)
+    D=D.transpose()
     return D;
 
 #Exemple de fonctionnement : Avec une fenetre de 20ms et un glissement de 10ms

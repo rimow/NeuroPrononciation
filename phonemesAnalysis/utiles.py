@@ -1,4 +1,5 @@
 import numpy as np
+import Erreurs
 
 # Fichier contenant des fonctions utiles pour l'analyse des resultats
 
@@ -69,3 +70,30 @@ def getConsonnes(X,Y,dict):
     X_consonnes = X[Y_consonnes_no,:]
     Y_consonnes = Y[np.array(Y_consonnes_no)]
     return X_consonnes, Y_consonnes
+
+def initialisation_centres(nb_centers, X):
+    '''
+    initialisation des centres de clusters
+    :param nb_centers: le nombre de centres (de clusters) qu'on veut definir = 3 pour voise non voise silence et =6 pour occlusive, fricative, semi-consonne, silence, nasale et voyelle
+    :param X: la matrice contenant les parametres nb_fenetres*nb_parametres
+    :return: une sous matrice de taille nb_centres*nb_parametres qu'on peut rentrer en argument de kmeans par exemple pour l initialisation
+    '''
+    #
+    #definition d'un tableau booleen pour faire l extraction des lignes de fband pour les considerer comme des centres de clusters
+    boo = np.ones(3449, dtype=bool)
+    boo = [False]*boo
+    if nb_centers==3:
+        boo[1]= True #silence
+        boo[37]= True #lettre 'k' occlusive
+        boo[83]=True  #voyelle 'e'
+    elif nb_centers==6:
+        boo[1]= True #silence
+        boo[37]= True #lettre 'k' occlusive
+        boo[83]=True  #voyelle 'e'
+        boo[1498] = True # fricative 'f'
+        boo[381] = True #nasale 'n'
+        boo[157] = True #semi consonne H ui
+    else:
+        raise Erreurs.initialisationError('Erreur : vous ne pourrez choisir qu un nombre de clusters 3 ou 6, utilisez plutot la fonction initialisation_centres_utilisateur')
+    sous_matrice = X[boo,:]
+    return sous_matrice
