@@ -7,7 +7,7 @@ from utiles import getPhonemeDict
 
 
 def pourcentage(Y , n_clusters , labels , dict_path , type_separation, fichier = None):
-    '''
+    """
     :param Y: veceteur contenant les phonemes correpondant a chaque vecteur (taille n_vectors)
     :param n_clusters: nombre de clusters: doit matcher avec type separation : 3 classes pour voise et consonnes, plus pour fricatives
     :param labels: tableau resultat du clustering
@@ -15,7 +15,7 @@ def pourcentage(Y , n_clusters , labels , dict_path , type_separation, fichier =
     :param type_separation: type de phonemes discrimines : voises. consonnes? fricatives/occlusives? (voir data/classement et data/detail_classement)
     :param fichier: si on souhaite enregistrer les resultats dans un fichier csv, on precise le chemin sinon on ne met rien
     :return:
-    '''
+    """
 
     dict = getPhonemeDict(dict_path)
     Y_v_non_v = getY_v_non_v(Y , dict , type_separation)

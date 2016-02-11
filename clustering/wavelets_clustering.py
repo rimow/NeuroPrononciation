@@ -12,7 +12,7 @@ import numpy as np
 ##########################################################################################################################
 
 #Chemin du fichier ou on souhaite ecrire les resultats, peut s'ouvrir avec Excel
-fichier = "../results/waveletsClustering.csv"
+fichier = "../resultats/resultatsClustering/waveletsClustering.csv"
 
 dt=0.01
 dj=0.5
@@ -30,7 +30,7 @@ dict = getPhonemeDict(path_dict) #realisation de la matrice verite-terrain
 # X = waveletsTransformContinue(signalPath,'paul',2,dt,dj,affichageSpectrogram=False)
 
 #Soit on charge la matrice si elle est deja enregistree
-X = np.load('../data/paulmoy.npy')
+X = np.load('../resultats/resultatsTransformation/paulmoy.npy')
 
 
 nb_features,nb_vectors = X.shape

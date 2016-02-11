@@ -3,7 +3,7 @@ from phonemesAnalysis.featuresGeneration import *
 from sklearn.cluster import MiniBatchKMeans
 from sklearn.cluster import AgglomerativeClustering
 from sklearn import cluster
-from phonemesAnalysis.analyse import pourcentage, histogrammesPhonemes
+from phonemesAnalysis.analyse import pourcentage
 
 
 ##########################################################################################################################
@@ -11,7 +11,7 @@ from phonemesAnalysis.analyse import pourcentage, histogrammesPhonemes
 ##########################################################################################################################
 
 #Chemin du fichier ou on souhaite ecrire les resultats, peut s'ouvrir avec Excel
-fichier = "../resultats/MFCC_clustering13Coeffs.csv"
+fichier = "../resultats/resultatsClustering/mfccClustering(40Coeffs).csv"
 
 path = "../data/Bref80_L4M01.wav"
 path_aligned = "../data/Bref80_L4M01.aligned"
@@ -20,17 +20,17 @@ dict = getPhonemeDict(dict_path)
 
 fft_span = 0.02
 hop_span = 0.01
-n_mels = 13
+n_mels = 40
 
 ##########################################################################################################################
 ############################################ MATRICE DE CLUSTERING #######################################################
-################### Matrice choisie pour le clustering: Matrice "moyenne" en utilisant l'ondelette Paul ##################
 ##########################################################################################################################
 
 #Soit on effectue la transformation
 X = mfcc(path, fft_span, hop_span, n_mels)
+
 #Soit on charge la matrice si elle est deja enregistree
-# X = np.load('data/mfcc.npy')
+# X = np.load('../resultats/resultatsClustering/mfcc.npy')
 
 
 nb_features,nb_vectors = X.shape
