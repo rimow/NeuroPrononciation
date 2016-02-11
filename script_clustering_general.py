@@ -1,9 +1,7 @@
-import numpy as np
 from sklearn import cluster
 from analyse import pourcentage, histogrammesPhonemes
 from featuresGeneration import mfcc
 from minibatch import initialisation_centres
-from preprocess import create_reference
 from utiles import getY, getPhonemeDict
 
 #extraction de features######################################################################################
@@ -15,16 +13,13 @@ n_mels = 13
 fmin = 50
 fmax = 8000
 path = "/home/marianne/Developpement/Bref80_L4M01.wav"
-#X = fbank(path,fft_span,hop_span,n_mels,fmin,fmax)
 X = mfcc(path, fft_span, hop_span, n_mels)
-X = np.transpose(X)
 nb_features,nb_vectors = X.shape
 
 
 # #Initialisation du tableau contenant les donnees d'alignement################################################
 
-Y = create_reference(X,"/home/marianne/Developpement/Bref80_L4M01.aligned")
-Y = np.array(Y)
+Y = getY(X,"/home/marianne/Developpement/Bref80_L4M01.aligned", hop_span)
 
 
 #clustering #################################################################################################"
@@ -35,7 +30,7 @@ dict = getPhonemeDict(dict_path)
 #nombre de clusters
 nb_cluster = 3
 #chemin du fichier ou on souhaite ecrire les resultats
-fichier = "data/pourcentages13Coeffs.csv"
+fichier = "data/test.csv"
 #difference qu'on souhaite evaluer sur les phonemes : separation consonnes/voyelles = 0, voisee/non-voisee = 1, categories = 2
 #type_phoneme = 2
 
@@ -44,36 +39,30 @@ clus = cluster.KMeans(n_clusters=nb_cluster, init='k-means++', n_init=50, max_it
 f = open(fichier, "a")
 f.write("KMEANS non initialise 3 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 sous = initialisation_centres(nb_cluster, X.transpose())
 clus = cluster.KMeans(n_clusters=nb_cluster, init=sous, n_init=50, max_iter=3000, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=1)
 f = open(fichier, "a")
 f.write("KMEANS initialise 3 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 #agglomerative clustering
 clus = cluster.AgglomerativeClustering(nb_cluster)
 f = open(fichier, "a")
 f.write("Agglomerative clustering 3 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 
 nb_cluster = 6
@@ -83,36 +72,30 @@ clus = cluster.KMeans(n_clusters=nb_cluster, init='k-means++', n_init=50, max_it
 f = open(fichier, "a")
 f.write("KMEANS non initialise 6 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 sous = initialisation_centres(nb_cluster, X.transpose())
 clus = cluster.KMeans(n_clusters=nb_cluster, init=sous, n_init=50, max_iter=3000, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=1)
 f = open(fichier, "a")
 f.write("KMEANS initialise 6 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 #agglomerative clustering
 clus = cluster.AgglomerativeClustering(nb_cluster)
 f = open(fichier, "a")
 f.write("Agglomerative clustering 6 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 #meanShift
 
 #meanShift
@@ -121,23 +104,20 @@ clus = cluster.AgglomerativeClustering(nb_cluster)
 f = open(fichier, "a")
 f.write("Agglomerative clustering 6 clusters\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nb_cluster, y , dict_path , 0, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 1, fichier)
-pourcentage(X2 , nb_cluster, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+pourcentage(Y , nb_cluster, y , dict_path , 0, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 1, fichier)
+pourcentage(Y , nb_cluster, y , dict_path , 2, fichier)
 
 #ecrire le type d'algorithme qu'on utilise : KMEANS, MeanShift...
 f = open(fichier, "a")
 f.write("MeanShift\n")
 f.close()
-y = clus.fit_predict(X.transpose())
-X2 = getY(X.transpose(),"/home/marianne/Developpement/Bref80_L4M01.aligned", 0.01)
-nmax = max(y)+1
-pourcentage(X2 , nmax, y , dict_path , 0, fichier)
-pourcentage(X2 , nmax, y , dict_path , 1, fichier)
-pourcentage(X2 , nmax, y , dict_path , 2, fichier)
+y = clus.fit_predict(X)
+nmax = max(y) +1
+pourcentage(Y , nmax, y , dict_path , 0, fichier)
+pourcentage(Y , nmax, y , dict_path , 1, fichier)
+pourcentage(Y , nmax, y , dict_path , 2, fichier)
 
 
 #algorithmes qui ne marchent pas avec mfcc : a tester?
