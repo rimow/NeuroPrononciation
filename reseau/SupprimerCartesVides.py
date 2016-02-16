@@ -14,7 +14,7 @@ def intersect(a, b):
 def strategie_une_l1(maps_entry_liste):
     """
     Supprime une carte si elle est vide sur tous les exemples
-    :param maps_entry: un ensemble de cartes d'activation: maps_entry = load_maps(map_path)
+    :param maps_entry_liste: un ensemble de dictionnaires de cartes d'activation: maps_entry = load_maps(map_path)
     :return: la liste des cartes qui sont vides sur tous les exemples
     """
 
@@ -41,7 +41,7 @@ def strategie_une_l1(maps_entry_liste):
 def strategie_deux_l1(maps_entry_liste):
     '''
     Supprime une carte si elle est vide sur un seul exemple
-    :param maps_entry: un ensemble de cartes d'activation: maps_entry = load_maps(map_path)
+    :param maps_entry: un ensemble de dictionnaires de cartes d'activation: maps_entry = load_maps(map_path)
     :return:la liste des cartes qui sont vides ne serait ce que sur un seul exemple
     '''
 
@@ -62,7 +62,7 @@ def strategie_deux_l1(maps_entry_liste):
 def strategie_trois_l1(maps_entry_liste, seuil):
     '''
    Supprime une carte des lors qu elle est vide sur plus de seuil exemples
-   :param maps_entry:un ensemble de cartes d'activation: maps_entry = load_maps(map_path)
+   :param maps_entry:un ensemble de dictionnaires de cartes d'activation: maps_entry = load_maps(map_path)
    :param seuil: si une carte est vide sur plus de 'seuil' exemples on la supprime
    :return: liste des cartes qui sont vides sur plus de 'seuil' exemples
     '''
