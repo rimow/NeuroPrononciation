@@ -1,0 +1,16 @@
+R
+getData_dense, denseF, denseJ :0.532142857143
+getData_onePerMap, conv1F, conc1J :0.310714285714
+getData_onePerMap, conv2F, conc2J :0.325
+getData_onePerMap, mpF, mpJ :0.460714285714
+getData_maps, conv1F, conc1J :0.458537946429
+getData_maps, conv2F, conc2J :0.471358816964
+getData_maps, mpF, mpJ :0.392619977679
+v
+getData_dense, denseF, denseJ :0.539285714286
+getData_onePerMap, conv1F, conc1J :0.382142857143
+getData_onePerMap, conv2F, conc2J :0.360714285714
+getData_onePerMap, mpF, mpJ :0.435714285714
+getData_maps, conv1F, conc1J :0.602455357143
+getData_maps, conv2F, conc2J :0.414118303571
+getData_maps, mpF, mpJ :0.449386160714
