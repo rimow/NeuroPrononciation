@@ -1,4 +1,6 @@
 from sklearn.cluster import KMeans
+
+from mapsAnalysis.SupprimerCartesVides import strategie_trois_l1
 from process_activation_maps import load_maps
 import numpy as np
 from mapsAnalysis.utiles import pretraitementMatrice, ratios
@@ -26,6 +28,10 @@ def MapsClustering(couche = 'conv1'):
     #recuperation des dimensions pour un dictionnaire
     tableau = np.array(FR['correct_OK']['R'])
     taille=tableau.shape
+    listeVide = []
+    if couche != "dense1":
+        listeVide = strategie_trois_l1([FR, JA], 559)
+
 
     #creation des fichiers d'enregistrement
     fichier1 = "resultats/" + couche + "_pourcentagesFRJA_R.csv"
@@ -48,9 +54,10 @@ def MapsClustering(couche = 'conv1'):
     clus = KMeans(n_clusters=2, init='k-means++')
     #calcul des ratios de classement
     for i in range (taille[1]):
-            resCluster = clus.fit(Mat[i])
-            Y_Cluster = resCluster.labels_
-            FRJA = ratios(Y_Cluster, Reference[:,0], fichier =  fichier1)
+            if not(i in listeVide):
+                resCluster = clus.fit(Mat[i])
+                Y_Cluster = resCluster.labels_
+                FRJA = ratios(Y_Cluster, Reference[:,0], fichier =  fichier1)
 
 
     ################################################################################
@@ -66,6 +73,7 @@ def MapsClustering(couche = 'conv1'):
     clus = KMeans(n_clusters=2, init='k-means++')
     #calcul des ratios de classement
     for i in range (taille[1]):
+        if not(i in listeVide):
             resCluster = clus.fit(Mat[i])
             Y_Cluster = resCluster.labels_
             FRJA = ratios(Y_Cluster, Reference[:,0], fichier = fichier1bis)
@@ -84,6 +92,7 @@ def MapsClustering(couche = 'conv1'):
     clus = KMeans(n_clusters=2, init='k-means++')
     #calcul des ratios de classement
     for i in range (taille[1]):
+        if not(i in listeVide):
             resCluster = clus.fit(Mat[i])
             Y_Cluster = resCluster.labels_
             FRJA = ratios(Y_Cluster, Reference[:,2], fichier = fichier2)
@@ -111,9 +120,10 @@ def MapsClustering(couche = 'conv1'):
     clus = KMeans(n_clusters=2, init='k-means++')
     #calcul des ratios de classement
     for i in range (taille[1]):
-        resCluster = clus.fit(Mat[i])
-        Y_Cluster = resCluster.labels_
-        FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3)
+        if not(i in listeVide):
+            resCluster = clus.fit(Mat[i])
+            Y_Cluster = resCluster.labels_
+            FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3)
 
 
     ################################################################################
@@ -137,6 +147,9 @@ def MapsClustering(couche = 'conv1'):
     clus = KMeans(n_clusters=2, init='k-means++')
     #calcul des ratios de classement
     for i in range (taille[1]):
-        resCluster = clus.fit(Mat[i])
-        Y_Cluster = resCluster.labels_
-        FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3bis)
+        if not(i in listeVide):
+            resCluster = clus.fit(Mat[i])
+            Y_Cluster = resCluster.labels_
+            FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3bis)
+
+    return listeVide

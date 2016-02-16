@@ -78,7 +78,7 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
 
     return ratio
 
-def bienClusterise (fichierClustering, seuil = 30):
+def bienClusterise (fichierClustering, seuil = 30, listeVide = []):
     """
     trouve les cartes d'activation pour lesquelles le clustering a bien marche
     :param fichierClustering: fichier ou sont enregistres les resultats du clutering
@@ -89,12 +89,18 @@ def bienClusterise (fichierClustering, seuil = 30):
     f = open(fichierClustering, "rb")
     tableau = csv.reader(f)
     bon = []
+    decalage = 0
+    indListeVide = 0
     for indligne,ligne in enumerate(tableau):
         if indligne >0:
             ligne[0] = float(ligne[0])
             ligne[1] = float(ligne[1])
             if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
-                bon.append(indligne-1)
+                if (len(listeVide)>0) and (indListeVide<len(listeVide)):
+                    while (indListeVide<len(listeVide)) and (indligne + decalage >= listeVide[indListeVide]):
+                        decalage = decalage+1
+                        indListeVide = indListeVide+1
+                bon.append(indligne+decalage-1)
 
     return bon
 
