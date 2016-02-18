@@ -56,21 +56,26 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
         classes.append(np.array([j for (j , i) in enumerate(Y_Cluster) if i == cl]))
     total = []
     total_class = []
+    #on calcule le total d'element dans chacune des categories de la matrice de reference
     for i in range(len(set(Reference))):
         nb = len([j for j in Reference if j == i])
         total.append(nb)
 
+    #pour chaque classe on calcule le nombre d'element de chaque categorie range dans cette classe
     for m in range(nb_classes):
         nb_cluster = []
         for i in range(len(set(Reference))):
+            #debugage: si la classe est vide on met le nombre a 0
             if len(classes[m]) == 0:
                 nb = 0
             else:
                 nb = len([j for j in Reference[classes[m]] if j == i])
             nb_cluster.append(nb)
         total_class.append(nb_cluster)
+    #on calcule le pourcentage d'elements de chaque categorie dans chaque classe
     ratio = 100.0 * np.array(total_class)/np.array(total)
 
+    #si on a precise un fichier dans lequel enregistrer;
     if fichier != None:
         f = open(fichier, "a")
         np.savetxt(f, np.atleast_2d(ratio[0]), delimiter =',')
@@ -78,29 +83,50 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
 
     return ratio
 
-def bienClusterise (fichierClustering, seuil = 30, listeVide = []):
-    """
-    trouve les cartes d'activation pour lesquelles le clustering a bien marche
-    :param fichierClustering: fichier ou sont enregistres les resultats du clutering
-    :param seuil: difference pour laquelle on considere que les phonemes des deux categories ont bien ete separes
-    :return: la liste des indices des cartes bien clusterisees
+def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30, listeVide = []):
     """
 
-    f = open(fichierClustering, "rb")
-    tableau = csv.reader(f)
+    :param fichierClustering: si on decide de recuperer les resultats du clustering a partir d'un fichier
+    :param MatriceClustering: si on prefere donner une matrice. Le fichier csv est prioritaire
+    :param seuil: distance entre les deux types clusterises
+    :param listeVide: liste des numeros des cartes d'activation jugees vides et retirees avant le clustering
+    :return: liste des numeros des cartes d'activation jugees suffisamment discriminantes
+    """
+
+    #si le fichier n'est pas precise, on recupere la matrice passee en parametres
+    if fichierClustering == None:
+        tableau = np.array(MatriceClustering)
+    #sinon on recupere le fichier
+    else:
+        f = open(fichierClustering, "rb")
+        tableau = csv.reader(f)
+
+    #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
-    decalage = 0
-    indListeVide = 0
     for indligne,ligne in enumerate(tableau):
-        if indligne >0:
+        #si on a charge une matrice on commence a ala ligne 0
+        if fichierClustering == None:
             ligne[0] = float(ligne[0])
             ligne[1] = float(ligne[1])
             if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
-                if (len(listeVide)>0) and (indListeVide<len(listeVide)):
-                    while (indListeVide<len(listeVide)) and (indligne + decalage >= listeVide[indListeVide]):
-                        decalage = decalage+1
-                        indListeVide = indListeVide+1
-                bon.append(indligne+decalage-1)
+                bon.append(indligne-1)
+        #sinon on ommet le titre et on commence a la ligne 1
+        else:
+            if indligne >0:
+                ligne[0] = float(ligne[0])
+                ligne[1] = float(ligne[1])
+                if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
+                    bon.append(indligne-1)
+
+    #recalage des numeros des cartes en prenant en compte les cartes vides non clusterisees
+    decalage = 0
+    if (len(listeVide)>0):
+        for indligne in range(len(bon)):
+            #si l'indice courant depasse la valeur de la carte d'activation de la liste vide consideree on incremente le decalage
+            if (decalage<len(listeVide)) and (bon[indligne+decalage]>=listeVide[decalage]):
+                decalage += 1
+            bon[indligne] = bon[indligne]+decalage
+
 
     return bon
 
