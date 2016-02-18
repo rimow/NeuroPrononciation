@@ -63,7 +63,7 @@ def ratios ( Y_kmeans , Reference, nb_classes=2):
     for m in range(nb_classes):
         nb_cluster =[]
         for i in range(len(set(Reference))):
-            nb= len([j for j in Y_kmeans[classes[m]] if j == i])
+            nb= len([j for j in Reference[classes[m]] if j == i])
             nb_cluster.append(nb)
         total_class.append(nb_cluster)
     print total
@@ -73,4 +73,21 @@ def ratios ( Y_kmeans , Reference, nb_classes=2):
     return ratio
 
 pixi = ratios(Y_kmeans, Reference[:,0])
+print pixi
+
+Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R','v'])
+clus = KMeans(n_clusters=2, init='k-means++')
+resCluster = clus.fit(Mat[0])
+Y_kmeans = resCluster.labels_
+pixi = ratios(Y_kmeans, Reference[:,2])
+print pixi
+
+Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R'])
+Mat1,Reference1= pretraitementMatrice([JA],['incorrect_OK', 'incorrect_pasOK'],['R'])
+Mat.append(Mat1)
+Reference.append(Reference1)
+clus = KMeans(n_clusters=2, init='k-means++')
+resCluster = clus.fit(Mat[0])
+Y_kmeans = resCluster.labels_
+pixi = ratios(Y_kmeans, Reference[:,])
 print pixi
