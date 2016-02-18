@@ -1,0 +1,16 @@
+R
+getData_dense, denseF, denseJ :44.6428571429
+getData_onePerMap, conv1F, conc1J :41.7857142857
+getData_onePerMap, conv2F, conc2J :49.6428571429
+getData_onePerMap, mpF, mpJ :46.4285714286
+getData_maps, conv1F, conc1J :29.6177455357
+getData_maps, conv2F, conc2J :20.8719308036
+getData_maps, mpF, mpJ :21.201171875
+v
+getData_dense, denseF, denseJ :59.2857142857
+getData_onePerMap, conv1F, conc1J :48.9285714286
+getData_onePerMap, conv2F, conc2J :54.2857142857
+getData_onePerMap, mpF, mpJ :58.2142857143
+getData_maps, conv1F, conc1J :29.1462053571
+getData_maps, conv2F, conc2J :22.1023995536
+getData_maps, mpF, mpJ :20.9919084821
