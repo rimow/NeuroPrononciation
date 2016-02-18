@@ -12,11 +12,21 @@ conv1J = load_maps(mapconv1J_file)
 conv1F = load_maps(mapconv1F_file)
 
 # creation de la matrice de donnees et du vecteur des labels
-ph = ['R']
-#X,Y = getData_onePerMap([conv1J,conv1F],conv1J.keys(),ph)
-X,Y = getData_maps([conv1J,conv1F],conv1J.keys(),ph)
+ph = ['R','v']
+dics = [conv1J,conv1F]
+
+#X,Y_c_inc,Y_r_v = getData_onePerMap(dics,conv1J.keys(),ph)
+X,Y_c_inc,Y_r_v = getData_maps(dics,conv1J.keys(),ph)
+
+# Verification des dimensions
+# Xsh = X.shape
+# convSh = np.array(conv1F['correct_OK']['v']).shape
+# print 'X : ',Xsh
+# print 'getData_maps : ',len(dics)*len(ph)*len(conv1F.keys())*convSh[0]*convSh[1]
+# print 'getData_onePerMap : ',len(dics)*len(ph)*len(conv1F.keys())*convSh[0]
+
 
 # Test du classifieur LDA et resultat apres validation croisee
 n_folds = 5
-LDAmeanScore(X,Y,n_folds)
-
+#LDAmeanScore(X,Y_c_inc,n_folds)
+#LDAmeanScore(X,Y_r_v,n_folds)

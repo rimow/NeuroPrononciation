@@ -19,18 +19,24 @@ def getData_dense(liste_dictionnaires = [], liste_categories = [], liste_phoneme
     :return: une matrice de parametre X ((nb_dic*nb_cat*nb_ph*nb_cartes)*taille_vecteur), et un vecteur de parametre Y (nb_dic*nb_cat*nb_ph*nb_cartes)
  """
  X = []
- Y = []
+ Y_c_inc = []
+ Y_r_v = []
  for idic,dic in enumerate(liste_dictionnaires):
      for icat,cat in enumerate(liste_categories):
          if icat==0 or icat==1:
-             classe=1
+             classe_c_inc=1
          else:
-             classe=0
+             classe_c_inc=0
          for iph,ph in enumerate(liste_phonemes):
+             if ph=='R':
+                 classe_r_v = 1
+             else:
+                 classe_r_v = 0
              for exemplaire in range(np.array(dic[cat][ph]).shape[0]):
                X.append(dic[cat][ph][exemplaire])
-               Y.append(classe)
- return np.array(X), np.array(Y)
+               Y_c_inc.append(classe_c_inc)
+               Y_r_v.append(classe_r_v)
+ return np.array(X), np.array(Y_c_inc),np.array(Y_r_v)
 
 def getData_maps(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [], a_ignorer=[]):
  """
@@ -40,21 +46,27 @@ def getData_maps(liste_dictionnaires = [], liste_categories = [], liste_phonemes
     :return: une matrice de parametre X ((nb_dic*nb_cat*nb_ph*nb_cartes)*nb_elts_carte), et un vecteur de parametre Y (nb_dic*nb_cat*nb_ph*nb_cartes)
  """
  X = []
- Y = []
+ Y_c_inc = []
+ Y_r_v = []
 
  for idic,dic in enumerate(liste_dictionnaires):
      for icat,cat in enumerate(liste_categories):
          if icat==0 or icat==1:
-             classe=1
+             classe_c_inc=1
          else:
-             classe=0
+             classe_c_inc=0
          for iph,ph in enumerate(liste_phonemes):
+             if ph=='R':
+                 classe_r_v = 1
+             else:
+                 classe_r_v = 0
              for exemplaire in range(np.array(dic[cat][ph]).shape[0]):
                  for map in range(np.array(dic[cat][ph]).shape[1]):
                     if not(map in a_ignorer):
                       X.append(np.array(dic[cat][ph][exemplaire][map]).flatten())
-                      Y.append(classe)
- return np.array(X), np.array(Y)
+                      Y_c_inc.append(classe_c_inc)
+                      Y_r_v.append(classe_r_v)
+ return np.array(X), np.array(Y_c_inc), np.array(Y_r_v)
 
 def getData_onePerMap(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],a_ignorer=[]):
  """
@@ -65,15 +77,19 @@ def getData_onePerMap(liste_dictionnaires = [], liste_categories = [], liste_pho
     :return: une matrice de parametre X ((nb_dic*nb_cat*nb_ph)*(nb_cartes*nb_elts_carte), et un vecteur de parametre Y (nb_dic*nb_cat*nb_ph)
  """
  X = []
- Y = []
-
+ Y_c_inc = []
+ Y_r_v = []
  for idic,dic in enumerate(liste_dictionnaires):
      for icat,cat in enumerate(liste_categories):
          if icat==0 or icat==1:
-             classe=1
+             classe_c_inc=1
          else:
-             classe=0
+             classe_c_inc=0
          for iph,ph in enumerate(liste_phonemes):
+             if ph=='R':
+                 classe_r_v = 1
+             else:
+                 classe_r_v = 0
              for exemplaire in range(np.array(dic[cat][ph]).shape[0]):
                  inter = []
                  for map in range(np.array(dic[cat][ph]).shape[1]):
@@ -81,8 +97,9 @@ def getData_onePerMap(liste_dictionnaires = [], liste_categories = [], liste_pho
                       inter.append(np.array(dic[cat][ph][exemplaire][map]).flatten())
                  if not(inter==[]):
                    X.append(np.concatenate(np.array(inter)))
-                   Y.append(classe)
- return np.array(X), np.array(Y)
+                   Y_c_inc.append(classe_c_inc)
+                   Y_r_v.append(classe_r_v)
+ return np.array(X), np.array(Y_c_inc), np.array(Y_r_v)
 
 def LDAmeanScore(X,Y,n_folds):
  """

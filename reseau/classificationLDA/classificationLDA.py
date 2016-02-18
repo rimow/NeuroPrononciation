@@ -22,19 +22,22 @@ conv1F = load_maps(mapconv1F_file)
 conv2F = load_maps(mapconv2F_file)
 mpF = load_maps(mapmp2F_file)
 denseF = load_maps(denseF_file)
+liste_vide_c1 = []
+liste_vide_c2 = []
+liste_vide_mp = []
 
 #Strategies de suppression de cartes vides : on selectionne les
 
 #Strategie3
-nb_vides_c1 = 500
-nb_vides_c2 = 500
-nb_vides_mp = 200
-liste_vide_c1 = strategie_trois_l1([conv1F,conv1J], nb_vides_c1)
-liste_vide_c2 = strategie_trois_l1([conv2F,conv2J], nb_vides_c2)
-liste_vide_mp = strategie_trois_l1([mpF,mpJ], nb_vides_mp)
-np.save('mp_200.npy',liste_vide_mp)
-np.save('c1_200.npy',liste_vide_c1)
-np.save('c2_200.npy',liste_vide_c2)
+# nb_vides_c1 = 500
+# nb_vides_c2 = 500
+# nb_vides_mp = 200
+# liste_vide_c1 = strategie_trois_l1([conv1F,conv1J], nb_vides_c1)
+# liste_vide_c2 = strategie_trois_l1([conv2F,conv2J], nb_vides_c2)
+# liste_vide_mp = strategie_trois_l1([mpF,mpJ], nb_vides_mp)
+# np.save('mp_200.npy',liste_vide_mp)
+# np.save('c1_200.npy',liste_vide_c1)
+# np.save('c2_200.npy',liste_vide_c2)
 
 #Strategie1
 # liste_vide_c1 = strategie_une_l1([conv1F,conv1J])
@@ -58,7 +61,7 @@ np.save('c2_200.npy',liste_vide_c2)
 #liste_vide_c2 = np.load('c2.npy')
 #liste_vide_mp = np.load('mp.npy')
 
-print liste_vide_c2
+
 
 #liste_vide = []
 f_res = open('LDA_resultats_strategie3_500c1_500c2_200mp.txt', 'w')
@@ -67,19 +70,19 @@ n_folds = 5
 phonemes = ['R','v']
 for ph in phonemes:
     f_res.write(ph+'\n')
-    X,Y = getData_dense([denseF,denseJ],denseJ.keys(),[ph])
-    f_res.write('getData_dense, denseF, denseJ :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_onePerMap([conv1J,conv1F],conv1J.keys(),[ph],liste_vide_c1)
-    f_res.write('getData_onePerMap, conv1F, conc1J :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_onePerMap([conv2J,conv2F],conv2J.keys(),[ph],liste_vide_c2)
-    f_res.write('getData_onePerMap, conv2F, conc2J :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_onePerMap([mpF,mpJ],mpF.keys(),[ph],liste_vide_mp)
-    f_res.write('getData_onePerMap, mpF, mpJ :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_maps([conv1J,conv1F],conv1J.keys(),[ph],liste_vide_c1)
-    f_res.write('getData_maps, conv1F, conc1J :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_maps([conv2J,conv2F],conv2J.keys(),[ph],liste_vide_c2)
-    f_res.write('getData_maps, conv2F, conc2J :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
-    X,Y = getData_maps([mpF,mpJ],mpJ.keys(),[ph],liste_vide_mp)
-    f_res.write('getData_maps, mpF, mpJ :'+str(LDAmeanScore(X,Y,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_dense([denseF,denseJ],denseJ.keys(),[ph])
+    f_res.write('getData_dense, denseF, denseJ :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_onePerMap([conv1J,conv1F],conv1J.keys(),[ph],liste_vide_c1)
+    f_res.write('getData_onePerMap, conv1F, conc1J :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_onePerMap([conv2J,conv2F],conv2J.keys(),[ph],liste_vide_c2)
+    f_res.write('getData_onePerMap, conv2F, conc2J :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_onePerMap([mpF,mpJ],mpF.keys(),[ph],liste_vide_mp)
+    f_res.write('getData_onePerMap, mpF, mpJ :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_maps([conv1J,conv1F],conv1J.keys(),[ph],liste_vide_c1)
+    f_res.write('getData_maps, conv1F, conc1J :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_maps([conv2J,conv2F],conv2J.keys(),[ph],liste_vide_c2)
+    f_res.write('getData_maps, conv2F, conc2J :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
+    X,Y_c_inc,Y_r_v = getData_maps([mpF,mpJ],mpJ.keys(),[ph],liste_vide_mp)
+    f_res.write('getData_maps, mpF, mpJ :'+str(LDAmeanScore(X,Y_c_inc,n_folds))+'\n')
 
 f_res.close()
