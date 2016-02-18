@@ -76,7 +76,8 @@ def strategie_trois_l1(maps_entry_liste, seuil):
                     for indice_carte in range(nb_cartes):
                         if (maps_entry[cat][pho][indice_exemple][indice_carte] == np.zeros([ligne, col])).all():
                             liste_vides.append(indice_carte)
-    liste_resultat = [i for i in liste_vides if liste_vides.count(i) > seuil]
+    nombre_exemples_total = len(liste_phonemes)*len(maps_entry_liste)*len(maps_entry.keys())*nb_exemples
+    liste_resultat = [i for i in liste_vides if liste_vides.count(i) > min(seuil,nombre_exemples_total-1)]
     return list(set(liste_resultat))
 
 
