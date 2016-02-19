@@ -4,6 +4,7 @@ from utiles_classification import *
 from mapsAnalysis.SupprimerCartesVides import *
 from dim_reduction import *
 from mapsAnalysis.utiles import *
+from mapsClustering.MapsClustering import *
 #Files
 mapconv1J_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 mapconv1F_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
@@ -17,7 +18,7 @@ ph = ['R','v']
 dics = [conv1J,conv1F]
 
 #X,Y_c_inc,Y_r_v = getData_onePerMap(dics,conv1J.keys(),ph)
-X,Y_c_inc,Y_r_v = getData_maps(dics,conv1J.keys(),ph)
+#X,Y_c_inc,Y_r_v = getData_maps(dics,conv1J.keys(),ph)
 
 # Verification des dimensions
 # Xsh = X.shape
@@ -31,9 +32,15 @@ X,Y_c_inc,Y_r_v = getData_maps(dics,conv1J.keys(),ph)
 n_folds = 5
 #LDAmeanScore(X,Y_c_inc,n_folds)
 #LDAmeanScore(X,Y_r_v,n_folds)
-X_reduced_PCA = dim_reduction_PCA(X,2)
-X_reduced_LDA = dim_reduction_LDA(X,Y_c_inc,2)
+# X_reduced_PCA = dim_reduction_PCA(X,2)
+# X_reduced_LDA = dim_reduction_LDA(X,Y_c_inc,2)
+#
+# plot_data(X_reduced_PCA,Y_r_v,"PCA")
+# plot_data(X_reduced_LDA,Y_r_v,"LDA")
 
-plot_data(X_reduced_PCA,Y_r_v,"PCA")
-plot_data(X_reduced_LDA,Y_r_v,"LDA")
+vide_conv1 = MapsClustering("conv1")
+dict_goodmaps = goodmaps(vide_conv1,20)
+print dict_goodmaps
+X,Y_c_inc,Y_r_v = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps['0'])
 
+print X,X.shape
