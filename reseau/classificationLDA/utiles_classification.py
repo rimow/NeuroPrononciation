@@ -201,6 +201,15 @@ def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_ca
  return score1,score2
 
 def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],liste_cartes=[]):
+    """construct all good maps to a big vector
+
+    :param liste_dictionnaires: liste de dictionnaires de cartes
+    :param liste_categories: liste de categories
+    :param liste_phonemes: liste de phonemes
+    :param liste_cartes : cartes que l'on considere
+
+    :return: une matrice de parametre Mat ((nb_dic*nb_cat*nb_ph*nb_cartes)*taille_vecteur), et des vecteurs de parametre Y (nb_dic*nb_cat*nb_ph*nb_cartes)
+    differenciant les corrects des incorrects, les phonSemes, les langues """
     tableau = np.array(liste_dictionnaires[0][liste_categories[0]][liste_phonemes[0]])
     nb_exemple,nb_carte,lign,col=tableau.shape
 
