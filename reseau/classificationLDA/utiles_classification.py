@@ -199,3 +199,23 @@ def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_ca
  print '\n'
 
  return score1,score2
+
+def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],liste_cartes=[]):
+    tableau = np.array(liste_dictionnaires[0][liste_categories[0]][liste_phonemes[0]])
+    nb_exemple,nb_carte,lign,col=tableau.shape
+
+    Mat = []
+    Reference = []
+    for ex in range(nb_exemple):
+        Matinter = []
+        for inddict,dict in enumerate(liste_dictionnaires):
+            for indcat,cat in enumerate(liste_categories):
+                for indpho,pho in enumerate(liste_phonemes):
+                    Matinter.append((dict[cat][pho][ex][liste_cartes]).flatten())
+                    Reference.append([inddict,indcat ,indpho])
+        Mat.append(Matinter)
+
+    Y_c_inc = Reference[:,1]
+    Y_r_v = Reference[:,2]
+    Y_fr_jap = Reference[:,0]
+    return np.array(Mat), np.array(Y_c_inc), np.array(Y_r_v), np.array(Y_fr_jap)
