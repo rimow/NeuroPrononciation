@@ -1,0 +1,40 @@
+FRJA R
+kmeansNonInit:[5, 8, 11, 12, 16, 19, 21, 23, 24, 31, 33, 36, 41, 42, 50, 51, 55, 57, 58, 59, 61, 65, 74, 84, 86, 87, 88, 91, 93, 94, 95, 98, 99, 102, 108, 113, 118, 119, 122]
+DBSCAN:[]
+MeanShift:[0]
+FRJA V
+kmeansNonInit:[8, 9, 19, 22, 24, 31, 51, 56, 57, 58, 79, 84, 94, 105, 114, 123]
+DBSCAN:[]
+MeanShift:[]
+FR  RV
+kmeansNonInit:[22]
+DBSCAN:[]
+MeanShift:[]
+JA correct/incorrect R
+kmeansNonInit:[25, 56, 114, 119]
+DBSCAN:[]
+MeanShift:[]
+JA correct/incorrect V
+kmeansNonInit:[8, 11, 16, 19, 31, 32, 56, 58, 59, 74, 94, 95, 114, 119]
+DBSCAN:[0]
+MeanShift:[]
+
+
+##############################################################################
+bon indices pout DBSCAN et MeanShift avec correspondance table indices
+##############################################################################
+FRJA R
+DBSCAN:[]
+MeanShift:[8]
+FRJA V
+DBSCAN:[]
+MeanShift:[]
+FR  RV
+DBSCAN:[]
+MeanShift:[]
+JA correct/incorrect R
+DBSCAN:[]
+MeanShift:[]
+JA correct/incorrect V
+DBSCAN:[46]
+MeanShift:[]

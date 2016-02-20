@@ -101,21 +101,23 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
         f = open(fichierClustering, "rb")
         tableau = csv.reader(f)
 
+    tableau = np.array(tableau)
+
     #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
     for indligne,ligne in enumerate(tableau):
         #si on a charge une matrice on commence a ala ligne 0
         if fichierClustering == None:
-            ligne[0] = float(ligne[0])
-            ligne[1] = float(ligne[1])
-            if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
-                bon.append(indligne-1)
+            ligne0 = float(ligne[0])
+            ligne1= float(ligne[1])
+            if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
+                bon.append(indligne)
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
-                ligne[0] = float(ligne[0])
-                ligne[1] = float(ligne[1])
-                if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
+                ligne0 = float(ligne[0])
+                ligne1 = float(ligne[1])
+                if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
                     bon.append(indligne-1)
 
     #recalage des numeros des cartes en prenant en compte les cartes vides non clusterisees
@@ -130,26 +132,3 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
     return bon
 
-def goodmaps(vide,seuil=30):
-    """Return the good maps of different cluster tasks.
-       0: good maps for clustring R in FR and R in FRJA
-       1: good maps for clustring R in FR and V in FR
-       3: good maps for clustring correct R and  incorrect R in FRJA
-       4: good maps for clustring correct V and incorrect V in FRJA
-       :param vide_goodmaps: list of the empty maps in con1
-       :param seuil: seuil for choose the good maps
-       :returns goodmaps: the good maps of different cluster tasks
-    """
-    goodmaps = {}
-    clus = bienClusterise(fichierClustering="resultats/conv1_pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide)
-    goodmaps[0] = clus
-    clus = bienClusterise(fichierClustering="resultats/conv1_pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
-    goodmaps[1] = clus
-    clus = bienClusterise(fichierClustering="resultats/conv1_pourcentagesRV.csv", seuil=seuil, listeVide=vide)
-    goodmaps[2] = clus
-    clus = bienClusterise(fichierClustering="resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
-    goodmaps[3] = clus
-    clus = bienClusterise(fichierClustering="resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
-    goodmaps[4] = clus
-
-    return goodmaps
