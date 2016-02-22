@@ -5,7 +5,6 @@ import numpy as np
 
 
 
-
 def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
     """
     cree le tenser contenant pour chaque carte d'activation la valeur de cette carte pour tous les exemple
@@ -38,66 +37,6 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
     Mat = np.array(Mat)
 
     return Mat, Reference
-
-def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
-    '''
-    Ne rentrez type_clustering = FRJAP que si la liste des dictionnaires contient vraiment un FR et un JAP en premier
-    :param nb_clusters:
-    :param type_clustering:
-    :param liste_dictionnaires:
-    :param liste_categories:
-    :param liste_phonemes:
-    :return:
-    '''
-    preMatShape = matrice_pretraitement.shape
-    #matrice_initiaux_boolean =  np.ones(preMatShape[0], dtype=bool)
-    #print(matrice_initiaux_boolean)
-    found1 = False
-    found2 = False
-    i1=-1
-    i2=-1
-    boo = np.ones(preMatShape[1], dtype=bool)
-    boo = [False]*boo
-    if type_clustering=='FRJAP_R': #chercher dans reference une ligne avec la premiere colonne = FR et la troisieme colonne = R
-        #ligne = [i for i in reference[i][0]==]
-        while (not found1) and (not found2):
-            if (not found1):
-                i1=i1+1
-                if reference[i1,0]==0 and reference[i1,2]==0 :
-                    found1 = True
-            if ((not found2) and (i2+1)!=i1):
-                i2=i2+1
-                if reference[i2,0]==1 and reference[i2,2]==0 :
-                    found2 = True
-    if type_clustering=='FRJAP_v':
-        while (not found1) and (not found2):
-            if (not found1):
-                i1=i1+1
-                if reference[i1,0]==0 and reference[i1,2]==1 :
-                    found1 = True
-            if ((not found2) and (i2+1)!=i1):
-                i2=i2+1
-                if reference[i2,0]==1 and reference[i2,2]==1 :
-                    found2 = True
-    if type_clustering=='R_v':
-        while (not found1) and (not found2):
-            if (not found1):
-                i1=i1+1
-                if reference[i1,0]==0 and reference[i1,2]==0 :
-                    found1 = True
-            if ((not found2) and (i2+1)!=i1):
-                i2=i2+1
-                if reference[i2,0]==0 and reference[i2,2]==1 :
-                    found2 = True
-    boo[i1]= True
-    boo[i2]= True
-    print(reference[i2])
-    print(reference[i1])
-    resultat_int = matrice_pretraitement[0,:,:]
-    resultat = resultat_int[boo,:]
-    return resultat
-
-
 
 def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
     """
@@ -146,7 +85,6 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
 
 def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30, listeVide = []):
     """
-
     :param fichierClustering: si on decide de recuperer les resultats du clustering a partir d'un fichier
     :param MatriceClustering: si on prefere donner une matrice. Le fichier csv est prioritaire
     :param seuil: distance entre les deux types clusterises
@@ -162,23 +100,21 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
         f = open(fichierClustering, "rb")
         tableau = csv.reader(f)
 
-    tableau = np.array(tableau)
-    print tableau
     #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
     for indligne,ligne in enumerate(tableau):
         #si on a charge une matrice on commence a ala ligne 0
         if fichierClustering == None:
-            ligne0 = float(ligne[0])
-            ligne1= float(ligne[1])
-            if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
-                bon.append(indligne)
+            ligne[0] = float(ligne[0])
+            ligne[1] = float(ligne[1])
+            if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
+                bon.append(indligne-1)
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
-                ligne0 = float(ligne[0])
-                ligne1 = float(ligne[1])
-                if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
+                ligne[0] = float(ligne[0])
+                ligne[1] = float(ligne[1])
+                if ((ligne[0] >= 50 and ligne[1] <= 50) or (ligne[1] >= 50 and ligne[0] <= 50)) and (abs(ligne[0]-ligne[1])>seuil):
                     bon.append(indligne-1)
 
     #recalage des numeros des cartes en prenant en compte les cartes vides non clusterisees
@@ -192,6 +128,7 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
     return bon
+
 def goodmaps(vide,seuil=30):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
@@ -202,32 +139,16 @@ def goodmaps(vide,seuil=30):
        :param seuil: seuil for choose the good maps
        :returns goodmaps: the good maps of different cluster tasks
     """
-
-    #vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
     goodmaps = {}
-
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv", seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide)
     goodmaps[0] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
     goodmaps[1] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesRV.csv", seuil=seuil, listeVide=vide)
     goodmaps[2] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
     goodmaps[3] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_V.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
     goodmaps[4] = clus
 
-    # clus = bienClusterise(fichierClustering=None,MatriceClustering=pFRJA_R_KMNI, seuil=seuil, listeVide=vide)
-    # goodmaps[0] = clus
-    # clus = bienClusterise(fichierClustering=None,MatriceClustering=pFRJA_V_KMNI, seuil=seuil, listeVide=vide)
-    # goodmaps[1] = clus
-    # clus = bienClusterise(fichierClustering=None, MatriceClustering=pFR_RV_KMNI,seuil=seuil, listeVide=vide)
-    # goodmaps[2] = clus
-    # clus = bienClusterise(fichierClustering=None,MatriceClustering=pCIC_R_KMNI,seuil=seuil, listeVide=vide)
-    # goodmaps[3] = clus
-    # clus = bienClusterise(fichierClustering=None,MatriceClustering=pCIC_V_KMNI,seuil=seuil, listeVide=vide)
-    # goodmaps[4] = clus
-
     return goodmaps
-
-from mapsClustering.MapsClustering import MapsClustering
