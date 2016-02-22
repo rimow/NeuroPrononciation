@@ -59,39 +59,49 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference, l
     boo = [False]*boo
     if type_clustering=='FRJAP_R': #chercher dans reference une ligne avec la premiere colonne = FR et la troisieme colonne = R
         #ligne = [i for i in reference[i][0]==]
-        while (not found1) and (not found2):
+        while ((not found1) and (not found2)) or (i1==i2):
             if (not found1):
                 i1=i1+1
                 if reference[i1,0]==0 and reference[i1,2]==0 :
                     found1 = True
-            if ((not found2) and (i2+1)!=i1):
+            if ((not found2)):
                 i2=i2+1
                 if reference[i2,0]==1 and reference[i2,2]==0 :
                     found2 = True
     if type_clustering=='FRJAP_v':
-        while (not found1) and (not found2):
-            if (not found1):
-                i1=i1+1
-                if reference[i1,0]==0 and reference[i1,2]==1 :
-                    found1 = True
-            if ((not found2) and (i2+1)!=i1):
-                i2=i2+1
-                if reference[i2,0]==1 and reference[i2,2]==1 :
-                    found2 = True
-    if type_clustering=='R_v':
-        while (not found1) and (not found2):
+        while ((not found1) and (not found2)) or (i1==i2):
             if (not found1):
                 i1=i1+1
                 if reference[i1,0]==0 and reference[i1,2]==0 :
                     found1 = True
-            if ((not found2) and (i2+1)!=i1):
+            if ((not found2)):
+                i2=i2+1
+                if reference[i2,0]==1 and reference[i2,2]==0 :
+                    found2 = True
+    if type_clustering=='R_v':
+        while ((not found1) and (not found2)) or (i1==i2):
+            if (not found1):
+                i1=i1+1
+                if reference[i1,0]==0 and reference[i1,2]==0 :
+                    found1 = True
+            if ((not found2) ):
                 i2=i2+1
                 if reference[i2,0]==0 and reference[i2,2]==1 :
                     found2 = True
+    if type_clustering=='CIC_R':
+        while ((not found1) and (not found2)) or (i1==i2):
+            if (not found1):
+                i1=i1+1
+                if reference[i1,0]==1 and (reference[i1,1]==0 or reference[i1,1]==1) :
+                    found1 = True
+            if ((not found2)):
+                i2=i2+1
+                if reference[i2,0]==1 and (reference[i2,1]==2 or reference[i2,1]==3) :
+                    found2 = True
+    if(i1>reference.shape[0] or i2>reference.shape[0]):
+        print("je n ai pas trouve un bon centre, il y a un probleme")
     boo[i1]= True
     boo[i2]= True
-    print(reference[i2])
-    print(reference[i1])
     resultat_int = matrice_pretraitement[0,:,:]
     resultat = resultat_int[boo,:]
     return resultat
