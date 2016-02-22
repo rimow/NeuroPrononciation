@@ -7,4 +7,4 @@ GenerationClustering(couche = "mp2", seuilSuppression = 559, seuilBonClustering 
 GenerationClustering(couche = "dense1", seuilSuppression = 559, seuilBonClustering = 30, fichier = True)
 
 #Example of a call to imagesCartesInteressantes
-imagesCartesInteressantes(5, 6, couche='conv1', clustering=1)
+imagesCartesInteressantes(5, 6, couche='conv1', clustering='1')
