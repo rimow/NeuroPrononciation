@@ -1,0 +1,12 @@
+conv1 FR JAP, phoneme R, FR/JAP classification : 91.0714285714
+conv1 FR, phonemes R and v, R/v classification, : 78.5714285714
+conv1 FR JAP, phoneme R, correct/incorrect classification: 19.6428571429
+conv1 FR JAP, phoneme v, correct/incorrect classification : 20.3571428571
+conv2 FR JAP, phoneme R, FR/JAP classification : 82.8571428571
+conv2 FR, phonemes R and v, R/v classification, : 71.7857142857
+conv2 FR JAP, phoneme R, correct/incorrect classification: -1
+conv2 FR JAP, phoneme v, correct/incorrect classification : -1
+mp2 FR JAP, phoneme R, FR/JAP classification : 86.4285714286
+mp2 FR, phonemes R and v, R/v classification, : 71.4285714286
+mp2 FR JAP, phoneme R, correct/incorrect classification: -1
+mp2 FR JAP, phoneme v, correct/incorrect classification : -1
