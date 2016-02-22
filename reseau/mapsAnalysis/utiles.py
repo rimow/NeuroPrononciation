@@ -38,6 +38,66 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
 
     return Mat, Reference
 
+def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
+    '''
+    Ne rentrez type_clustering = FRJAP que si la liste des dictionnaires contient vraiment un FR et un JAP en premier
+    :param nb_clusters:
+    :param type_clustering:
+    :param liste_dictionnaires:
+    :param liste_categories:
+    :param liste_phonemes:
+    :return:
+    '''
+    preMatShape = matrice_pretraitement.shape
+    #matrice_initiaux_boolean =  np.ones(preMatShape[0], dtype=bool)
+    #print(matrice_initiaux_boolean)
+    found1 = False
+    found2 = False
+    i1=-1
+    i2=-1
+    boo = np.ones(preMatShape[1], dtype=bool)
+    boo = [False]*boo
+    if type_clustering=='FRJAP_R': #chercher dans reference une ligne avec la premiere colonne = FR et la troisieme colonne = R
+        #ligne = [i for i in reference[i][0]==]
+        while (not found1) and (not found2):
+            if (not found1):
+                i1=i1+1
+                if reference[i1,0]==0 and reference[i1,2]==0 :
+                    found1 = True
+            if ((not found2) and (i2+1)!=i1):
+                i2=i2+1
+                if reference[i2,0]==1 and reference[i2,2]==0 :
+                    found2 = True
+    if type_clustering=='FRJAP_v':
+        while (not found1) and (not found2):
+            if (not found1):
+                i1=i1+1
+                if reference[i1,0]==0 and reference[i1,2]==1 :
+                    found1 = True
+            if ((not found2) and (i2+1)!=i1):
+                i2=i2+1
+                if reference[i2,0]==1 and reference[i2,2]==1 :
+                    found2 = True
+    if type_clustering=='R_v':
+        while (not found1) and (not found2):
+            if (not found1):
+                i1=i1+1
+                if reference[i1,0]==0 and reference[i1,2]==0 :
+                    found1 = True
+            if ((not found2) and (i2+1)!=i1):
+                i2=i2+1
+                if reference[i2,0]==0 and reference[i2,2]==1 :
+                    found2 = True
+    boo[i1]= True
+    boo[i2]= True
+    print(reference[i2])
+    print(reference[i1])
+    resultat_int = matrice_pretraitement[0,:,:]
+    resultat = resultat_int[boo,:]
+    return resultat
+
+
+
 def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
     """
     calcule le pourcentage de phonemes d'une categorie classes dans chaque cluster
