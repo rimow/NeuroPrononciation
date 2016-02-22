@@ -215,3 +215,149 @@ def goodmaps(vide,seuil=30):
 
     return goodmaps
 
+def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, couche='conv1', clustering=1):
+    '''
+    Returns a figure with the plotted maps depending on the chosen layer and the chosen clustering
+    :param indice_carte_interessante: Indice de la carte interessante (cf fichier bonClustering)
+    :param indice_carte_non_int: Indice de la deuxieme carte a laquelle on veut la comparer
+    :param couche: ='conv1','conv2','dense1','mp2'
+    :param clustering: 1||2||3||4||5 suivant le type de clustering effectue
+    :return: Image de la carte (interessante et non interessante) stockee dans resultats/couche
+    '''
+
+    #Load the maps corresponding to the selected layer
+    map_file_FR = '../maps/BREF80_l_' + couche + '_35maps_th0.500000.pkl'
+    map_file_JA = '../maps/PHONIM_l_' + couche + '_35maps_th0.001000.pkl'
+    FR= load_maps(map_file_FR)
+    JA = load_maps(map_file_JA)
+
+
+    #Load and plot giving the chosen clustering
+    if clustering == 1:
+        phone = 'R'
+        cat = 'correct_pasOK'
+        ex = 8
+
+        map1 = FR[cat][phone][ex][indice_carte_interessante]
+        othermap1 = FR[cat][phone][ex][indice_carte_non_int]
+
+        map2 = JA[cat][phone][ex][indice_carte_interessante]
+        othermap2 = JA[cat][phone][ex][indice_carte_non_int]
+
+        plt.figure()
+        f, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+        f.suptitle("Clustering 1 : FRJA-R")
+        ax[0,0].imshow(map1, aspect='auto')
+        ax[0,0].set_title("FR-int")
+        ax[0,1].imshow(othermap1, aspect='auto')
+        ax[0,1].set_title("FR-nonInt")
+        ax[1,0].imshow(map2, aspect='auto')
+        ax[1,0].set_title("JA-int")
+        ax[1,1].imshow(othermap2, aspect='auto')
+        ax[1,1].set_title("JA-nonInt")
+
+    elif clustering == 2:
+        phone = 'v'
+        cat = 'correct_pasOK'
+        ex = 8
+        map1 = FR[cat][phone][ex][indice_carte_interessante]
+        othermap1 = FR[cat][phone][ex][indice_carte_non_int]
+
+        map2 = JA[cat][phone][ex][indice_carte_interessante]
+        othermap2 = JA[cat][phone][ex][indice_carte_non_int]
+
+        plt.figure()
+        f, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+        f.suptitle("Clustering 2 : FRJA-V")
+        ax[0,0].imshow(map1, aspect='auto')
+        ax[0,0].set_title("FR-int")
+        ax[0,1].imshow(othermap1, aspect='auto')
+        ax[0,1].set_title("FR-nonInt")
+        ax[1,0].imshow(map2, aspect='auto')
+        ax[1,0].set_title("JA-int")
+        ax[1,1].imshow(othermap2, aspect='auto')
+        ax[1,1].set_title("JA-nonInt")
+
+    elif clustering == 3:
+        phone1 = 'R'
+        phone2 = 'v'
+        cat = 'correct_pasOK'
+        ex = 8
+
+        map1 = FR[cat][phone1][ex][indice_carte_interessante]
+        othermap1 = FR[cat][phone1][ex][indice_carte_non_int]
+
+        map2 = FR[cat][phone2][ex][indice_carte_interessante]
+        othermap2 = FR[cat][phone2][ex][indice_carte_non_int]
+
+        plt.figure()
+        f, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+        f.suptitle("Clustering 3 : FR-RV")
+        ax[0,0].imshow(map1, aspect='auto')
+        ax[0,0].set_title("R-int")
+        ax[0,1].imshow(othermap1, aspect='auto')
+        ax[0,1].set_title("R-nonInt")
+        ax[1,0].imshow(map2, aspect='auto')
+        ax[1,0].set_title("V-int")
+        ax[1,1].imshow(othermap2, aspect='auto')
+        ax[1,1].set_title("V-nonInt")
+
+    elif clustering == 4:
+        phone = 'R'
+        cat1 = 'correct_OK'
+        cat2 = 'incorrect_OK'
+        ex = 8
+
+        map1 = JA[cat1][phone][ex][indice_carte_interessante]
+        othermap1 = JA[cat1][phone][ex][indice_carte_non_int]
+
+        map2 = JA[cat2][phone][ex][indice_carte_interessante]
+        othermap2 = JA[cat2][phone][ex][indice_carte_non_int]
+
+        plt.figure()
+        f, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+        f.suptitle("Clustering 4 : CIC-R (JA)")
+        ax[0,0].imshow(map1, aspect='auto')
+        ax[0,0].set_title("Correct-int")
+        ax[0,1].imshow(othermap1, aspect='auto')
+        ax[0,1].set_title("Correct-nonInt")
+        ax[1,0].imshow(map2, aspect='auto')
+        ax[1,0].set_title("Incorrect-int")
+        ax[1,1].imshow(othermap2, aspect='auto')
+        ax[1,1].set_title("Incorrect-nonInt")
+
+
+    elif clustering == 5:
+        phone = 'v'
+        cat1 = 'correct_OK'
+        cat2 = 'incorrect_OK'
+        ex = 8
+
+        map1 = JA[cat1][phone][ex][indice_carte_interessante]
+        othermap1 = JA[cat1][phone][ex][indice_carte_non_int]
+
+        map2 = JA[cat2][phone][ex][indice_carte_interessante]
+        othermap2 = JA[cat2][phone][ex][indice_carte_non_int]
+
+        plt.figure()
+        f, ax = plt.subplots(2, 2, sharex=True, sharey=True)
+        f.suptitle("Clustering 5 : CIC-V (JA)")
+        ax[0,0].imshow(map1, aspect='auto')
+        ax[0,0].set_title("Correct-int")
+        ax[0,1].imshow(othermap1, aspect='auto')
+        ax[0,1].set_title("Correct-nonInt")
+        ax[1,0].imshow(map2, aspect='auto')
+        ax[1,0].set_title("Incorrect-int")
+        ax[1,1].imshow(othermap2, aspect='auto')
+        ax[1,1].set_title("Incorrect-nonInt")
+
+
+    for i in range(2):
+        for j in range(2):
+            ax[i,j].xaxis.set_visible(False)
+            ax[i,j].yaxis.set_visible(False)
+    plt.axis('off')
+    plt.show()
+    plt.savefig('../resultats/'+str(couche)+'/carte'+str(indice_carte_interessante)+str(couche)+'clus'+str(clustering)+'.png')
+
+
