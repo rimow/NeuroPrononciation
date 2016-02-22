@@ -3,6 +3,8 @@ import csv
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+from process_activation_maps import load_maps
+
 
 
 def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
