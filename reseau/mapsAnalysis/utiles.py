@@ -42,14 +42,16 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
 
 def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
     '''
-    Ne rentrez type_clustering = FRJAP que si la liste des dictionnaires contient vraiment un FR et un JAP en premier
-    :param nb_clusters:
-    :param type_clustering:
+    initialisation des centres en vue de faire un kmeans initialise
+    :param type_clustering: obligatoirement FRJAP_R ou FRJAP_v ou R_v ou CIC_R ou CIC_v
+    :param matrice_pretraitement:
+    :param reference:
     :param liste_dictionnaires:
     :param liste_categories:
-    :param liste_phonemes:
     :return:
     '''
+
+
     preMatShape = matrice_pretraitement.shape
     #matrice_initiaux_boolean =  np.ones(preMatShape[0], dtype=bool)
     #print(matrice_initiaux_boolean)
@@ -59,8 +61,7 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference, l
     i2=-1
     boo = np.ones(preMatShape[1], dtype=bool)
     boo = [False]*boo
-    if type_clustering=='FRJAP_R': #chercher dans reference une ligne avec la premiere colonne = FR et la troisieme colonne = R
-        #ligne = [i for i in reference[i][0]==]
+    if type_clustering=='FRJAP_R' or type_clustering=='FRJAP_v':
         while ((not found1) and (not found2)) or (i1==i2):
             if (not found1):
                 i1=i1+1
@@ -70,16 +71,7 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference, l
                 i2=i2+1
                 if reference[i2,0]==1 and reference[i2,2]==0 :
                     found2 = True
-    if type_clustering=='FRJAP_v':
-        while ((not found1) and (not found2)) or (i1==i2):
-            if (not found1):
-                i1=i1+1
-                if reference[i1,0]==0 and reference[i1,2]==0 :
-                    found1 = True
-            if ((not found2)):
-                i2=i2+1
-                if reference[i2,0]==1 and reference[i2,2]==0 :
-                    found2 = True
+
     if type_clustering=='R_v':
         while ((not found1) and (not found2)) or (i1==i2):
             if (not found1):
@@ -90,15 +82,16 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference, l
                 i2=i2+1
                 if reference[i2,0]==0 and reference[i2,2]==1 :
                     found2 = True
-    if type_clustering=='CIC_R':
+
+    if type_clustering=='CIC_R' or type_clustering=='CIC_v':
         while ((not found1) and (not found2)) or (i1==i2):
             if (not found1):
                 i1=i1+1
-                if reference[i1,0]==1 and (reference[i1,1]==0 or reference[i1,1]==1) :
+                if reference[i1,0]==0 and reference[i1,1]==0  :
                     found1 = True
             if ((not found2)):
                 i2=i2+1
-                if reference[i2,0]==1 and (reference[i2,1]==2 or reference[i2,1]==3) :
+                if reference[i2,0]==0 and reference[i2,1]==1 :
                     found2 = True
     if(i1>reference.shape[0] or i2>reference.shape[0]):
         print("je n ai pas trouve un bon centre, il y a un probleme")
