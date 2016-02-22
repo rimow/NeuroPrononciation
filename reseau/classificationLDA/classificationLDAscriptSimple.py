@@ -38,9 +38,10 @@ n_folds = 5
 # plot_data(X_reduced_PCA,Y_r_v,"PCA")
 # plot_data(X_reduced_LDA,Y_r_v,"LDA")
 
-vide_conv1 = MapsClustering("conv1")
-dict_goodmaps = goodmaps(vide_conv1,20)
-print dict_goodmaps
-X,Y_c_inc,Y_r_v = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps['0'])
+#vide_conv1 = MapsClustering("conv1")
+#dict_goodmaps = goodmaps(vide_conv1,20)
+#print dict_goodmaps
+dict_goodmaps = [1,3,6]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps)
 
 print X,X.shape

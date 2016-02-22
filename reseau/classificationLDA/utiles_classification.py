@@ -215,15 +215,18 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
 
     Mat = []
     Reference = []
-    for ex in range(nb_exemple):
-        Matinter = []
-        for inddict,dict in enumerate(liste_dictionnaires):
-            for indcat,cat in enumerate(liste_categories):
-                for indpho,pho in enumerate(liste_phonemes):
-                    Matinter.append((dict[cat][pho][ex][liste_cartes]).flatten())
-                    Reference.append([inddict,indcat ,indpho])
-        Mat.append(Matinter)
 
+
+    for inddict,dict in enumerate(liste_dictionnaires):
+        for indcat,cat in enumerate(liste_categories):
+            for indpho,pho in enumerate(liste_phonemes):
+                for ex in range(nb_exemple):
+                    goodmaps = []
+                    for map in liste_cartes:
+                        goodmaps.append(np.array(dict[cat][pho][ex][map]).flatten())
+                    Mat.append(np.array(goodmaps).flatten())
+                    Reference.append([inddict,indcat ,indpho])
+    Reference = np.array(Reference)
     Y_c_inc = Reference[:,1]
     Y_r_v = Reference[:,2]
     Y_fr_jap = Reference[:,0]
