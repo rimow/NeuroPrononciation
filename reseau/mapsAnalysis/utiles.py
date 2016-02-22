@@ -131,4 +131,27 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
     return bon
+def goodmaps(vide,seuil=30):
+    """Return the good maps of different cluster tasks.
+       0: good maps for clustring R in FR and R in FRJA
+       1: good maps for clustring R in FR and V in FR
+       3: good maps for clustring correct R and  incorrect R in FRJA
+       4: good maps for clustring correct V and incorrect V in FRJA
+       :param vide_goodmaps: list of the empty maps in con1
+       :param seuil: seuil for choose the good maps
+       :returns goodmaps: the good maps of different cluster tasks
+    """
+    goodmaps = {}
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide)
+    goodmaps[0] = clus
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
+    goodmaps[1] = clus
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesRV.csv", seuil=seuil, listeVide=vide)
+    goodmaps[2] = clus
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
+    goodmaps[3] = clus
+    clus = bienClusterise(fichierClustering="../resultats/conv1_pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
+    goodmaps[4] = clus
+
+    return goodmaps
 
