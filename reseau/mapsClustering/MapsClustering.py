@@ -86,9 +86,6 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
     ################################################################################
 
     # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    f = open(fichier1, "a")
-    f.write("FR,JA\n")
-    f.close()
     #creation du tenser
     Mat, Reference = pretraitementMatrice([FR, JA],FR.keys(),['R'])
     #calcul des ratios de classement
@@ -99,18 +96,15 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
                 if ((max(Y_Cluster) +1) ==2):
                     if (algorithme == "MeanShift" or algorithme == "DBSCAN"):
                         indiceMeanShift.append(i)
-                    FRJA = ratios(Y_Cluster, Reference[:,0], fichier =  fichier1)
+                    FRJA = ratios(Y_Cluster, Reference[:,0])
                     pourcentagesFRJA_R.append(FRJA[0])
-
+    np.savetxt(fichier1,np.atleast_2d(pourcentagesFRJA_R), delimiter =',')
 
     ################################################################################
     #Clustering 1bis
     ################################################################################
 
     # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    f = open(fichier1bis, "a")
-    f.write("FR,JA\n")
-    f.close()
     #creation du tenser
     Mat, Reference = pretraitementMatrice([FR, JA],FR.keys(),['v'])
     #calcul des ratios de classement
@@ -121,18 +115,16 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
             if (max(Y_Cluster) +1) ==2:
                 if (algorithme == "MeanShift" or algorithme == "DBSCAN"):
                         indiceMeanShift.append(i)
-                FRJA = ratios(Y_Cluster, Reference[:,0], fichier = fichier1bis)
+                FRJA = ratios(Y_Cluster, Reference[:,0])
                 pourcentagesFRJA_V.append(FRJA[0])
-
+    np.savetxt(fichier1bis,np.atleast_2d(pourcentagesFRJA_R), delimiter =',')
 
     ################################################################################
     #Clustering 2
     ################################################################################
 
     # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    f = open(fichier2, "a")
-    f.write("R,V\n")
-    f.close()
+
     #creation du tenser
     Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R', 'v'])
     #calcul des ratios de classement
@@ -143,18 +135,16 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
             if (max(Y_Cluster) +1) ==2:
                 if (algorithme == "MeanShift" or algorithme == "DBSCAN"):
                         indiceMeanShift.append(i)
-                FRJA = ratios(Y_Cluster, Reference[:,2], fichier = fichier2)
+                FRJA = ratios(Y_Cluster, Reference[:,2])
                 pourcentagesRV.append(FRJA[0])
-
+    np.savetxt(fichier2, np.atleast_2d(pourcentagesRV), delimiter =',')
 
     ################################################################################
     #Clustering 3
     ################################################################################
 
     # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    f = open(fichier3, "a")
-    f.write("correct,incorrect\n")
-    f.close()
+
     #creation du tenser
     Mat, Reference = pretraitementMatrice([JA],JA.keys(),['R'])
     #rassemblement des correct_OK et correct_PasOK et des incorrect_OK et incorrect_PasOK en correct et incorrect
@@ -173,8 +163,9 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
             if (max(Y_Cluster) +1) ==2:
                 if (algorithme == "MeanShift" or algorithme == "DBSCAN"):
                         indiceMeanShift.append(i)
-                FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3)
+                FRJA = ratios(Y_Cluster, Reference[:,1])
                 pourcentagesCIC_R.append(FRJA[0])
+    np.savetxt(fichier3, np.atleast_2d(pourcentagesCIC_R), delimiter =',')
 
 
     ################################################################################
@@ -182,9 +173,7 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
     ################################################################################
 
     # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    f = open(fichier3bis, "a")
-    f.write("correct,incorrect\n")
-    f.close()
+
     #creation du tenser
     Mat, Reference = pretraitementMatrice([JA],JA.keys(),['v'])
     for i in range(len(Reference[:,1])):
@@ -202,7 +191,8 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
             if (max(Y_Cluster) +1) ==2:
                 if (algorithme == "MeanShift" or algorithme == "DBSCAN"):
                         indiceMeanShift.append(i)
-                FRJA = ratios(Y_Cluster, Reference[:,1],  fichier = fichier3bis)
+                FRJA = ratios(Y_Cluster, Reference[:,1])
                 pourcentagesCIC_V.append(FRJA[0])
+    np.savetxt(fichier3bis, np.atleast_2d(pourcentagesCIC_V), delimiter =',')
 
     return listeVide, pourcentagesFRJA_R, pourcentagesFRJA_V, pourcentagesRV, pourcentagesCIC_R, pourcentagesCIC_V, indiceMeanShift

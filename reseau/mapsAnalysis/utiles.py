@@ -160,14 +160,14 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
     else:
         f = open(fichierClustering, "rb")
         tableau = csv.reader(f)
-
+    tableau = list(tableau)
     tableau = np.array(tableau)
-    print tableau
     #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
     for indligne,ligne in enumerate(tableau):
         #si on a charge une matrice on commence a ala ligne 0
         if fichierClustering == None:
+
             ligne0 = float(ligne[0])
             ligne1= float(ligne[1])
             if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
@@ -175,6 +175,7 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
+                print indligne
                 ligne0 = float(ligne[0])
                 ligne1 = float(ligne[1])
                 if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
