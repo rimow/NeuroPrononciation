@@ -231,13 +231,13 @@ def goodmaps(vide,seuil=30):
     return goodmaps
 
 
-def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, couche='conv1', clustering=1):
+def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, couche='conv1', clustering='1'):
     '''
-    Returns a figure with the plotted maps depending on the chosen layer and the chosen clustering
+
     :param indice_carte_interessante: Indice de la carte interessante (cf fichier bonClustering)
     :param indice_carte_non_int: Indice de la deuxieme carte a laquelle on veut la comparer
     :param couche: ='conv1','conv2','dense1','mp2'
-    :param clustering: 1||2||3||4||5 suivant le type de clustering effectue
+    :param clustering: 1, 1bis, 2, 3, 3bis suivant le type de clustering effectue
     :return: Image de la carte (interessante et non interessante) stockee dans resultats/couche
     '''
 
@@ -249,7 +249,7 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
 
 
     #Load and plot giving the chosen clustering
-    if clustering == 1:
+    if clustering == '1':
         phone = 'R'
         cat = 'correct_pasOK'
         ex = 8
@@ -272,7 +272,7 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
         ax[1,1].imshow(othermap2, aspect='auto')
         ax[1,1].set_title("JA-nonInt")
 
-    elif clustering == 2:
+    elif clustering == '1bis':
         phone = 'v'
         cat = 'correct_pasOK'
         ex = 8
@@ -294,7 +294,7 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
         ax[1,1].imshow(othermap2, aspect='auto')
         ax[1,1].set_title("JA-nonInt")
 
-    elif clustering == 3:
+    elif clustering == 2:
         phone1 = 'R'
         phone2 = 'v'
         cat = 'correct_pasOK'
@@ -318,7 +318,7 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
         ax[1,1].imshow(othermap2, aspect='auto')
         ax[1,1].set_title("V-nonInt")
 
-    elif clustering == 4:
+    elif clustering == '3':
         phone = 'R'
         cat1 = 'correct_OK'
         cat2 = 'incorrect_OK'
@@ -343,7 +343,7 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
         ax[1,1].set_title("Incorrect-nonInt")
 
 
-    elif clustering == 5:
+    elif clustering == '3bis':
         phone = 'v'
         cat1 = 'correct_OK'
         cat2 = 'incorrect_OK'
@@ -374,4 +374,4 @@ def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, c
             ax[i,j].yaxis.set_visible(False)
     plt.axis('off')
     plt.show()
-    plt.savefig('../resultats/'+str(couche)+'/carte'+str(indice_carte_interessante)+str(couche)+'clus'+str(clustering)+'.png')
+    plt.savefig('../resultats/'+str(couche)+'/carte'+str(indice_carte_interessante)+str(couche)+'clus'+clustering+'.png')
