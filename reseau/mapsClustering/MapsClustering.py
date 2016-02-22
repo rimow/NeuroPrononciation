@@ -170,6 +170,10 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
     #calcul des ratios de classement
     for i in range (taille[1]):
         if not(i in listeVide):
+            if algorithme=="kmeansInit":
+                type_clustering = 'CIC_R'
+                centres = initialisation_centres (type_clustering, Mat, Reference, [JA] ,JA.keys(),['R'])
+                clus = KMeans(n_clusters=2, init=centres)
             resCluster = clus.fit(Mat[i])
             Y_Cluster = resCluster.labels_
             if (max(Y_Cluster) +1) ==2:
@@ -198,6 +202,10 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
     #calcul des ratios de classement
     for i in range (taille[1]):
         if not(i in listeVide):
+            if algorithme=="kmeansInit":
+                type_clustering = 'CIC_v'
+                centres = initialisation_centres (type_clustering, Mat, Reference, [JA] ,JA.keys(),['v'])
+                clus = KMeans(n_clusters=2, init=centres)
             resCluster = clus.fit(Mat[i])
             Y_Cluster = resCluster.labels_
             if (max(Y_Cluster) +1) ==2:
