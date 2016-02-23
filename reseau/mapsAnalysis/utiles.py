@@ -195,7 +195,7 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
 
-def goodmaps(vide,ind,seuil=30):
+def goodmaps(couche = "conv1",method="kmeansNonInit",vide=[],ind=[],seuil=30):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
        1: good maps for clustring V in FR and V inFRJA
@@ -209,16 +209,16 @@ def goodmaps(vide,ind,seuil=30):
 
     #vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
     goodmaps = {}
-
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide,indices=ind[0])
+    path = "../resultats/"+couche+"/"+method+"/"
+    clus = bienClusterise(fichierClustering=path+"pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide,indices=ind[0])
     goodmaps[0] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide,indices=ind[1])
+    clus = bienClusterise(fichierClustering=path+"pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide,indices=ind[1])
     goodmaps[1] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv",seuil=seuil, listeVide=vide,indices=ind[2])
+    clus = bienClusterise(fichierClustering=path+"pourcentagesRV.csv",seuil=seuil, listeVide=vide,indices=ind[2])
     goodmaps[2] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide,indices=ind[3])
+    clus = bienClusterise(fichierClustering=path+"pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide,indices=ind[3])
     goodmaps[3] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_V.csv",seuil=seuil, listeVide=vide,indices=ind[4])
+    clus = bienClusterise(fichierClustering=path+"pourcentagesCIC_V.csv",seuil=seuil, listeVide=vide,indices=ind[4])
     goodmaps[4] = clus
 
     # clus = bienClusterise(fichierClustering=None,MatriceClustering=pFRJA_R_KMNI, seuil=seuil, listeVide=vide)
