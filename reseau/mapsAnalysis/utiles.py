@@ -40,15 +40,13 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
 
     return Mat, Reference
 
-def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
+def initialisation_centres (type_clustering, matrice_pretraitement, reference):
     '''
     initialisation des centres en vue de faire un kmeans initialise
     :param type_clustering: obligatoirement FRJAP_R ou FRJAP_v ou R_v ou CIC_R ou CIC_v
-    :param matrice_pretraitement:
-    :param reference:
-    :param liste_dictionnaires:
-    :param liste_categories:
-    :return:
+    :param matrice_pretraitement: matrice resultat de pretraitementmatrice
+    :param reference: matrice reference resultat de pretraitementmatrice
+    :return: matrice de 2 lignes chaque ligne represente un centre de classe. resultat a fournir a kmeans dans l option init
     '''
 
 
