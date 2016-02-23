@@ -13,7 +13,6 @@ mapconv1F_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 conv1J = load_maps(mapconv1J_file)
 conv1F = load_maps(mapconv1F_file)
 
-print conv1J.keys()
 # creation de la matrice de donnees et du vecteur des labels
 
 
@@ -37,40 +36,41 @@ n_folds = 5
 # plot_data(X_reduced_PCA,Y_r_v,"PCA")
 # plot_data(X_reduced_LDA,Y_r_v,"LDA")
 
-# vide_conv1 = MapsClustering("conv1")
-# dict_goodmaps = goodmaps(vide_conv1,20)
-# #print dict_goodmaps
-# ph = ['R']
-# dics = [conv1J,conv1F]
-# X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[0])
-# X_reduced_PCA = dim_reduction_PCA(X,2)
-# plot_data(X_reduced_PCA,Y_fr_jap,"PCA-R_FR_JA")
-#
-# ph = ['v']
-# dics = [conv1J]
-# X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[1])
-# X_reduced_PCA = dim_reduction_PCA(X,2)
-# plot_data(X_reduced_PCA,Y_fr_jap,"PCA-V_FR_JA")
-#
-# ph = ['R','v']
-# dics = [conv1F]
-# X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[2])
-# X_reduced_PCA = dim_reduction_PCA(X,2)
-# plot_data(X_reduced_PCA,Y_r_v,"PCA-V_R_FR")
-#
-#
-# ph = ['R']
-# dics = [conv1J]
-# X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[3])
-# X_reduced_PCA = dim_reduction_PCA(X,2)
-# plot_data(X_reduced_PCA,Y_c_inc,"PCA-R_JA_Correct_Incorrect")
-#
-#
-#
-# ph = ['v']
-# dics = [conv1J]
-#
-# X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[4])
-#
-# X_reduced_PCA = dim_reduction_PCA(X,2)
-# plot_data(X_reduced_PCA,Y_c_inc,"PCA-V_JA_Correct_Incorrect")
+vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
+dict_goodmaps = goodmaps(vide_KMNI,ind,30)
+#print dict_goodmaps
+ph = ['R']
+dics = [conv1J,conv1F]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[0])
+X_reduced_PCA = dim_reduction_PCA(X,2)
+plot_data(X_reduced_PCA,Y_fr_jap,"PCA-R_FR_JA")
+
+ph = ['v']
+dics = [conv1J,conv1F]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[1])
+X_reduced_PCA = dim_reduction_PCA(X,2)
+plot_data(X_reduced_PCA,Y_fr_jap,"PCA-V_FR_JA")
+
+ph = ['R','v']
+dics = [conv1F]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[2])
+X_reduced_PCA = dim_reduction_PCA(X,2)
+plot_data(X_reduced_PCA,Y_r_v,"PCA-V_R_FR")
+
+
+ph = ['R']
+dics = [conv1J]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[3])
+X_reduced_PCA = dim_reduction_PCA(X,2)
+plot_data(X_reduced_PCA,Y_c_inc,"PCA-R_JA_Correct_Incorrect")
+
+
+
+ph = ['v']
+dics = [conv1J]
+
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[4])
+
+X_reduced_PCA = dim_reduction_PCA(X,2)
+plot_data(X_reduced_PCA,Y_c_inc,"PCA-V_JA_Correct_Incorrect")
+

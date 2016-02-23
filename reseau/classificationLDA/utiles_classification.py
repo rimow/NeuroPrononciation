@@ -242,3 +242,4 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
 
 def change_reference(Y_c_inc):
     return [0 if x<2 else 1 for x in Y_c_inc]
+

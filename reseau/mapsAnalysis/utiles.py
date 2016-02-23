@@ -91,7 +91,7 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference ):
                 if reference[i2,0]==0 and reference[i2,1]==1 :
                     found2 = True
     if(i1>reference.shape[0] or i2>reference.shape[0]):
-        print("Il n y a pas de bon centre, il y a un probleme! verifiez que la matrice issue du prétraitement est bonne")
+        print("Il n y a pas de bon centre, il y a un probleme! verifiez que la matrice issue du pretraitement est bonne")
     boo[i1]= True
     boo[i2]= True
     resultat_int = matrice_pretraitement[0,:,:]
@@ -163,7 +163,6 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
         tableau = csv.reader(f)
         tableau = list(tableau)
         tableau = np.array(tableau)
-    print(len(indices))
     #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
     for indligne,ligne in enumerate(tableau):
@@ -196,7 +195,7 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
 
-def goodmaps(vide,seuil=30):
+def goodmaps(vide,ind,seuil=30):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
        1: good maps for clustring V in FR and V inFRJA
@@ -211,15 +210,15 @@ def goodmaps(vide,seuil=30):
     #vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
     goodmaps = {}
 
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide,indices=ind[0])
     goodmaps[0] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide,indices=ind[1])
     goodmaps[1] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv",seuil=seuil, listeVide=vide,indices=ind[2])
     goodmaps[2] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_R.csv",seuil=seuil, listeVide=vide,indices=ind[3])
     goodmaps[3] = clus
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_V.csv",seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesCIC_V.csv",seuil=seuil, listeVide=vide,indices=ind[4])
     goodmaps[4] = clus
 
     # clus = bienClusterise(fichierClustering=None,MatriceClustering=pFRJA_R_KMNI, seuil=seuil, listeVide=vide)
