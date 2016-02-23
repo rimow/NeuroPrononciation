@@ -39,15 +39,13 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
 
     return Mat, Reference
 
-def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
+def initialisation_centres (type_clustering, matrice_pretraitement, reference ):
     '''
     initialisation des centres en vue de faire un kmeans initialise
     :param type_clustering: obligatoirement FRJAP_R ou FRJAP_v ou R_v ou CIC_R ou CIC_v
-    :param matrice_pretraitement:
-    :param reference:
-    :param liste_dictionnaires:
-    :param liste_categories:
-    :return:
+    :param matrice_pretraitement: matrice Mat resultat de pretraitement matrice
+    :param reference: matrice Reference resultat de pretraitement matrice
+    :return: une matrice de deux lignes qui representent les centres avec lesquels on peut initialiser kmeans selon le type_clustering voulu
     '''
 
 
@@ -93,7 +91,7 @@ def initialisation_centres (type_clustering, matrice_pretraitement, reference, l
                 if reference[i2,0]==0 and reference[i2,1]==1 :
                     found2 = True
     if(i1>reference.shape[0] or i2>reference.shape[0]):
-        print("je n ai pas trouve un bon centre, il y a un probleme")
+        print("Il n y a pas de bon centre, il y a un probleme! verifiez que la matrice issue du prétraitement est bonne")
     boo[i1]= True
     boo[i2]= True
     resultat_int = matrice_pretraitement[0,:,:]
