@@ -1,3 +1,7 @@
+Cartes permettant un score de plus de 75% : 
+
+numeroCarte_dictionnaire(s)_phoneme(s)_typeClassification : score moyen avec KFold (k=5) et classifieur LDA
+
 31_mp2F_R_c_inc : 84.2857142857
 50_mp2F_R_c_inc : 77.8571428571
 81_mp2F_R_c_inc : 75.7142857143
@@ -10,13 +14,11 @@
 192_mp2F_R_c_inc : 81.4285714286
 194_mp2F_R_c_inc : 75.7142857143
 240_mp2F_R_c_inc : 80.0
-
 3_mp2F_v_c_inc : 80.7142857143
 96_mp2F_v_c_inc : 80.0
 120_mp2F_v_c_inc : 83.5714285714
 206_mp2F_v_c_inc : 76.4285714286
 238_mp2F_v_c_inc : 82.8571428571
-
 213_mp2F_Rv_r_v : 76.0714285714
 240_mp2F_Rv_r_v : 76.0714285714
 66_mp2J_Rv_r_v : 77.5
@@ -25,7 +27,6 @@
 192_mp2J_Rv_r_v : 75.3571428571
 205_mp2J_Rv_r_v : 75.3571428571
 223_mp2J_Rv_r_v : 75.3571428571
-
 43_mp2F_mp2J_R_fr_jap : 80.0
 81_mp2F_mp2J_R_fr_jap : 85.7142857143
 85_mp2F_mp2J_R_fr_jap : 81.0714285714
@@ -37,20 +38,15 @@
 220_mp2F_mp2J_R_fr_jap : 76.7857142857
 223_mp2F_mp2J_R_fr_jap : 86.4285714286
 223_mp2F_mp2J_Rv_fr_jap : 75.7142857143
-
 19_conv1F_R_c_inc : 75.7142857143
 31_conv1F_R_c_inc : 78.5714285714
 57_conv1F_R_c_inc : 78.5714285714
 79_conv1F_R_c_inc : 79.2857142857
-
 22_conv1F_v_c_inc : 76.4285714286
 24_conv1F_v_c_inc : 80.7142857143
-
 19_conv1F_Rv_r_v : 79.6428571429
-
 19_conv1J_Rv_r_v : 77.8571428571
 24_conv1J_Rv_r_v : 77.8571428571
-
 5_conv1F_conv1J_R_fr_jap : 80.3571428571
 8_conv1F_conv1J_R_fr_jap : 84.6428571429
 22_conv1F_conv1J_R_fr_jap : 77.8571428571
@@ -66,11 +62,9 @@
 118_conv1F_conv1J_R_fr_jap : 79.6428571429
 122_conv1F_conv1J_R_fr_jap : 80.7142857143
 126_conv1F_conv1J_R_fr_jap : 77.1428571429
-
 24_conv1F_conv1J_v_fr_jap : 78.9285714286
 57_conv1F_conv1J_v_fr_jap : 80.0
 79_conv1F_conv1J_v_fr_jap : 82.1428571429
-
 5_conv1F_conv1J_Rv_fr_jap : 75.1785714286
 8_conv1F_conv1J_Rv_fr_jap : 82.5
 24_conv1F_conv1J_Rv_fr_jap : 84.4642857143
@@ -81,7 +75,6 @@
 79_conv1F_conv1J_Rv_fr_jap : 77.5
 118_conv1F_conv1J_Rv_fr_jap : 76.4285714286
 122_conv1F_conv1J_Rv_fr_jap : 78.5714285714
-
 2_conv2F_R_c_inc : 75.7142857143
 31_conv2F_R_c_inc : 82.1428571429
 90_conv2F_R_c_inc : 77.8571428571
@@ -89,7 +82,6 @@
 154_conv2F_R_c_inc : 79.2857142857
 159_conv2F_R_c_inc : 75.7142857143
 192_conv2F_R_c_inc : 81.4285714286
-
 3_conv2F_v_c_inc : 78.5714285714
 45_conv2F_v_c_inc : 75.7142857143
 96_conv2F_v_c_inc : 77.1428571429
@@ -97,13 +89,11 @@
 237_conv2F_v_c_inc : 77.1428571429
 238_conv2F_v_c_inc : 82.8571428571
 248_conv2F_v_c_inc : 75.7142857143
-
 154_conv2F_Rv_r_v : 75.0
 66_conv2J_Rv_r_v : 77.8571428571
 81_conv2J_Rv_r_v : 76.0714285714
 220_conv2J_Rv_r_v : 75.7142857143
 223_conv2J_Rv_r_v : 77.1428571429
-
 20_conv2F_conv2J_R_fr_jap : 75.7142857143
 43_conv2F_conv2J_R_fr_jap : 78.2142857143
 81_conv2F_conv2J_R_fr_jap : 85.3571428571

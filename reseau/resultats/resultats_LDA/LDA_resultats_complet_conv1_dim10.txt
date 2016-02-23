@@ -1,0 +1,5 @@
+Dictionnaires :FR Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 27.65625
+Score de la classification, une donnee=un ensemble de cartes : 90.0
+ 
+Dictionnaires :FR Phonemes : R  Type de classification :r_v
