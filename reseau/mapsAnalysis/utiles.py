@@ -1,8 +1,7 @@
 import csv
 
-import math
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from process_activation_maps import load_maps
 
 
@@ -40,13 +39,15 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
 
     return Mat, Reference
 
-def initialisation_centres (type_clustering, matrice_pretraitement, reference):
+def initialisation_centres (type_clustering, matrice_pretraitement, reference, liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
     '''
     initialisation des centres en vue de faire un kmeans initialise
     :param type_clustering: obligatoirement FRJAP_R ou FRJAP_v ou R_v ou CIC_R ou CIC_v
-    :param matrice_pretraitement: matrice resultat de pretraitementmatrice
-    :param reference: matrice reference resultat de pretraitementmatrice
-    :return: matrice de 2 lignes chaque ligne represente un centre de classe. resultat a fournir a kmeans dans l option init
+    :param matrice_pretraitement:
+    :param reference:
+    :param liste_dictionnaires:
+    :param liste_categories:
+    :return:
     '''
 
 
@@ -146,9 +147,8 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
 
     return ratio
 
-def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30, listeVide = []):
+def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30, listeVide = [], indices=[]):
     """
-
     :param fichierClustering: si on decide de recuperer les resultats du clustering a partir d'un fichier
     :param MatriceClustering: si on prefere donner une matrice. Le fichier csv est prioritaire
     :param seuil: distance entre les deux types clusterises
@@ -163,8 +163,9 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
     else:
         f = open(fichierClustering, "rb")
         tableau = csv.reader(f)
-    tableau = list(tableau)
-    tableau = np.array(tableau)
+        tableau = list(tableau)
+        tableau = np.array(tableau)
+    print(len(indices))
     #pour toutes les cartes d'activation clusterisees, on determine lesquelles sont interessantes-discriminent bien les donnees
     bon = []
     for indligne,ligne in enumerate(tableau):
@@ -174,15 +175,14 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
             ligne0 = float(ligne[0])
             ligne1= float(ligne[1])
             if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
-                bon.append(indligne)
+                bon.append(indices[indligne])
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
-                print indligne
                 ligne0 = float(ligne[0])
                 ligne1 = float(ligne[1])
                 if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
-                    bon.append(indligne-1)
+                    bon.append(indices[indligne-1])
 
     #recalage des numeros des cartes en prenant en compte les cartes vides non clusterisees
     decalage = 0
@@ -195,6 +195,9 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
     return bon
+
+
+
 def goodmaps(vide,seuil=30):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
@@ -236,7 +239,6 @@ def goodmaps(vide,seuil=30):
 
 def imagesCartesInteressantes(indice_carte_interessante, indice_carte_non_int, couche='conv1', clustering='1'):
     '''
-
     :param indice_carte_interessante: Indice de la carte interessante (cf fichier bonClustering)
     :param indice_carte_non_int: Indice de la deuxieme carte a laquelle on veut la comparer
     :param couche: ='conv1','conv2','dense1','mp2'
