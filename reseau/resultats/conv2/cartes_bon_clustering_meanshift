@@ -1,15 +1,20 @@
 FRJA R
-kmeansNonInit:[43, 81, 159, 192, 220, 223, 253, 255]
+kmeansNonInit:[43, 81, 159, 192, 220, 223, 253]
+kmeansInit:[43, 81, 136, 192, 205, 220, 223, 253, 255]
 DBSCAN:[92, 108, 127, 154, 182, 184, 216]
 FRJA V
-kmeansNonInit:[81, 166]
+kmeansNonInit:[81, 150]
+kmeansInit:[81]
 DBSCAN:[2, 11, 41, 55, 92, 144, 218, 220, 238, 246]
 FR  RV
 kmeansNonInit:[]
+kmeansInit:[]
 DBSCAN:[169, 216, 220]
 JA correct/incorrect R
 kmeansNonInit:[]
+kmeansInit:[]
 DBSCAN:[]
 JA correct/incorrect V
 kmeansNonInit:[]
+kmeansInit:[]
 DBSCAN:[63]
