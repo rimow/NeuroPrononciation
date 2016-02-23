@@ -175,7 +175,6 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
-                print indligne
                 ligne0 = float(ligne[0])
                 ligne1 = float(ligne[1])
                 if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
@@ -195,7 +194,8 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 def goodmaps(vide,seuil=30):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
-       1: good maps for clustring R in FR and V in FR
+       1: good maps for clustring V in FR and V inFRJA
+       2:good maps for clustring R in FR and V in FR
        3: good maps for clustring correct R and  incorrect R in FRJA
        4: good maps for clustring correct V and incorrect V in FRJA
        :param vide_goodmaps: list of the empty maps in con1
@@ -206,7 +206,7 @@ def goodmaps(vide,seuil=30):
     #vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
     goodmaps = {}
 
-    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesRV.csv", seuil=seuil, listeVide=vide)
+    clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_R.csv", seuil=seuil, listeVide=vide)
     goodmaps[0] = clus
     clus = bienClusterise(fichierClustering="../resultats/conv1/kmeansNonInit/pourcentagesFRJA_V.csv", seuil=seuil, listeVide=vide)
     goodmaps[1] = clus

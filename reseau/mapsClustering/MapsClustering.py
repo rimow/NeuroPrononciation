@@ -3,7 +3,8 @@ from sklearn.cluster import KMeans, AgglomerativeClustering, MeanShift, DBSCAN
 from mapsAnalysis.SupprimerCartesVides import strategie_trois_l1
 from process_activation_maps import load_maps
 import numpy as np
-from mapsAnalysis.utiles import pretraitementMatrice, ratios
+from mapsAnalysis.utiles import *
+
 
 
 

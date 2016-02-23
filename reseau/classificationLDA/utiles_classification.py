@@ -227,7 +227,10 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
                     Mat.append(np.array(goodmaps).flatten())
                     Reference.append([inddict,indcat ,indpho])
     Reference = np.array(Reference)
-    Y_c_inc = Reference[:,1]
+    Y_c_inc = change_reference(Reference[:,1])
     Y_r_v = Reference[:,2]
     Y_fr_jap = Reference[:,0]
     return np.array(Mat), np.array(Y_c_inc), np.array(Y_r_v), np.array(Y_fr_jap)
+
+def change_reference(Y_c_inc):
+    return [0 if x<2 else 1 for x in Y_c_inc]
