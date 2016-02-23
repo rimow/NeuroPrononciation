@@ -6,6 +6,7 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from  sklearn.neighbors import KNeighborsClassifier
 
+
 def load_maps(fname):
     '''loads a map dictionary'''
     maps = pickle.load(open(fname, 'rb'))
@@ -116,13 +117,15 @@ def getData_onePerMap(liste_dictionnaires = [], liste_categories = [], liste_pho
 
  return np.array(X), np.array(Y_c_inc), np.array(Y_r_v), np.array(Y_fr_jap)
 
-def LDAmeanScore(X,Y,n_folds):
+def LDAmeanScore(X,Y,n_folds,dim_reduction=0):
  """
     :param X: matrice d'entree du classifieur, n_samples*n_parameters
     :param Y: matrice des labels, n_samples
     :param n_folds: nombre de tests pour le KFold
     :return: le score moyen de la validation croisee, affiche ce score
  """
+ if dim_reduction!=0 and X.shape[1]>dim_reduction:
+     X = dim_reduction_PCA(X,dim_reduction)
  if (X.shape[0]>n_folds):
     # Cross validation pour estimer la performance d'un classifieur LDA
     kf = KFold(n=len(Y), n_folds=n_folds, shuffle=False,
@@ -132,6 +135,10 @@ def LDAmeanScore(X,Y,n_folds):
       X_train, X_test = X[train_index,:],X[test_index,:]
       Y_train, Y_test = Y[train_index],Y[test_index]
       cl = LDA()
+      # if dim_reduction==0:
+      #   cl = LDA()
+      # else:
+      #   cl =LDA(n_components=dim_reduction)
       #cl = SVC()
       #cl = GaussianNB()
       #cl = KNeighborsClassifier(3)
@@ -145,7 +152,7 @@ def LDAmeanScore(X,Y,n_folds):
       return -1
 
 
-def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_cartes=[],a_ignorer=[],n_folds=5,type='c_inc'):
+def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_cartes=[],a_ignorer=[],n_folds=5,type='c_inc',dim_reduction=0):
  """
  :param liste_dictionnaires: liste de dictionnaires
  :param liste_phonemes: liste de phonemes
@@ -167,7 +174,7 @@ def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_ca
      Y=Y_fr_jap
  else:
      Y=Y_c_inc
- score1 = LDAmeanScore(X,Y,n_folds)
+ score1 = LDAmeanScore(X,Y,n_folds,dim_reduction)
  # Verification des dimensions
  Xsh = X.shape
  convSh = np.array(liste_dictionnaires[0]['correct_OK']['v']).shape
@@ -185,7 +192,7 @@ def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_ca
      Y=Y_fr_jap
  else:
      Y=Y_c_inc
- score2 = LDAmeanScore(X,Y,n_folds)
+ score2 = LDAmeanScore(X,Y,n_folds,dim_reduction)
  # Verification des dimensions
  Xsh = X.shape
  convSh = np.array(liste_dictionnaires[0]['correct_OK']['v']).shape
@@ -199,6 +206,7 @@ def ldaClassification(liste_dictionnaires,liste_phonemes,liste_categories,num_ca
  print '\n'
 
  return score1,score2
+
 
 def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],liste_cartes=[]):
     """construct all good maps to a big vector

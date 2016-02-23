@@ -5,7 +5,7 @@ from supprimerCartesVides import *
 from FRvsJAClustering import *
 
 # Classification LDA en prenant en compte qu'une seule carte d'activation, tests et ecritures des resultats.
-# Fait pour toutes les combinaisons de dictionnaires, toutes les combinaisons de phonemes, pour tous les types de classifications,  
+# Fait pour toutes les combinaisons de dictionnaires, toutes les combinaisons de phonemes, pour tous les types de classifications,
 
 #Files
 mapconv1J_file='maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
@@ -28,6 +28,12 @@ mpF = load_maps(mapmp2F_file)
 # denseF = load_maps(denseF_file)
 
 def getY(R,type):
+    """
+    :param R: matrice contenant dans la 1ere colonne l'indice de la langue, dans la 2eme l'indice de la categorie, dans la 3eme
+              l'indice du phoneme. De taille (nb_languesc*nb_phonemes*nb_categories*nb_exemplaires)*3
+    :param type: c_inc pour seprarer correct et incorrect, fr_jap pour separer francais et japonais, r_v pour separer r et v
+    :return: Y de taille nb_languesc*nb_phonemes*nb_categories*nb_exemplaires, contenant le vecteur faisant la separation voulue
+    """
     if type=='c_inc':
         Y = R[:,1]
         for i in range(len(Y)):
@@ -84,3 +90,4 @@ for idic,dics in enumerate(liste_dics):
             f_res.close()
 
 f_bon_scores.close()
+
