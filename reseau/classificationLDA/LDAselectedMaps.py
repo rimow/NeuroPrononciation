@@ -6,6 +6,7 @@ from utils_maps import *
 # LDA classification, as input we have either set of flatten maps, or a set of maps, grouping according to phonemes, languages or categories
 # (we create different subsets of the initial data)
 # We select the interesting windows related to clustering results
+# Into the result file, score is -1 if there is no interesting maps fot the corresponding classification
 
 #Files
 mapconv1J_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
