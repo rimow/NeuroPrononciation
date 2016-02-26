@@ -115,11 +115,9 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
     if len(Y_Cluster) != len(Reference):
         print("Y_Cluster and Reference don't have the same size")
         return []
-    if nb_classes != len(set(Y_Cluster)):
-        print("nb_class is not correct")
-        return []
     Y_Cluster = np.array(Y_Cluster)
     Reference = np.array(Reference)
+    nb_classes = len(set(Y_Cluster))
     # Cree les listes des indices correpondant a chacune des classes
     classes = []
     for cl in range(nb_classes):
