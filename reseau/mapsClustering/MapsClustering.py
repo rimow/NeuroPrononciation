@@ -68,6 +68,8 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
 
     if algorithme == "kmeansNonInit":
         clus = KMeans(n_clusters=2, init='k-means++')
+    elif algorithme == "kmeansInit":
+        None
     elif algorithme == "MeanShift":
         clus = MeanShift(bandwidth=None, seeds=None, bin_seeding=False, min_bin_freq=1, cluster_all=True, n_jobs=1)
     elif algorithme == "DBSCAN":
@@ -134,7 +136,7 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
         f = open(fichier1bis, "wb")
         writer = csv.writer(f)
         writer.writerow(["FR-V", "JA-V"])
-        np.savetxt(f,np.atleast_2d(pourcentagesFRJA_R), delimiter =',')
+        np.savetxt(f,np.atleast_2d(pourcentagesFRJA_V), delimiter =',')
 
 
     ################################################################################
@@ -242,4 +244,4 @@ def MapsClustering(couche = 'conv1', seuilCartesVides = 559, algorithme = 'kmean
         np.savetxt(f, np.atleast_2d(pourcentagesCIC_V), delimiter =',')
 
     matIndicesCartes=np.array(matIndicesCartes)
-    return listeVide, pourcentagesFRJA_R, pourcentagesFRJA_V, pourcentagesRV, pourcentagesCIC_R, pourcentagesCIC_V, matIndicesCartes
+    return pourcentagesFRJA_R, pourcentagesFRJA_V, pourcentagesRV, pourcentagesCIC_R, pourcentagesCIC_V, matIndicesCartes
