@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 from utiles_classification import *
-from supprimerCartesVides import *
+from process_activation_maps import load_maps
 
 # LDA classification, as input we have either set of flatten maps, or a set of maps, grouping according to phonemes, languages or categories
 # (we create different subsets of the initial data)
