@@ -15,7 +15,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     # qui donnent bien deux classes.
     #############################################################################################
 
-    vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering(couche, seuilSuppression, "kmeansNonInit", fichier)
+    pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering(couche, seuilSuppression, "kmeansNonInit", fichier)
     matKmeansNonInit = str("../resultats/" + couche + "/kmeansNonInit/matKmeansNonInit_indices_bonnes_cartes.csv")
     f1 = open(matKmeansNonInit, "wb")
     writer = csv.writer(f1)
@@ -23,7 +23,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     for values in izip_longest(*ind):
         writer.writerow(values)
 
-    vide_KMI, pFRJA_R_KMI, pFRJA_V_KMI, pFR_RV_KMI, pCIC_R_KMI, pCIC_V_KMI, indKmeansInit = MapsClustering(couche, seuilSuppression, "kmeansInit", fichier)
+    pFRJA_R_KMI, pFRJA_V_KMI, pFR_RV_KMI, pCIC_R_KMI, pCIC_V_KMI, indKmeansInit = MapsClustering(couche, seuilSuppression, "kmeansInit", fichier)
     matKmeansInit = str("../resultats/" + couche + "/kmeansInit/matKmeansInit_indices_bonnes_cartes.csv")
     f2 = open(matKmeansInit, "wb")
     writer = csv.writer(f2)
@@ -32,7 +32,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
         writer.writerow(values)
 
 
-    vide_DBSCAN, pFRJA_R_DBSCAN, pFRJA_V_DBSCAN, pFR_RV_DBSCAN, pCIC_R_DBSCAN, pCIC_V_DBSCAN, indDBSCAN = MapsClustering(couche, seuilSuppression, "DBSCAN", fichier)
+    pFRJA_R_DBSCAN, pFRJA_V_DBSCAN, pFR_RV_DBSCAN, pCIC_R_DBSCAN, pCIC_V_DBSCAN, indDBSCAN = MapsClustering(couche, seuilSuppression, "DBSCAN", fichier)
     matDBSCAN = str("../resultats/" + couche + "/DBSCAN/matDBSCAN_indices_bonnes_cartes.csv")
     f3 = open(matDBSCAN, "wb")
     writer = csv.writer(f3)
@@ -40,7 +40,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     for values in izip_longest(*indDBSCAN):
         writer.writerow(values)
 
-    # vide_MeanShift, pFRJA_R_MeanShift, pFRJA_V_MeanShift, pFR_RV_MeanShift, pCIC_R_MeanShift, pCIC_V_MeanShift, indMeanShift = MapsClustering(couche, seuilSuppression, "MeanShift", fichier)
+    # pFRJA_R_MeanShift, pFRJA_V_MeanShift, pFR_RV_MeanShift, pCIC_R_MeanShift, pCIC_V_MeanShift, indMeanShift = MapsClustering(couche, seuilSuppression, "MeanShift", fichier)
     # matMeanShift = str("../resultats/" + couche + "/MeanShift/matMeanShift_indices_bonnes_cartes.csv")
     # f4 = open(matMeanShift, "wb")
     # writer = csv.writer(f4)
