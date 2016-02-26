@@ -1,6 +1,7 @@
 from dim_reduction  import *
 from mapsClustering.MapsClustering import *
 from classificationLDA.utiles_classification import *
+from mapsAnalysis.utiles import *
 #Files
 mapconv1J_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 mapconv1F_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
@@ -11,27 +12,9 @@ conv1J = load_maps(mapconv1J_file)
 conv1F = load_maps(mapconv1F_file)
 conv2J = load_maps(mapconv2J_file)
 conv2F = load_maps(mapconv2F_file)
-# creation de la matrice de donnees et du vecteur des labels
 
 
-#X,Y_c_inc,Y_r_v = getData_onePerMap(dics,conv1J.keys(),ph)
-#X,Y_c_inc,Y_r_v = getData_maps(dics,conv1J.keys(),ph)
-
-# Verification des dimensions
-# Xsh = X.shape
-# convSh = np.array(conv1F['correct_OK']['v']).shape
-# print 'X : ',Xsh
-# print 'getData_maps : ',len(dics)*len(ph)*len(conv1F.keys())*convSh[0]*convSh[1]
-# print 'getData_onePerMap : ',len(dics)*len(ph)*len(conv1F.keys())*convSh[0]
-
-
-###########################conv2##################################
-### 0:JA(bleu)  1:FR(rough)
-### 0:R (bleu)  1:V(rough)
-### 0:correct(bleu) 1:incorrect(rough)
-
-vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv2", 559, "kmeansNonInit", False)
-dict_goodmaps = goodmaps("conv2","kmeansNonInit",vide_KMNI,ind,30)
+dict_goodmaps = goodmaps("conv2","kmeansNonInit",ind,30)
 #print dict_goodmaps
 ph = ['R']
 dics = [conv2J,conv2F]

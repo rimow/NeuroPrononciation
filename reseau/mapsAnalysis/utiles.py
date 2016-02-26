@@ -109,9 +109,17 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
     :param fichier: chemin contenant le fichier dans lequel on enregistre le ratio si l'option est precisee
     :return: le pourcentage de phonemes de chaque categorie classe dans chaque cluster
     """
-
+    if Y_Cluster ==[] or Reference ==[]:
+        print("Input data is empty list")
+        return []
+    if len(Y_Cluster) != len(Reference):
+        print("Y_Cluster and Reference don't have the same size")
+        return []
+    if nb_classes != len(set(Y_Cluster)):
+        print("nb_class is not correct")
+        return []
     Y_Cluster = np.array(Y_Cluster)
-
+    Reference = np.array(Reference)
     # Cree les listes des indices correpondant a chacune des classes
     classes = []
     for cl in range(nb_classes):
