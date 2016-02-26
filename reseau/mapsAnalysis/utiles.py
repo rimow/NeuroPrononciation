@@ -145,12 +145,11 @@ def ratios ( Y_Cluster , Reference, nb_classes=2, fichier = None):
 
     return ratio
 
-def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30, listeVide = [], indices=[]):
+def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,  indices=[]):
     """
     :param fichierClustering: si on decide de recuperer les resultats du clustering a partir d'un fichier
     :param MatriceClustering: si on prefere donner une matrice. Le fichier csv est prioritaire
     :param seuil: distance entre les deux types clusterises
-    :param listeVide: liste des numeros des cartes d'activation jugees vides et retirees avant le clustering
     :return: liste des numeros des cartes d'activation jugees suffisamment discriminantes
     """
 
@@ -180,16 +179,6 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
                 ligne1 = float(ligne[1])
                 if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
                     bon.append(indices[indligne-1])
-
-    #recalage des numeros des cartes en prenant en compte les cartes vides non clusterisees
-    decalage = 0
-    if (len(listeVide)>0):
-        for indligne in range(len(bon)):
-            #si l'indice courant depasse la valeur de la carte d'activation de la liste vide consideree on incremente le decalage
-            if (decalage<len(listeVide)) and (bon[indligne+decalage]>=listeVide[decalage]):
-                decalage += 1
-            bon[indligne] = bon[indligne]+decalage
-
 
     return bon
 
