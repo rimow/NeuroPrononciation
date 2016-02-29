@@ -218,8 +218,11 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
 
     :return: une matrice de parametre Mat ((nb_dic*nb_cat*nb_ph*nb_cartes)*taille_vecteur), et des vecteurs de parametre Y (nb_dic*nb_cat*nb_ph*nb_cartes)
     differenciant les corrects des incorrects, les phonSemes, les langues """
-    tableau = np.array(liste_dictionnaires[0][liste_categories[0]][liste_phonemes[0]])
-    nb_exemple,nb_carte,lign,col=tableau.shape
+    if liste_dictionnaires!=[] and liste_categories!=[] and liste_phonemes!=[]:
+        tableau = np.array(liste_dictionnaires[0][liste_categories[0]][liste_phonemes[0]])
+        nb_exemple,nb_carte,lign,col=tableau.shape
+    else:
+        return [],[],[],[]
 
     Mat = []
     Reference = []

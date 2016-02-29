@@ -14,7 +14,7 @@ conv2J = load_maps(mapconv2J_file)
 conv2F = load_maps(mapconv2F_file)
 
 
-dict_goodmaps = goodmaps("conv2","kmeansNonInit",ind,30)
+dict_goodmaps = goodmaps("conv2","kmeansNonInit")
 #print dict_goodmaps
 ph = ['R']
 dics = [conv2J,conv2F]
@@ -89,8 +89,7 @@ plot_data(X_reduced_PCA,Y_c_inc,"conv2-V_JA_Correct_Incorrect_besmaps")
 ### 0:R (bleu)  1:V(rough)
 ### 0:correct(bleu) 1:incorrect(rough)
 
-vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
-dict_goodmaps = goodmaps("conv1","kmeansNonInit",vide_KMNI,ind,30)
+dict_goodmaps = goodmaps("conv1","kmeansNonInit")
 #print dict_goodmaps
 ph = ['R']
 dics = [conv1J,conv1F]

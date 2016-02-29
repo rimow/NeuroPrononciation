@@ -190,32 +190,24 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
 
 
-def goodmaps(couche = "conv1",method="kmeansNonInit",ind=[],seuil=30):
+def goodmaps(couche = "conv1",method="kmeansNonInit"):
     """Return the good maps of different cluster tasks.
        0: good maps for clustring R in FR and R in FRJA
        1: good maps for clustring V in FR and V inFRJA
        2:good maps for clustring R in FR and V in FR
        3: good maps for clustring correct R and  incorrect R in FRJA
        4: good maps for clustring correct V and incorrect V in FRJA
-       :param vide_goodmaps: list of the empty maps in con1
-       :param seuil: seuil for choose the good maps
+       :param couche: "conv1" or "conv2"
+       :param method: method of cluster
        :returns goodmaps: the good maps of different cluster tasks
     """
 
     #vide_KMNI, pFRJA_R_KMNI, pFRJA_V_KMNI, pFR_RV_KMNI, pCIC_R_KMNI, pCIC_V_KMNI, ind = MapsClustering("conv1", 559, "kmeansNonInit", False)
     goodmaps = {}
     path = "../resultats/"+couche+"/"+method+"/"
-    clus = bienClusterise(fichierClustering=path+"pourcentagesFRJA_R.csv", seuil=seuil,indices=ind[0])
-    goodmaps[0] = clus
-    clus = bienClusterise(fichierClustering=path+"pourcentagesFRJA_V.csv", seuil=seuil, indices=ind[1])
-    goodmaps[1] = clus
-    clus = bienClusterise(fichierClustering=path+"pourcentagesRV.csv",seuil=seuil,indices=ind[2])
-    goodmaps[2] = clus
-    clus = bienClusterise(fichierClustering=path+"pourcentagesCIC_R.csv",seuil=seuil, indices=ind[3])
-    goodmaps[3] = clus
-    clus = bienClusterise(fichierClustering=path+"pourcentagesCIC_V.csv",seuil=seuil, indices=ind[4])
-    goodmaps[4] = clus
-
+    data = np.load(path+"bienClusterise"+method+".npy")
+    for i in range(len(data)):
+        goodmaps[i] = data[i]
     return goodmaps
 
 
