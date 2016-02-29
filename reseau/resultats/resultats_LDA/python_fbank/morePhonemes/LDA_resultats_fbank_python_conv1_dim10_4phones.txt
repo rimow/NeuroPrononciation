@@ -1,0 +1,12 @@
+Dictionnaires :conv1F fbank python Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 41.1467633929
+Score de la classification, une donnee=un ensemble de cartes : 67.1428571429
+ 
+Dictionnaires :conv1F fbank python Phonemes : b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 41.3560267857
+Score de la classification, une donnee=un ensemble de cartes : 59.6428571429
+ 
+Dictionnaires :conv1F fbank python Phonemes :R v b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 11.7145647321
+Score de la classification, une donnee=un ensemble de cartes : 11.9642857143
+ 
