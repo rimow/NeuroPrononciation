@@ -34,7 +34,7 @@ def dim_reduction_LDA(X,Y,n_dim):
         print "dimension error"
         reduced_X = X
     finally:
-        return reduced_X
+        return np.array(reduced_X)
 
 def plot_data(reduced_X,Y,title,mirror=1):
     """ visualize low dimension data.
