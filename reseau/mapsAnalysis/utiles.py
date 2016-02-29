@@ -34,7 +34,7 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
         for inddict,dict in enumerate(liste_dictionnaires):
            for indcat,cat in enumerate(liste_categories):
                for indpho,pho in enumerate(liste_phonemes):
-                   for ex in range(taille[0]):
+                   for ex in range(np.array(dict[cat][pho]).shape[0]):
                        Matinter.append((dict[cat][pho][ex][num]).flatten())
                        if num == 0:
                            Reference.append([inddict,indcat ,indpho])
