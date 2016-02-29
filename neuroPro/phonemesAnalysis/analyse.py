@@ -131,6 +131,12 @@ def printRatiosCategories(nb_classes , Y_cluster , y_categorie, fichier = None):
     nb_voyelle = len([i for i in y_categorie if i == 3])
     nb_semi_consone = len([i for i in y_categorie if i == 4])
     nb_silence = len([i for i in y_categorie if i == 5])
+    print nb_occlusives
+    print nb_fricative
+    print nb_nasale
+    print nb_voyelle
+    print nb_semi_consone
+    print nb_silence
     valeurs = []
     for cl in range(nb_classes):
         p1 = 100. * len([i for i in y_categorie[classes[cl]] if i == 0]) / nb_occlusives  # % classe cl et non voise

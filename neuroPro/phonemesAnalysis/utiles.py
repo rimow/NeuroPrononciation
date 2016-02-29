@@ -50,7 +50,8 @@ def getY(X,path_aligned,hop_span):
     phoneme_courant = 0
     Y = []
     for i in range(nb_vectors):
-        if (end[phoneme_courant]<hop_span*i and phoneme_courant<len(phonemes)-2): #on enleve le dernier qui ne compte pas
+        if (end[phoneme_courant]<hop_span*i and phoneme_courant<len(phonemes)-1):
+        # if (end[phoneme_courant]<hop_span*i and phoneme_courant<len(phonemes)-2): #on enleve le dernier qui ne compte pas
           phoneme_courant = phoneme_courant + 1
           #if not(phoneme_courant==len(phonemes)-2):
         Y.append(phonemes[phoneme_courant])   #On peut faire plus precis sans doute

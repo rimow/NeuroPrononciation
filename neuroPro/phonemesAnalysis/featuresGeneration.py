@@ -1,4 +1,4 @@
-import pywt
+# import pywt
 import numpy as np
 import scipy as sc
 import scipy.io.wavfile
@@ -12,7 +12,7 @@ from numpy import shape
 from Erreurs import initialisationError
 from phonemesAnalysis.analyse import *
 from phonemesAnalysis.utiles import *
-import mlpy.wavelet as wave
+# import mlpy.wavelet as wave
 
 # Fichier contenant les fonctions d'extraction de parametres a partir de signaux
 # Specification pour toutes les fonctions:
