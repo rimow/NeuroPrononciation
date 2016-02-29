@@ -1,7 +1,13 @@
 from mapsAnalysis.utiles import *
-from mapsAnalysis.SupprimerCartesVides import *
 import numpy as np
-###############    Test ratios   ################
+from process_activation_maps import load_maps
+from mapsAnalysis.SupprimerCartesVides import *
+
+
+########################################################################################################################
+################################################### TEST RATIOS ########################################################
+########################################################################################################################
+
 print "\n###################################\n"
 print "Test ratios\n"
 print "###################################\n"
@@ -43,7 +49,10 @@ if np.array_equal(ratio,[[50,0],[0,50],[50,0],[0,50]]):
 else:
     print "Test Fails"
 
-###############    Test bienClusterise  ################
+########################################################################################################################
+############################################## TEST BIENCLUSTERISE #####################################################
+########################################################################################################################
+
 print "\n###################################\n"
 print "tests bienClusterise\n"
 print "###################################\n"
@@ -112,7 +121,10 @@ else:
     print "test 6 : test de la matrice indice : KO"
 
 
-########## Tests de initialisation centres ##################
+########################################################################################################################
+######################################## TEST INITIALISATION CENTRES ###################################################
+########################################################################################################################
+
 #test 1 : test du format de sortie
 print "\n###################################\n"
 print "tests initialisation_centres\n"
@@ -144,7 +156,10 @@ else:
     print('Test 3 initialisation_centres pas ok !! Le centre 1 n appartient pas a la matrice de depart')
 
 
-########## Tests de SupprimerCartesVides ##################
+########################################################################################################################
+######################################### TEST SUPPRIMER CARTES VIDES ##################################################
+########################################################################################################################
+
 print "\n###################################\n"
 print "tests Supprimer cartes vides\n"
 print "###################################\n"
@@ -162,3 +177,143 @@ if (liste==[62]):
 else :
     print 'Test 1 pas ok !! Ne sors pas la bonne liste d elements vides'
 
+print('\n')
+
+########################################################################################################################
+############################################## TEST PRETRAITEMENTMATRICE ###############################################
+########################################################################################################################
+
+print "\n###################################\n"
+print "Tests pretraitmentMatrice\n"
+print "###################################\n"
+
+
+#Choix de la couche pour le chargement des cartes correspondantes
+couche='conv1'
+
+#chargement des dictionnaires
+map_file_FR = "../../maps/BREF80_l_" + couche + "_35maps_th0.500000.pkl"
+map_file_JA = "../../maps/PHONIM_l_" + couche + "_35maps_th0.001000.pkl"
+FR= load_maps(map_file_FR)
+JA = load_maps(map_file_JA)
+
+
+################################################################################
+# TEST ENTREES VIDES, TEST D'ERREURS
+################################################################################
+
+# Entrees vide
+Mat,Ref = pretraitementMatrice([],[],[])
+if len(Mat)==0 and len(Ref)==0:
+    print ("TESTS ENTREES VIDES : Success")
+else:
+    print ("TESTS ENTREES VIDES : Fail")
+print("\n")
+
+
+#Test d'erreurs
+print ("TESTS D'ERREURS :" + "\n")
+
+Mat,Ref = pretraitementMatrice([FR],[],[])
+
+Mat,Ref = pretraitementMatrice([],[],['R'])
+
+Mat,Ref = pretraitementMatrice([JA],JA.keys(),[])
+
+print("\n")
+
+################################################################################
+# TEST UNITAIRES
+################################################################################
+
+print('TESTS UNITAIRES : \n')
+################################## TEST 1 ######################################
+dict=[FR]
+cat = FR.keys()
+phone = ['R']
+Mat,Ref = pretraitementMatrice(dict,cat,phone)
+
+
+#recuperation des dimensions pour un dictionnaire
+tableau = np.array(FR['correct_OK']['R'])
+taille=tableau.shape
+if couche == 'dense1':
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], 1)
+else:
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], taille[2]*taille[3])
+if (expectedmatdimensions == Mat.shape):
+    print("Test unitaire 1 : Success, Mat dimensions are correct")
+else:
+    print("Test unitaire 1 : Fail(Mat dimensions do not correspond)")
+
+print("-------------------")
+
+expectedrefdimensions = (len(dict)*len(cat)*len(phone)*taille[0],3)
+if (expectedrefdimensions == Ref.shape):
+    print("Test unitaire 1 : Success, Ref dimensions are correct")
+else:
+    print("Test unitaire 1 : Fail(Ref dimensions do not correspond)")
+
+
+print("\n")
+
+################################## TEST 2 ######################################
+
+dict=[FR, JA]
+cat = FR.keys()
+phone = ['v']
+Mat,Ref = pretraitementMatrice(dict,cat,phone)
+
+
+#recuperation des dimensions pour un dictionnaire
+tableau = np.array(FR['correct_OK']['v'])
+taille=tableau.shape
+if couche == 'dense1':
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], 1)
+else:
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], taille[2]*taille[3])
+if (expectedmatdimensions == Mat.shape):
+    print("Test unitaire 2 : Success, Mat dimensions are correct")
+else:
+    print("Test unitaire 2 : Fail(Mat dimensions do not correspond)")
+
+print("-------------------")
+
+expectedrefdimensions = (len(dict)*len(cat)*len(phone)*taille[0],3)
+if (expectedrefdimensions == Ref.shape):
+    print("Test unitaire 2 : Success, Ref dimensions are correct")
+else:
+    print("Test unitaire 2 : Fail(Ref dimensions do not correspond)")
+
+print("\n")
+
+
+################################## TEST 3 ######################################
+
+dict=[JA]
+cat = JA.keys()
+phone = ['R']
+Mat,Ref = pretraitementMatrice(dict,cat,phone)
+
+
+#recuperation des dimensions pour un dictionnaire
+tableau = np.array(JA['correct_OK']['R'])
+taille=tableau.shape
+if couche == 'dense1':
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], 1)
+else:
+    expectedmatdimensions = (taille[1], len(dict)*len(cat)*len(phone)*taille[0], taille[2]*taille[3])
+if (expectedmatdimensions == Mat.shape):
+    print("Test unitaire 3 : Success, Mat dimensions are correct")
+else:
+    print("Test unitaire 3 : Fail(Mat dimensions do not correspond)")
+
+print("-------------------")
+
+expectedrefdimensions = (len(dict)*len(cat)*len(phone)*taille[0],3)
+if (expectedrefdimensions == Ref.shape):
+    print("Test unitaire 3 : Success, Ref dimensions are correct")
+else:
+    print("Test unitaire 3 : Fail(Ref dimensions do not correspond)")
+
+print("\n")
