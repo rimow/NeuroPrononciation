@@ -139,3 +139,19 @@ if(ind_centre1!=[] and (Mat[0,ind_centre1[0],:]==centres[1,:]).all()):
 else:
     print('Test 3 initialisation_centres pas ok !! Le centre 1 n appartient pas a la matrice de depart')
 
+
+########## Tests de SupprimerCartesVides ##################
+map_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
+maps_JAP = load_maps(map_file)
+
+map_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
+maps_FR = load_maps(map_file)
+
+maps_entry_list = [maps_FR, maps_JAP]
+
+liste = strategie_trois_l1(maps_entry_list, 559)
+if (liste==[62]):
+    print 'Test 1 ok : sors bien la bonne liste d elements vides'
+else :
+    print 'Test 1 pas ok !! Ne sors pas la bonne liste d elements vides'
+
