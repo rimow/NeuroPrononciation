@@ -21,7 +21,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     matKmeansNonInit = str("../resultats2/matKmeansNonInit_indices_bonnes_cartes.csv")
     f1 = open(matKmeansNonInit, "wb")
     writer = csv.writer(f1)
-    writer.writerow(["KmeansNonInit(1)", "KmeansNonInit(1bis)", "KmeansNonInit(2)", "KmeansNonInit(2bis)", "KmeansNonInit(3)"])
+    writer.writerow(["KmeansNonInit(1)", "KmeansNonInit(1bis)", "KmeansNonInit(2)", "KmeansNonInit(3)", "KmeansNonInit(3bis)"])
     for values in izip_longest(*ind):
         writer.writerow(values)
 
