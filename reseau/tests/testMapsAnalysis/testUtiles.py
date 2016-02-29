@@ -1,4 +1,5 @@
 from mapsAnalysis.utiles import *
+from mapsAnalysis.SupprimerCartesVides import *
 import numpy as np
 ###############    Test ratios   ################
 print "\n###################################\n"
@@ -113,14 +114,17 @@ else:
 
 ########## Tests de initialisation centres ##################
 #test 1 : test du format de sortie
-map_file_FR = '../maps/BREF80_l_' + couche + '_35maps_th0.500000.pkl'
+print "\n###################################\n"
+print "tests initialisation_centres\n"
+print "###################################\n"
+map_file_FR = '../../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 FR= load_maps(map_file_FR)
 
 type_clustering = 'R_v'
 Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R','v'])
 
 centres = initialisation_centres (type_clustering, Mat, Reference)
-print(centres.shape)
+
 if (centres.shape==(2,Mat.shape[2])):
     print ('Test 1 initialisation_centres ok : La matrice de sortie a la bonne forme')
 else:
@@ -141,10 +145,13 @@ else:
 
 
 ########## Tests de SupprimerCartesVides ##################
-map_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
+print "\n###################################\n"
+print "tests Supprimer cartes vides\n"
+print "###################################\n"
+map_file='../../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 maps_JAP = load_maps(map_file)
 
-map_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
+map_file='../../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 maps_FR = load_maps(map_file)
 
 maps_entry_list = [maps_FR, maps_JAP]
