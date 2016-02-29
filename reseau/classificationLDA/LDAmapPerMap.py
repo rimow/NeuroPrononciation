@@ -1,8 +1,9 @@
 import pickle
 import numpy as np
 from utiles_classification import *
-from supprimerCartesVides import *
-from FRvsJAClustering import *
+import mapsAnalysis.utiles
+from process_activation_maps import load_maps
+
 
 # Classification LDA en prenant en compte qu'une seule carte d'activation, tests et ecritures des resultats.
 # Fait pour toutes les combinaisons de dictionnaires, toutes les combinaisons de phonemes, pour tous les types de classifications,

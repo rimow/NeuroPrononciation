@@ -176,14 +176,14 @@ def bienClusterise (fichierClustering = None, MatriceClustering = [],seuil = 30,
 
             ligne0 = float(ligne[0])
             ligne1= float(ligne[1])
-            if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
+            if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>=seuil):
                 bon.append(indices[indligne])
         #sinon on ommet le titre et on commence a la ligne 1
         else:
             if indligne >0:
                 ligne0 = float(ligne[0])
                 ligne1 = float(ligne[1])
-                if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>seuil):
+                if ((ligne0 >= 50 and ligne1 <= 50) or (ligne1 >= 50 and ligne0 <= 50)) and (abs(ligne0-ligne1)>=seuil):
                     bon.append(indices[indligne-1])
 
     return bon

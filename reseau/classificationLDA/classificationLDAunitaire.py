@@ -1,8 +1,8 @@
 import pickle
 import numpy as np
 from utiles_classification import *
-from supprimerCartesVides import *
-from utils_maps import *
+from process_activation_maps import load_maps
+
 #Files
 mapconv1J_file='maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 mapconv1F_file='maps/BREF80_l_conv1_35maps_th0.500000.pkl'

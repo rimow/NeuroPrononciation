@@ -1,8 +1,8 @@
 import pickle
 import numpy as np
 from utiles_classification import *
-from supprimerCartesVides import *
-from utils_maps import *
+from process_activation_maps import load_maps
+
 
 # LDA on dense parameters
 
