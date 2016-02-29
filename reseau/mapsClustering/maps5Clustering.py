@@ -24,7 +24,7 @@ def Maps5Clustering(couche = 'conv1', seuilCartesVides = 559, fichier = True):
 
     #chargement des dictionnaires
     map_file_FR = "../maps2/BREF80_l_conv1_35maps_th0.500000.pkl"
-    map_file_JA = "../maps/PHONIM_l_conv1_35maps_th0.001000.pkl"
+    map_file_JA = "../maps2/PHONIM_l_conv1_35maps_th0.001000.pkl"
     FR= load_maps(map_file_FR)
     JA = load_maps(map_file_JA)
 
