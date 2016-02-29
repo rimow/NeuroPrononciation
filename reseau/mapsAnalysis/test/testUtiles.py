@@ -109,3 +109,33 @@ if (bon == [10, 30]):
     print "test 6 : test de la matrice indice : OK"
 else:
     print "test 6 : test de la matrice indice : KO"
+
+
+########## Tests de initialisation centres ##################
+#test 1 : test du format de sortie
+map_file_FR = '../maps/BREF80_l_' + couche + '_35maps_th0.500000.pkl'
+FR= load_maps(map_file_FR)
+
+type_clustering = 'R_v'
+Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R','v'])
+
+centres = initialisation_centres (type_clustering, Mat, Reference)
+print(centres.shape)
+if (centres.shape==(2,Mat.shape[2])):
+    print ('Test 1 initialisation_centres ok : La matrice de sortie a la bonne forme')
+else:
+    print ('Test 1 initialisation_centres pas ok !! La matrice de sortie n a pas la bonne forme')
+
+#test 2 et 3: existence du centre dans la matrice de depart
+ind_centre0 = [index for index,row in enumerate(Mat[0,:,:]) if (row==centres[0,:]).all() ]
+if(ind_centre0!=[] and (Mat[0,ind_centre0[0],:]==centres[0,:]).all()):
+    print('Test 2 initialisation_centres ok : Le centre 0 appartient bien a la matrice de depart')
+else:
+    print('Test 2 initialisation_centres pas ok !! Le centre 0 n appartient pas a la matrice de depart')
+
+ind_centre1 = [index for index,row in enumerate(Mat[0,:,:]) if (row==centres[1,:]).all() ]
+if(ind_centre1!=[] and (Mat[0,ind_centre1[0],:]==centres[1,:]).all()):
+    print('Test 3 initialisation_centres ok : Le centre 1 appartient bien a la matrice de depart')
+else:
+    print('Test 3 initialisation_centres pas ok !! Le centre 1 n appartient pas a la matrice de depart')
+
