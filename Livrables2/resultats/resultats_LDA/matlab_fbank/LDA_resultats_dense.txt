@@ -1,0 +1,30 @@
+Dictionnaires :FR Phonemes : R  Type de classification :c_inc
+Score :88.5714285714
+Dictionnaires :FR Phonemes : v  Type de classification :c_inc
+Score :84.2857142857
+Dictionnaires :FR Phonemes : R v  Type de classification :c_inc
+Score :82.5
+Dictionnaires :FR Phonemes : R v  Type de classification :r_v
+Score :74.6428571429
+Dictionnaires :JAP Phonemes : R  Type de classification :c_inc
+Score :34.2857142857
+Dictionnaires :JAP Phonemes : v  Type de classification :c_inc
+Score :54.2857142857
+Dictionnaires :JAP Phonemes : R v  Type de classification :c_inc
+Score :52.5
+Dictionnaires :JAP Phonemes : R v  Type de classification :r_v
+Score :68.9285714286
+Dictionnaires :FR JAP Phonemes : R  Type de classification :c_inc
+Score :44.6428571429
+Dictionnaires :FR JAP Phonemes : R  Type de classification :fr_jap
+Score :75.0
+Dictionnaires :FR JAP Phonemes : v  Type de classification :c_inc
+Score :59.2857142857
+Dictionnaires :FR JAP Phonemes : v  Type de classification :fr_jap
+Score :62.5
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :c_inc
+Score :48.5714285714
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :r_v
+Score :53.5714285714
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :fr_jap
+Score :60.5357142857

@@ -1,0 +1,24 @@
+FRJA R
+kmeansNonInit:[5, 8, 11, 12, 16, 19, 21, 23, 24, 31, 33, 36, 41, 42, 50, 51, 55, 57, 58, 59, 61, 65, 74, 84, 86, 88, 91, 93, 94, 95, 98, 99, 102, 108, 113, 118, 119, 122]
+kmeansInit:[5, 8, 11, 12, 16, 19, 21, 23, 24, 31, 33, 36, 41, 42, 50, 51, 55, 57, 58, 59, 61, 65, 67, 74, 84, 86, 88, 91, 93, 94, 95, 98, 99, 102, 108, 118, 119, 122]
+DBSCAN:[]
+MeanShift:[8]
+FRJA V
+kmeansNonInit:[8, 9, 19, 22, 24, 31, 51, 56, 57, 79, 84, 94, 105, 114, 123]
+kmeansInit:[19, 22, 31, 51, 57, 79, 94, 105]
+DBSCAN:[]
+MeanShift:[]
+FR  RV
+kmeansNonInit:[24]
+kmeansInit:[24]
+DBSCAN:[]
+MeanShift:[]
+JA correct/incorrect R
+kmeansNonInit:[56, 94, 114, 119]
+kmeansInit:[56, 79, 114, 118, 119]
+DBSCAN:[]
+JA correct/incorrect V
+kmeansNonInit:[8, 11, 16, 19, 31, 32, 41, 56, 58, 59, 74, 93, 94, 95, 114, 119]
+kmeansInit:[11, 16, 19, 59, 74, 94, 95, 119]
+DBSCAN:[46]
+MeanShift:[]
