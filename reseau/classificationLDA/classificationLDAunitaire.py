@@ -4,8 +4,8 @@ from utiles_classification import *
 from process_activation_maps import load_maps
 
 #Files
-mapconv1J_file='maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
-mapconv1F_file='maps/BREF80_l_conv1_35maps_th0.500000.pkl'
+mapconv1J_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
+mapconv1F_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 
 #Load data
 conv1J = load_maps(mapconv1J_file)
@@ -20,5 +20,3 @@ type = 'c_inc'
 
 ldaClassification(dics,ph,cat,l_cartes,a_ignorer,n_folds,type)
 
-#good = goodmaps([],seuil=3)
-#print good
