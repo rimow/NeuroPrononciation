@@ -36,17 +36,15 @@ def Maps5Clustering(couche = 'conv1', seuilCartesVides = 559, fichier = True):
 
     #creation des fichiers d'enregistrement
     if fichier == True:
-        fichier1 = "../resultats2/pourcentagesFRJA_R.csv"
-        fichier1bis = "../resultats2/pourcentagesFRJA_V.csv"
-        fichier2 = "../resultats2/pourcentagesRV.csv"
-        fichier3 = "../resultats2/pourcentagesCIC_R.csv"
-        fichier3bis = "../resultats2/pourcentagesCIC_V.csv"
-        fichier4 = "../resultats2/pourcentagesFRJA_l.csv"
-        fichier5 = "../resultats2/pourcentagesFRJA_b.csv"
-        fichier6 = "../resultats2/pourcentagesFR_Rlvb_cl0.csv"
-        fichier7 = "../resultats2/pourcentagesFR_Rlvb_cl1.csv"
-        fichier8 = "../resultats2/pourcentagesFR_Rlvb_cl2.csv"
-        fichier9 = "../resultats2/pourcentagesFR_Rlvb_cl3.csv"
+        fichier1 = "../resultats/resultats5phonemes/pourcentagesFRJA_R.csv"
+        fichier1bis = "../resultats/resultats5phonemes/pourcentagesFRJA_V.csv"
+        fichier2 = "../resultats/resultats5phonemes/pourcentagesRV.csv"
+        fichier3 = "../resultats/resultats5phonemes/pourcentagesCIC_R.csv"
+        fichier3bis = "../resultats/resultats5phonemes/pourcentagesCIC_V.csv"
+        fichier6 = "../resultats/resultats5phonemes/pourcentagesFR_Rlvb_cl0.csv"
+        fichier7 = "../resultats/resultats5phonemes/pourcentagesFR_Rlvb_cl1.csv"
+        fichier8 = "../resultats/resultats5phonemes/pourcentagesFR_Rlvb_cl2.csv"
+        fichier9 = "../resultats/resultats5phonemes/pourcentagesFR_Rlvb_cl3.csv"
 
 
     else:
@@ -55,8 +53,6 @@ def Maps5Clustering(couche = 'conv1', seuilCartesVides = 559, fichier = True):
         fichier2 = None
         fichier3 = None
         fichier3bis = None
-        fichier4 = None
-        fichier5 = None
         fichier6 = None
         fichier7 =None
         fichier8=None
@@ -68,8 +64,6 @@ def Maps5Clustering(couche = 'conv1', seuilCartesVides = 559, fichier = True):
     pourcentagesRV = []
     pourcentagesCIC_R = []
     pourcentagesCIC_V = []
-    pourcentagesFRJA_l = []
-    pourcentagesFRJA_b = []
     pourcentagesFR_Rlvb0 = []
     pourcentagesFR_Rlvb1 = []
     pourcentagesFR_Rlvb2 = []
@@ -223,60 +217,12 @@ def Maps5Clustering(couche = 'conv1', seuilCartesVides = 559, fichier = True):
         np.savetxt(f, np.atleast_2d(pourcentagesCIC_V), delimiter =',')
 
     # ################################################################################
-    # #Clustering 4
-    # ################################################################################
-    #
-    # # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    # #creation du tenser
-    # Mat, Reference = pretraitementMatrice([FR, JA],FR.keys(),['l'])
-    # indices=[]
-    # #calcul des ratios de classement
-    # for i in range (taille[1]):
-    #     if not(i in listeVide):
-    #         resCluster = clus.fit(Mat[i])
-    #         Y_Cluster = resCluster.labels_
-    #         if (max(Y_Cluster) +1) ==2:
-    #             indices.append(i)
-    #             FRJA = ratios(Y_Cluster, Reference[:,0])
-    #             pourcentagesFRJA_l.append(FRJA[0])
-    # matIndicesCartes.append(indices)
-    # if fichier == True:
-    #     f = open(fichier4, "wb")
-    #     writer = csv.writer(f)
-    #     writer.writerow(["FR-l", "JA-l"])
-    #     np.savetxt(f,np.atleast_2d(pourcentagesFRJA_l), delimiter =',')
-    #
-    #     ################################################################################
-    # #Clustering 5
-    # ################################################################################
-    #
-    # # ouverture du fichier d'ecriture et precision sur la nature du clustering
-    # #creation du tenser
-    # Mat, Reference = pretraitementMatrice([FR, JA],FR.keys(),['b'])
-    # indices=[]
-    # #calcul des ratios de classement
-    # for i in range (taille[1]):
-    #     if not(i in listeVide):
-    #         resCluster = clus.fit(Mat[i])
-    #         Y_Cluster = resCluster.labels_
-    #         if (max(Y_Cluster) +1) ==2:
-    #             indices.append(i)
-    #             FRJA = ratios(Y_Cluster, Reference[:,0])
-    #             pourcentagesFRJA_b.append(FRJA[0])
-    # matIndicesCartes.append(indices)
-    # if fichier == True:
-    #     f = open(fichier5, "wb")
-    #     writer = csv.writer(f)
-    #     writer.writerow(["FR-b", "JA-b"])
-    #     np.savetxt(f,np.atleast_2d(pourcentagesFRJA_b), delimiter =',')
-    #
-    # #
-    # ################################################################################
     # #Clustering 6
     # ################################################################################
     clus = KMeans(n_clusters=4, init='k-means++')
     #creation du tenser
     Mat, Reference = pretraitementMatrice([FR],FR.keys(),['R','l','v','b'])
+    indices = []
     #calcul des ratios de classement
     for i in range (taille[1]):
             if not(i in listeVide):

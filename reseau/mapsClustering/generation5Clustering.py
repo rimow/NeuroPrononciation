@@ -21,7 +21,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     matKmeansNonInit = str("../resultats/resultats5phonemes/matKmeansNonInit_indices_bonnes_cartes.csv")
     f1 = open(matKmeansNonInit, "wb")
     writer = csv.writer(f1)
-    writer.writerow(["KmeansNonInit(1)", "KmeansNonInit(1bis)", "KmeansNonInit(2)", "KmeansNonInit(3)", "KmeansNonInit(3bis)", "KmeansNonInit(4)", "KmeansNonInit(5)", " 4phonemes"])
+    writer.writerow(["KmeansNonInit(1)", "KmeansNonInit(1bis)", "KmeansNonInit(2)", "KmeansNonInit(3)", "KmeansNonInit(3bis)", " 4phonemes"])
     for values in izip_longest(*ind):
         writer.writerow(values)
 
@@ -31,7 +31,7 @@ def GenerationClustering(couche = "conv1", seuilSuppression = 559, seuilBonClust
     # Fichiers de cartes bon clustering
     #############################################################################################
 
-    filename = str("../resultats2/cartes_bon_clustering_kmeans5")
+    filename = str("../resultats/resultats5phonemes/cartes_bon_clustering_kmeans5")
     f = open(filename, "wb")
 
     #############################################################################
