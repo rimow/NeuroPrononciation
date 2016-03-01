@@ -6,6 +6,7 @@ from process_activation_maps import load_maps
 # LDA classification, as input we have either set of flatten maps, or a set of maps, grouping according to phonemes, languages or categories
 # (we create different subsets of the initial data)
 # Results (Kfold mean scores) are printed into a text file
+
 #Files
 mapconv1J_file='../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 mapconv2J_file='../maps/PHONIM_l_conv2_35maps_th0.001000.pkl'
@@ -15,6 +16,8 @@ mapconv1F_file='../maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 mapconv2F_file='../maps/BREF80_l_conv2_35maps_th0.500000.pkl'
 mapmp2F_file='../maps/BREF80_l_mp2_35maps_th0.500000.pkl'
 denseF_file = '../maps/BREF80_l_dense1_35maps_th0.500000.pkl'
+mapconv1F_file_newFbank = '../maps2/BREF80_l_conv1_35maps_th0.500000.pkl'
+mapconv1J_file_newFbank = '../maps2/PHONIM_l_conv1_35maps_th0.001000.pkl'
 
 #Load data
 conv1J = load_maps(mapconv1J_file)
@@ -25,6 +28,8 @@ conv1F = load_maps(mapconv1F_file)
 #conv2F = load_maps(mapconv2F_file)
 #mpF = load_maps(mapmp2F_file)
 # denseF = load_maps(denseF_file)
+#conv1F_newFbank = load_maps(mapconv1F_file_newFbank)
+#conv1J_newFbank = load_maps(mapconv1J_file_newFbank)
 
 # liste des ensembles de dictionnaires que l'on veut prendre en donnees d'entree
 all_liste_dics = [[conv1F],[conv1J],[conv1J,conv1F]]
@@ -43,7 +48,7 @@ types = ['c_inc','r_v','fr_jap']
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('LDA_resultats_complet_conv1_dim10.txt', 'w')
+f_res = open('LDA_resultats_complet_conv1_dim10.txt', 'w') # To modify according to the repository
 dim_reduction = 10
 
 for i,dics in enumerate(all_liste_dics):

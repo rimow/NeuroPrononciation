@@ -2,9 +2,6 @@ import pickle
 import numpy as np
 from sklearn.lda import LDA
 from sklearn.cross_validation import KFold
-from sklearn.svm import SVC
-from sklearn.naive_bayes import GaussianNB
-from  sklearn.neighbors import KNeighborsClassifier
 from visualization.dim_reduction import dim_reduction_PCA
 
 def getData_dense(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],indices_corrects=[0,1]):

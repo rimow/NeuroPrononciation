@@ -8,8 +8,8 @@ from utils_maps import *
 # Results (Kfold mean scores) are printed into a text file
 
 
-mapconv1F_file_newFbank = '../../maps/fbank_python/BREF80_l_conv1_35maps_th0.500000.pkl'
-mapconv1J_file_newFbank = '../../maps/fbank_python/PHONIM_l_conv1_35maps_th0.001000.pkl'
+mapconv1F_file_newFbank = '../../maps2/BREF80_l_conv1_35maps_th0.500000.pkl'
+mapconv1J_file_newFbank = '../../maps2/PHONIM_l_conv1_35maps_th0.001000.pkl'
 
 #Load data
 conv1F_newFbank = load_maps(mapconv1F_file_newFbank)
@@ -40,7 +40,7 @@ types = ['r_v']
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('LDA_resultats_fbank_python_conv1_dim10_4phones.txt', 'w')
+f_res = open('LDA_resultats_fbank_python_conv1_dim10_4phones.txt', 'w') # To modify according to the repository
 dim_reduction = 10
 indices_corrects = [0,1] #respectivement aux categories
 

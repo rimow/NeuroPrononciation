@@ -17,6 +17,8 @@ mapconv1F_file='maps/BREF80_l_conv1_35maps_th0.500000.pkl'
 mapconv2F_file='maps/BREF80_l_conv2_35maps_th0.500000.pkl'
 mapmp2F_file='maps/BREF80_l_mp2_35maps_th0.500000.pkl'
 denseF_file = 'maps/BREF80_l_dense1_35maps_th0.500000.pkl'
+mapconv1F_file_newFbank = '../maps2/BREF80_l_conv1_35maps_th0.500000.pkl'
+mapconv1J_file_newFbank = '../maps2/PHONIM_l_conv1_35maps_th0.001000.pkl'
 
 #Load data
 conv1J = load_maps(mapconv1J_file)
@@ -27,37 +29,22 @@ conv1F = load_maps(mapconv1F_file)
 conv2F = load_maps(mapconv2F_file)
 mpF = load_maps(mapmp2F_file)
 # denseF = load_maps(denseF_file)
-
-def getY(R,type):
-    """
-    :param R: matrice contenant dans la 1ere colonne l'indice de la langue, dans la 2eme l'indice de la categorie, dans la 3eme
-              l'indice du phoneme. De taille (nb_languesc*nb_phonemes*nb_categories*nb_exemplaires)*3
-    :param type: c_inc pour seprarer correct et incorrect, fr_jap pour separer francais et japonais, r_v pour separer r et v
-    :return: Y de taille nb_languesc*nb_phonemes*nb_categories*nb_exemplaires, contenant le vecteur faisant la separation voulue
-    """
-    if type=='c_inc':
-        Y = R[:,1]
-        for i in range(len(Y)):
-            if Y[i]==0 or Y[i]==1:
-                Y[i]=1
-            else:
-                Y[i]=0
-    elif type == 'fr_jap':
-        Y = R[:,0]
-    elif type == 'r_v':
-        Y = R[:,2]
-    return Y
+#conv1F_newFbank = load_maps(mapconv1F_file_newFbank)
+#conv1J_newFbank = load_maps(mapconv1J_file_newFbank)
 
 # liste des ensembles de dictionnaires que l'on veut prendre en donnees d'entree
 #liste_dics = [[mpF],[mpJ],[mpF,mpJ]]
 #dics_labels = ['mp2F','mp2J','mp2F_mp2J']
-
-liste_dics = [[mpF],[mpJ],[mpF,mpJ],[conv1F],[conv1J],[conv1F,conv1J],[conv2F],[conv2J],[conv2F,conv2J]]
-dics_labels = ['mp2F','mp2J','mp2F_mp2J','conv1F','conv1J','conv1F_conv1J','conv2F','conv2J','conv2F_conv2J']
 #liste_dics = [[conv1F],[conv1J],[conv1F,conv1J]]
 #dics_labels = ['conv1F','conv1J','conv1F_conv1J']
 #liste_dics = [[conv2F],[conv2J],[conv2F,conv2J]]
 #dics_labels = ['conv2F','conv2J','conv2F_conv2J']
+#liste_dics = [[conv1F_newFbank],[conv1J_newFbank],[conv1F_newFbank,conv1J_newFbank]]
+#dics_labels = ['conv1F fbank python','conv1J fbank python','conv1FJ fbank python']
+
+liste_dics = [[mpF],[mpJ],[mpF,mpJ],[conv1F],[conv1J],[conv1F,conv1J],[conv2F],[conv2J],[conv2F,conv2J]]
+dics_labels = ['mp2F','mp2J','mp2F_mp2J','conv1F','conv1J','conv1F_conv1J','conv2F','conv2J','conv2F_conv2J']
+
 
 # Listes des phonemes que l'on veut traiter
 liste_phonemes = [['R'],['v'],['R','v']]
@@ -70,11 +57,13 @@ categories = mpJ.keys()
 types = ['c_inc','r_v','fr_jap']
 
 n_folds = 5
-f_bon_scores = open('./resultats_mapPerMap/LDA_mapPerMap_bon_resultats','w')
+f_bon_scores = open('./LDA_mapPerMap_bon_resultats','w') # To modify according to the repository
+f_scores_max = open('./LDA_mapPerMap_resultats_max','w') # To modify according to the repository
+
 for idic,dics in enumerate(liste_dics):
     for iph,phs in enumerate(liste_phonemes):
         for type in types:
-            f_res = open('./resultats_mapPerMap/LDA_mapPerMap_'+dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type, 'w')
+            f_res = open('./LDA_mapPerMap_'+dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type, 'w') # To modify according to the repository
 
             Mat,R = pretraitementMatrice(liste_dictionnaires = dics, liste_categories = categories, liste_phonemes = phs)
             Y = getY(R,type)
@@ -89,6 +78,12 @@ for idic,dics in enumerate(liste_dics):
                       f_bon_scores.write(str(i)+'_'+dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type+' : '+str(score)+'\n')
                 i = i + 1
             f_res.close()
+            max_s = max(scores)
+            if max_s==100:
+                ind_max = 'all'
+            else:
+              ind_max = [i for i,s in enumerate(scores) if s==max_s ]
+            f_scores_max.write(dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type+'Carte :'+str(ind_max)+' : '+str(max_s)+'\n')
 
 f_bon_scores.close()
-
+f_scores_max.close()
