@@ -1,0 +1,27 @@
+conv1F fbank python_R_c_incCarte :[5] : 78.5714285714
+conv1F fbank python_R_r_vCarte :all : 100.0
+conv1F fbank python_R_fr_japCarte :all : 100.0
+conv1F fbank python_v_c_incCarte :[40] : 73.5714285714
+conv1F fbank python_v_r_vCarte :all : 100.0
+conv1F fbank python_v_fr_japCarte :all : 100.0
+conv1F fbank python_Rv_c_incCarte :[1] : 75.0
+conv1F fbank python_Rv_r_vCarte :[1] : 66.0714285714
+conv1F fbank python_Rv_fr_japCarte :all : 100.0
+conv1J fbank python_R_c_incCarte :[4, 34] : 59.2857142857
+conv1J fbank python_R_r_vCarte :all : 100.0
+conv1J fbank python_R_fr_japCarte :all : 100.0
+conv1J fbank python_v_c_incCarte :[34] : 67.5333333333
+conv1J fbank python_v_r_vCarte :all : 100.0
+conv1J fbank python_v_fr_japCarte :all : 100.0
+conv1J fbank python_Rv_c_incCarte :[21] : 54.8113207547
+conv1J fbank python_Rv_r_vCarte :[28] : 72.7285921626
+conv1J fbank python_Rv_fr_japCarte :all : 100.0
+conv1FJ fbank python_R_c_incCarte :[1] : 62.1428571429
+conv1FJ fbank python_R_r_vCarte :all : 100.0
+conv1FJ fbank python_R_fr_japCarte :[1] : 70.3571428571
+conv1FJ fbank python_v_c_incCarte :[17] : 56.7416545718
+conv1FJ fbank python_v_r_vCarte :all : 100.0
+conv1FJ fbank python_v_fr_japCarte :[43] : 78.3671988389
+conv1FJ fbank python_Rv_c_incCarte :[49] : 56.3863404689
+conv1FJ fbank python_Rv_r_vCarte :[45] : 70.4145429834
+conv1FJ fbank python_Rv_fr_japCarte :[45] : 77.1882432892
