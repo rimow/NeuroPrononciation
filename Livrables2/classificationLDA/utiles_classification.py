@@ -109,11 +109,15 @@ def LDAmeanScore(X,Y,n_folds,dim_reduction=0):
     :param X: matrice d'entree du classifieur, n_samples*n_parameters, n_paramters>=2, n_samples>0. DONNES COHERENTES POUR CLASSIFICATION LDA
     :param Y: matrice des labels, n_samples
     :param n_folds: nombre de tests pour le KFold, >1
-    :param dim_reduction: si inferieur ou egale a 0, pas de reduction, sinon, si le nombre de parametre est superieur a dim_reduction, on fait une reduction PCA
+    :param dim_reduction: si egale a 0, pas de reduction, si inferieur a 0, best_reduction, sinon on fait une reduction PCA (on reduit a dim_reduction dimensions)
     :return: le score moyen de la validation croisee, affiche ce score. Si n_folds>n_samples, renvoie -1
  """
  if dim_reduction>0 and X.shape[1]>dim_reduction:
      X = dim_reduction_PCA(X,dim_reduction)
+ if dim_reduction==-1:
+    dim_reduction = best_dimension(X)
+    print 'Best dimension : '+str(dim_reduction)
+    X = dim_reduction_PCA(X,dim_reduction)
 
  if (X.shape[0]>n_folds):
     # Cross validation pour estimer la performance d'un classifieur LDA

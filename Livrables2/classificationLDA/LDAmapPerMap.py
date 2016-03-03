@@ -57,6 +57,8 @@ categories = mpJ.keys()
 types = ['c_inc','r_v','fr_jap']
 
 n_folds = 5
+dim_reduction = -1
+
 f_bon_scores = open('../resultats/resultats_LDA/matlab_fbank/details_resultats_mapPerMap/LDA_mapPerMap_bon_resultats','w') # To modify according to the repository
 f_scores_max = open('../resultats/resultats_LDA/matlab_fbank/details_resultats_mapPerMap/LDA_mapPerMap_resultats_max','w') # To modify according to the repository
 
@@ -73,7 +75,7 @@ for idic,dics in enumerate(liste_dics):
                 if 100.*len([j for j in np.concatenate(X) if j==0])/len(np.concatenate(X))>97: #Pour enlever les matrices vides ou presque vides
                     f_res.write(str(i)+' Carte nulle \n')
                 else:
-                  score = LDAmeanScore(X,Y,n_folds)
+                  score = LDAmeanScore(X,Y,n_folds,dim_reduction=dim_reduction)
                   scores.append(score)
                   f_res.write(str(i)+' Score moyen:'+str(score)+'\n')
                   if score>75 and score<100:

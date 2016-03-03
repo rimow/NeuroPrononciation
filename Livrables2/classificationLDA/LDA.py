@@ -49,7 +49,7 @@ a_ignorer = []
 l_cartes = []
 n_folds = 5
 f_res = open('../resultats/resultats_LDA/matlab_fbank/LDA_resultats_complet_conv1_dim10.txt', 'w') # To modify according to the repository
-dim_reduction = 10
+dim_reduction = -1
 
 for i,dics in enumerate(all_liste_dics):
     for j,ph in enumerate(all_listes_phonemes):
