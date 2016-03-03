@@ -91,3 +91,20 @@ def plot_data(reduced_X,Y,title,mirror=1):
         plt.savefig(path+title)
     except:
         return
+
+def best_dimension(X,n_com = 0.8):
+    """ get the number of dimension 
+
+    :param X: matrix data (n*k), n is the number of samples. k is the dimension of each sample
+    :param n_dim: number of dimension we desired to reduce to.
+    :return best_dimension:
+    """
+
+    try:
+        pca = sklearnPCA(n_components=n_com)
+        pca.fit_transform(X)
+    except:
+        print ("Dimension Error")
+        return 0
+    finally:
+        return pca.n_components_
