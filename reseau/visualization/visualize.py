@@ -20,6 +20,7 @@ ph = ['R']
 dics = [conv2J,conv2F]
 X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv2J.keys(),ph,dict_goodmaps[0])
 X_reduced_PCA = dim_reduction_PCA(X,2)
+print best_dimension(X)
 plot_data(X_reduced_PCA,Y_fr_jap,"conv2-R_FR_JA")
 
 ph = ['v']
@@ -93,7 +94,8 @@ dict_goodmaps = goodmaps("conv1","kmeansNonInit")
 #print dict_goodmaps
 ph = ['R']
 dics = [conv1J,conv1F]
-X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,conv1J.keys(),ph,dict_goodmaps[0])
+cat = ["correct_OK","correct_pasOK"]
+X,Y_c_inc,Y_r_v,Y_fr_jap = getData_goodmaps(dics,cat,ph,dict_goodmaps[0])
 X_reduced_PCA = dim_reduction_PCA(X,2)
 plot_data(X_reduced_PCA,Y_fr_jap,"conv1-R_FR_JA")
 
