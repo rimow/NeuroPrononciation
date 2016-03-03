@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from process_activation_maps import load_maps
 
-
-
 def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste_phonemes = []):
     """
     cree le tenser contenant pour chaque carte d'activation la valeur de cette carte pour tous les exemple
@@ -13,9 +11,18 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
     :param liste_dictionnaires: les dictionnaires qu'on utilise pour le clustering
     :param liste_categories: les categories qu'on considere ('correct_OK', 'correct_pasOk', 'incorrect_OK', 'incorrect_pasOk')
     :param liste_phonemes: le phoneme ('r' ou 'v') sur lequel on va effectuer le clustering
-    :return: le tenser Mat de taille : nb_cartes x (nb_dict x nb_cat x nb_phoxnb_ex) x taille_carte
-             la matrice Reference de taille (nb_dict x nb_cat x nb_phoxnb_ex) x 3
+    :return: le tenser Mat de taille : nb_maps x (nb_dict x nb_cat x nb_pho x nb_ex) x map_shape
+             la matrice Reference de taille (nb_dict x nb_cat x nb_pho x nb_ex) x 3
     """
+
+    if liste_dictionnaires == [] and liste_categories==[] and liste_phonemes==[]:
+        Mat=[]
+        Reference = []
+        return Mat,Reference
+
+    if liste_dictionnaires == [] or liste_categories==[] or liste_phonemes==[]:
+        print("Inputs are either all equal to [] or all specified")
+        return [],[]
 
     tableau = np.array(liste_dictionnaires[0][liste_categories[0]][liste_phonemes[0]])
     taille=tableau.shape
@@ -27,7 +34,7 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
         for inddict,dict in enumerate(liste_dictionnaires):
            for indcat,cat in enumerate(liste_categories):
                for indpho,pho in enumerate(liste_phonemes):
-                   for ex in range(taille[0]):
+                   for ex in range(np.array(dict[cat][pho]).shape[0]):
                        Matinter.append((dict[cat][pho][ex][num]).flatten())
                        if num == 0:
                            Reference.append([inddict,indcat ,indpho])
@@ -38,6 +45,8 @@ def pretraitementMatrice (liste_dictionnaires = [], liste_categories = [], liste
     Mat = np.array(Mat)
 
     return Mat, Reference
+
+
 
 def initialisation_centres (type_clustering, matrice_pretraitement, reference ):
     '''

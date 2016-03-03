@@ -8,9 +8,9 @@ from utils_maps import *
 # Results (Kfold mean scores) are printed into a text file
 
 
-
-mapconv1F_file_newFbank = '../../maps/newFbank/BREF80_l_conv1_35maps_th0.500000.pkl'
-mapconv2F_file_newFbank = '../../maps/newFbank/BREF80_l_conv2_35maps_th0.500000.pkl'
+# Files with 5 phonemes, only french
+mapconv1F_file_newFbank = '../../maps2/BREF80_l_conv1_35maps_th0.500000.pkl'
+mapconv2F_file_newFbank = '../../maps2/BREF80_l_conv2_35maps_th0.500000.pkl'
 
 
 #Load data
@@ -35,7 +35,7 @@ types = ['r_v']
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('LDA_resultats_fbank_python_conv1-2_dim10_5phones.txt', 'w')
+f_res = open('LDA_resultats_fbank_python_conv1-2_dim10_5phones.txt', 'w') # To modify according to the repository
 dim_reduction = 10
 indices_corrects = [0]
 
