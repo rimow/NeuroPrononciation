@@ -59,13 +59,13 @@ types = ['c_inc','r_v','fr_jap']
 n_folds = 5
 dim_reduction = -1
 
-f_bon_scores = open('../resultats/resultats_LDA/matlab_fbank/details_resultats_mapPerMap/LDA_mapPerMap_bon_resultats','w') # To modify according to the repository
-f_scores_max = open('../resultats/resultats_LDA/matlab_fbank/details_resultats_mapPerMap/LDA_mapPerMap_resultats_max','w') # To modify according to the repository
+f_bon_scores = open('./resultats_temp/details_resultats_mapPerMap/LDA_mapPerMap_bon_resultats','w') # To modify according to the repository
+f_scores_max = open('./resultats_temp/details_resultats_mapPerMap/LDA_mapPerMap_resultats_max','w') # To modify according to the repository
 
 for idic,dics in enumerate(liste_dics):
     for iph,phs in enumerate(liste_phonemes):
         for type in types:
-            f_res = open('../resultats/resultats_LDA/matlab_fbank/details_resultats_mapPerMap/LDA_mapPerMap_'+dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type, 'w') # To modify according to the repository
+            f_res = open('./resultats_temp/details_resultats_mapPerMap/LDA_mapPerMap_'+dics_labels[idic]+'_'+phonemes_labels[iph]+'_'+type, 'w') # To modify according to the repository
 
             Mat,R = pretraitementMatrice(liste_dictionnaires = dics, liste_categories = categories, liste_phonemes = phs)
             Y = getY(R,type)

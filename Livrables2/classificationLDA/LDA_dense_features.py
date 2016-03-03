@@ -28,7 +28,7 @@ types = ['c_inc','r_v','fr_jap']
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('../resultats/resultats_LDA/matlab_fbank/LDA_resultats_dense.txt', 'w')
+f_res = open('./resultats_temp/LDA_resultats_dense.txt', 'w')
 
 for i,dics in enumerate(all_liste_dics):
     for j,ph in enumerate(all_listes_phonemes):

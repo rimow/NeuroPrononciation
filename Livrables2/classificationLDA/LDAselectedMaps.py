@@ -35,7 +35,7 @@ dim = -1 #if reduction to the minimum dimension containing 80% of variability
 score_moyen = 0.
 nb_scores = 0.
 
-f_res = open('../resultats/resultats_LDA/matlab_fbank/results_selected_maps.txt','w')
+f_res = open('./resultats_temp/results_selected_maps.txt','w')
 #Conv1
 f_res.write('Conv1 \n')
 interesting_maps = [5, 8, 11, 12, 16, 19, 21, 23, 24, 31, 33, 36, 41, 42, 50, 51, 55, 57, 58, 59, 61, 65, 74, 84, 86, 88, 91, 93, 94, 95, 98, 99, 102, 108, 113, 118, 119, 122]

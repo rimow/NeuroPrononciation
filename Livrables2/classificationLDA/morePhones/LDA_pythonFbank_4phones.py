@@ -33,8 +33,8 @@ types = ['r_v']
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('../../resultats/resultats_LDA/python_fbank/morePhonemes/LDA_resultats_fbank_python_conv1_dim10_4phones.txt', 'w') # To modify according to the repository
-dim_reduction = 10
+f_res = open('../resultats_temp/LDA_resultats_fbank_python_conv1_dim10_4phones.txt', 'w') # To modify according to the repository
+dim_reduction = 0
 indices_corrects = [0,1] #respectivement aux categories
 
 for i,dics in enumerate(all_liste_dics):

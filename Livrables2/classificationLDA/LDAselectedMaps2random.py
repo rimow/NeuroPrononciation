@@ -35,7 +35,7 @@ dim = -1 #if reduction to the minimum dimension containing 80% of variability
 score_moyen = 0.
 nb_scores = 0.
 
-f_res = open('../resultats/resultats_LDA/matlab_fbank/random_selected_maps/results_selected_maps2_random-8','w')
+f_res = open('./resultats_temp/random_selected_maps/results_selected_maps2_random-8','w')
 #Conv1
 nb_f = np.array(conv1F['correct_OK']['v'][0]).shape[0]
 

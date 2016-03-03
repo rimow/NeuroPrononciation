@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 from sklearn.lda import LDA
 from sklearn.cross_validation import KFold
-from visualization.dim_reduction import dim_reduction_PCA
+from visualization.dim_reduction import dim_reduction_PCA, best_dimension
 
 def getData_dense(liste_dictionnaires = [], liste_categories = [], liste_phonemes = [],indices_corrects=[0,1]):
  """
