@@ -1,0 +1,14 @@
+7_conv1F fbank python_R_c_inc : 76.4285714286
+107_conv1F fbank python_R_c_inc : 79.2857142857
+1_conv1F fbank python_v_c_inc : 77.1428571429
+107_conv1F fbank python_v_c_inc : 77.1428571429
+1_conv1F fbank python_Rv_c_inc : 78.2142857143
+1_conv1FJ fbank python_R_fr_jap : 77.1428571429
+1_conv1FJ fbank python_v_fr_jap : 76.8577648766
+107_conv1FJ fbank python_v_fr_jap : 81.0595065312
+107_conv1FJ fbank python_Rv_r_v : 76.4814814815
+1_conv1FJ fbank python_Rv_fr_jap : 82.3462453279
+7_conv1FJ fbank python_Rv_fr_jap : 75.9225280326
+48_conv1FJ fbank python_Rv_fr_jap : 76.2895005097
+60_conv1FJ fbank python_Rv_fr_jap : 76.4610941216
+107_conv1FJ fbank python_Rv_fr_jap : 84.745158002

@@ -1,0 +1,33 @@
+Cartes ayant fait un score de plus de 75% avec la LDA et étant aussi considéré comme bonne par le clustering :
+
+conv1 : 
+  FRJA R
+    5 8 11 12 16 19 21 23 24 31 33 36 41 42 50 51 57 59 61 65 74 84 86 88 91 93 94 95 98 99 102 108 113 118 119 122
+  FRJA V
+    8 19 22 24 31 51 56 57 79 84 94 105 114 123
+  JA correct/incorrect R
+    94 119 118
+  JA correct/incorrect V
+    19 59 74 94 
+
+conv2 :
+  FRJA R 
+    43 81 159 192 220 223 255 136 205 216
+  FRJA V
+    81 220 246
+
+mp2 :
+  FRJA R
+    20 43 44 81 85 159 192 220 223 253 255 136 205 216 
+  FRJA V
+    81 150 160
+
+
+
+
+
+
+
+
+
+

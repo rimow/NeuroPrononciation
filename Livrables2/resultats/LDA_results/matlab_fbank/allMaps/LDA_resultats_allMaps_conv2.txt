@@ -1,0 +1,108 @@
+Dictionnaires :FR Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 53.1082589286
+Score de la classification, une donnee=un ensemble de cartes : 80.7142857143
+ 
+Dictionnaires :FR Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 49.0234375
+Score de la classification, une donnee=un ensemble de cartes : 85.0
+ 
+Dictionnaires :FR Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 50.6640625
+Score de la classification, une donnee=un ensemble de cartes : 88.5714285714
+ 
+Dictionnaires :FR Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 53.0482700893
+Score de la classification, une donnee=un ensemble de cartes : 85.0
+ 
+Dictionnaires :FR Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :JAP Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 50.7338169643
+Score de la classification, une donnee=un ensemble de cartes : 72.1428571429
+ 
+Dictionnaires :JAP Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :JAP Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :JAP Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 54.3303571429
+Score de la classification, une donnee=un ensemble de cartes : 66.4285714286
+ 
+Dictionnaires :JAP Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :JAP Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :JAP Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 52.1149553571
+Score de la classification, une donnee=un ensemble de cartes : 72.8571428571
+ 
+Dictionnaires :JAP Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 50.3264508929
+Score de la classification, une donnee=un ensemble de cartes : 87.8571428571
+ 
+Dictionnaires :JAP Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR JAP Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 50.7240513393
+Score de la classification, une donnee=un ensemble de cartes : 80.7142857143
+ 
+Dictionnaires :FR JAP Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR JAP Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 50.6821986607
+Score de la classification, une donnee=un ensemble de cartes : 90.0
+ 
+Dictionnaires :FR JAP Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 51.2890625
+Score de la classification, une donnee=un ensemble de cartes : 81.4285714286
+ 
+Dictionnaires :FR JAP Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :FR JAP Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 51.1844308036
+Score de la classification, une donnee=un ensemble de cartes : 87.1428571429
+ 
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 50.8740234375
+Score de la classification, une donnee=un ensemble de cartes : 81.7857142857
+ 
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 52.0640345982
+Score de la classification, une donnee=un ensemble de cartes : 88.2142857143
+ 
+Dictionnaires :FR JAP Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 50.6368582589
+Score de la classification, une donnee=un ensemble de cartes : 92.5
+ 

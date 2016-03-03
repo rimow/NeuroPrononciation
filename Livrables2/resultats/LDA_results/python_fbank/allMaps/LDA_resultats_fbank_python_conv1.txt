@@ -1,0 +1,108 @@
+Dictionnaires :conv1F fbank python Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 55.1897321429
+Score de la classification, une donnee=un ensemble de cartes : 90.7142857143
+ 
+Dictionnaires :conv1F fbank python Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1F fbank python Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1F fbank python Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 53.3035714286
+Score de la classification, une donnee=un ensemble de cartes : 86.4285714286
+ 
+Dictionnaires :conv1F fbank python Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1F fbank python Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1F fbank python Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 53.0245535714
+Score de la classification, une donnee=un ensemble de cartes : 89.2857142857
+ 
+Dictionnaires :conv1F fbank python Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 54.53125
+Score de la classification, une donnee=un ensemble de cartes : 80.7142857143
+ 
+Dictionnaires :conv1F fbank python Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1J fbank python Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 50.7700892857
+Score de la classification, une donnee=un ensemble de cartes : 72.1428571429
+ 
+Dictionnaires :conv1J fbank python Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1J fbank python Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1J fbank python Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 57.9258840282
+Score de la classification, une donnee=un ensemble de cartes : 67.8666666667
+ 
+Dictionnaires :conv1J fbank python Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1J fbank python Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1J fbank python Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 54.092682141
+Score de la classification, une donnee=un ensemble de cartes : 65.8925979681
+ 
+Dictionnaires :conv1J fbank python Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 54.6697426789
+Score de la classification, une donnee=un ensemble de cartes : 79.5355587808
+ 
+Dictionnaires :conv1J fbank python Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 52.3828125
+Score de la classification, une donnee=un ensemble de cartes : 78.5714285714
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 57.9659598214
+Score de la classification, une donnee=un ensemble de cartes : 88.9285714286
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 54.4537195066
+Score de la classification, une donnee=un ensemble de cartes : 78.4034833091
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 100.0
+Score de la classification, une donnee=un ensemble de cartes : 100.0
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 55.2675189671
+Score de la classification, une donnee=un ensemble de cartes : 92.0391872279
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R v  Type de classification :c_inc
+Score de la classification, une donnee=une carte : 52.9311202632
+Score de la classification, une donnee=un ensemble de cartes : 70.6014271152
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 52.2590213402
+Score de la classification, une donnee=un ensemble de cartes : 81.6156982671
+ 
+Dictionnaires :conv1FJ fbank python Phonemes : R v  Type de classification :fr_jap
+Score de la classification, une donnee=une carte : 53.6764654367
+Score de la classification, une donnee=un ensemble de cartes : 92.2782874618
+ 
