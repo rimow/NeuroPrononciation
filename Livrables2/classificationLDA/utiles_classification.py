@@ -121,7 +121,7 @@ def LDAmeanScore(X,Y,n_folds,dim_reduction=0):
 
  if (X.shape[0]>n_folds):
     # Cross validation pour estimer la performance d'un classifieur LDA
-    kf = KFold(n=len(Y), n_folds=n_folds, shuffle=False,
+    kf = KFold(n=len(Y), n_folds=n_folds, shuffle=True,
                                random_state=None)
     scores = []
     for train_index, test_index in kf:
