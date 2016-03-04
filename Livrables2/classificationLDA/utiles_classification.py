@@ -255,3 +255,37 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
 def change_reference(Y_c_inc):
     return [0 if x<2 else 1 for x in Y_c_inc]
 
+
+def selectPhones(X,X_phone,Y,phones=[1,1,1,1]):
+    """
+    :param X: data matrix (n_samples x n_phones)
+    :param X_phone: matrix (n_sample*n_phones) containing vectors representing phonemes, respectively for each line of X
+    :param Y: labels vector
+    :param phones: list (n_phones) containing the phonemes we consider. ex: [1,0,1,1] or [1,0,0,0]
+    :return: new_X which only contains features of phonemes that interest us, new_Y the labels vector (same type as Y) matching with new_X
+    """
+    new_X = []
+    new_Y = []
+    for i in range(X.shape[0]):
+        if ((np.array(X_phone[i,:])-np.array(phones))<=0).all():
+          new_X.append(X[i,:])
+          new_Y.append(Y[i])
+    return np.array(new_X),np.array(new_Y)
+
+def getPhonesLabels(X,X_phone,phones=[1,1,1,1]):
+    """
+    :param X: data matrix (n_samples x n_phones)
+    :param X_phone: matrix (n_sample*n_phones) containing vectors representing phonemes, respectively for each line of X
+    :param phones: list (n_phones) containing the phonemes we consider. ex: [1,0,1,1] or [1,0,0,0]
+    :return: new_X which only contains features of phonemes that interest us, new_Y the labels vector matching with new_X
+            (labels are type of phoneme)
+    """
+    new_X = []
+    Y_phone_labels = []
+    for i in range(X.shape[0]):
+        if ((np.array(X_phone[i,:])-np.array(phones))<=0).all():
+          new_X.append(X[i,:])
+          Y_phone_labels.append([i for i,j in enumerate(X_phone[i,:]) if j==1][0])
+    return np.array(new_X),np.array(Y_phone_labels)
+
+

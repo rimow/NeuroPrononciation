@@ -186,6 +186,38 @@ if score == -1:
 else:
     print 'LDAmeanScore Test 2 pas OK'
 
+# Tests getPhone
+X = np.array([[1,2,3],[4,5,6]])
+X_phone = np.array([[0,1,0,0],[0,0,1,0]])
+Y_phones = [0,1]
+X1,Y1 = selectPhones(X,X_phone,Y_phones,[0,1,1,0])
+if (X1==X).all() and (Y1==np.array(Y_phones)).all():
+    print 'selectPhones Test 1 OK'
+else:
+    print 'selectPhones Test 1 pas OK'
+
+X1,Y1 = selectPhones(X,X_phone,Y_phones,[0,0,1,0])
+if (X1==np.array([4,5,6])).all() and (Y1==np.array([1])).all():
+    print 'selectPhones Test 2 OK'
+else:
+    print 'selectPhones Test 2 pas OK'
+
+# Tests getPhone Labels
+X1,Y1 = getPhonesLabels(X,X_phone,phones=[0,1,1,0])
+if (X1==X).all() and (Y1==np.array([1,2])).all():
+    print 'getPhonesLabels Test 1 OK'
+else:
+    print 'getPhonesLabels Test 1 pas OK'
+
+X = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12],[13,14,15]])
+X_phone = np.array([[0,1,0,0],[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0]])
+X1,Y1 = getPhonesLabels(X,X_phone,phones=[1,1,1,0])
+if (X1==np.array([[1,2,3],[4,5,6],[7,8,9],[13,14,15]])).all() and (Y1==np.array([1,2,0,1])).all():
+    print 'getPhonesLabels Test 2 OK'
+else:
+    print 'getPhonesLabels Test 2 pas OK'
+
+
 ####### test getData_goodmaps #######
 mapconv1J_file='../../maps/PHONIM_l_conv1_35maps_th0.001000.pkl'
 mapconv1F_file='../../maps/BREF80_l_conv1_35maps_th0.500000.pkl'

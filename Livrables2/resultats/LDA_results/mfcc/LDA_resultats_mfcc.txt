@@ -1,0 +1,35 @@
+MFCC LDA classification 
+2 classes : correct/incorrect 
+Selected phones :[1, 1, 1, 1] Score : 50.0766942853
+Selected phones :[1, 0, 0, 0] Score : 89.7019838597
+Selected phones :[0, 1, 0, 0] Score : 89.5966098934
+Selected phones :[0, 0, 1, 0] Score : 92.806938665
+Selected phones :[0, 0, 0, 1] Score : 92.6806233825
+Selected phones :[1, 1, 0, 0] Score : 50.1585324117
+Selected phones :[0, 1, 1, 0] Score : 84.4965752493
+Selected phones :[0, 0, 1, 1] Score : 50.0410658008
+Selected phones :[1, 0, 0, 1] Score : 84.6187549458
+Selected phones :[1, 0, 1, 0] Score : 83.7443559097
+Selected phones :[0, 1, 0, 1] Score : 83.6398866612
+Selected phones :[1, 1, 1, 0] Score : 53.4795528568
+Selected phones :[0, 1, 1, 1] Score : 77.7939308361
+Selected phones :[1, 0, 1, 1] Score : 77.9128492894
+Selected phones :[1, 1, 0, 1] Score : 53.4004799651
+
+MFCC LDA classification
+nb_phonemes classes (one classe per phone)
+Selected phones :[1, 1, 1, 1] Score : 42.7028069487
+Selected phones :[1, 0, 0, 0] Score : 100.0
+Selected phones :[0, 1, 0, 0] Score : 100.0
+Selected phones :[0, 0, 1, 0] Score : 100.0
+Selected phones :[0, 0, 0, 1] Score : 100.0
+Selected phones :[1, 1, 0, 0] Score : 50.0761520233
+Selected phones :[0, 1, 1, 0] Score : 85.1712145409
+Selected phones :[0, 0, 1, 1] Score : 50.3543119091
+Selected phones :[1, 0, 0, 1] Score : 85.1771907908
+Selected phones :[1, 0, 1, 0] Score : 85.0996015936
+Selected phones :[0, 1, 0, 1] Score : 85.228886109
+Selected phones :[1, 1, 1, 0] Score : 46.8142431846
+Selected phones :[0, 1, 1, 1] Score : 72.4934381797
+Selected phones :[1, 0, 1, 1] Score : 72.3691426553
+Selected phones :[1, 1, 0, 1] Score : 46.6002472547
