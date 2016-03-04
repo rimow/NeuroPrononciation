@@ -1,48 +1,48 @@
-Dictionnaires :conv1F fbank python all categories  Phonemes : R v  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 71.5568016741
-Score de la classification, une donnee=un ensemble de cartes : 70.4210526316
+Dictionnaires :conv1F fbank python all categories  Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 57.5889129309
+Score de la classification, une donnee=un ensemble de cartes : 91.7368421053
  
-Dictionnaires :conv1F fbank python only correct categories  Phonemes : R v  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
+Dictionnaires :conv1F fbank python only correct categories  Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 75.6703910615
+Score de la classification, une donnee=un ensemble de cartes : 96.6666666667
+ 
+Dictionnaires :conv1F fbank python all categories  Phonemes : b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 55.261380144
+Score de la classification, une donnee=un ensemble de cartes : 99.0
+ 
+Dictionnaires :conv1F fbank python only correct categories  Phonemes : b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 58.4798261949
 Score de la classification, une donnee=un ensemble de cartes : 100.0
  
-Dictionnaires :conv1F fbank python all categories  Phonemes : b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 71.4286004531
-Score de la classification, une donnee=un ensemble de cartes : 77.4736842105
+Dictionnaires :conv1F fbank python all categories  Phonemes : a R v b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 27.9016431224
+Score de la classification, une donnee=un ensemble de cartes : 80.4612159329
  
-Dictionnaires :conv1F fbank python only correct categories  Phonemes : b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
+Dictionnaires :conv1F fbank python only correct categories  Phonemes : a R v b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 39.4914914561
+Score de la classification, une donnee=un ensemble de cartes : 90.0584795322
+ 
+Dictionnaires :conv2F fbank python all categories  Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 57.3981077286
+Score de la classification, une donnee=un ensemble de cartes : 94.8421052632
+ 
+Dictionnaires :conv2F fbank python only correct categories  Phonemes : R v  Type de classification :r_v
+Score de la classification, une donnee=une carte : 74.9980548077
+Score de la classification, une donnee=un ensemble de cartes : 92.6666666667
+ 
+Dictionnaires :conv2F fbank python all categories  Phonemes : b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 56.2657186247
+Score de la classification, une donnee=un ensemble de cartes : 94.8947368421
+ 
+Dictionnaires :conv2F fbank python only correct categories  Phonemes : b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 60.3243024541
 Score de la classification, une donnee=un ensemble de cartes : 100.0
  
-Dictionnaires :conv1F fbank python all categories  Phonemes : a R v b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 65.6247459898
-Score de la classification, une donnee=un ensemble de cartes : 70.642907058
+Dictionnaires :conv2F fbank python all categories  Phonemes : a R v b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 26.4098210449
+Score de la classification, une donnee=un ensemble de cartes : 88.7071977638
  
-Dictionnaires :conv1F fbank python only correct categories  Phonemes : a R v b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
-Score de la classification, une donnee=un ensemble de cartes : 100.0
- 
-Dictionnaires :conv2F fbank python all categories  Phonemes : R v  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 71.2370930949
-Score de la classification, une donnee=un ensemble de cartes : 81.5789473684
- 
-Dictionnaires :conv2F fbank python only correct categories  Phonemes : R v  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
-Score de la classification, une donnee=un ensemble de cartes : 100.0
- 
-Dictionnaires :conv2F fbank python all categories  Phonemes : b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 71.4280231546
-Score de la classification, une donnee=un ensemble de cartes : 79.5789473684
- 
-Dictionnaires :conv2F fbank python only correct categories  Phonemes : b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
-Score de la classification, une donnee=un ensemble de cartes : 100.0
- 
-Dictionnaires :conv2F fbank python all categories  Phonemes : a R v b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 65.760038721
-Score de la classification, une donnee=un ensemble de cartes : 73.6757512229
- 
-Dictionnaires :conv2F fbank python only correct categories  Phonemes : a R v b l  Type de classification :phoneme
-Score de la classification, une donnee=une carte : 100.0
-Score de la classification, une donnee=un ensemble de cartes : 100.0
+Dictionnaires :conv2F fbank python only correct categories  Phonemes : a R v b l  Type de classification :r_v
+Score de la classification, une donnee=une carte : 38.0837278586
+Score de la classification, une donnee=un ensemble de cartes : 94.5029239766
  

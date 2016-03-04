@@ -30,7 +30,7 @@ liste_categories = [all_categories,['OK']]
 categories_labels = [' all categories ',' only correct categories ']
 
 #Type de classification que l'on veut faire
-types = [' phoneme']
+types = ['r_v']
 
 a_ignorer = []
 l_cartes = []
