@@ -28,21 +28,24 @@ labels_phonemes = [' R v ',' b l ',' a R v b l '] #Pour ecrire dans le fichier
 
 #Categories que l'on veut traiter, on prend tout en general
 all_categories = conv1F_newFbank.keys()
+liste_categories = [all_categories,['OK']]
+categories_labels = [' all categories ',' only correct categories ']
 
 #Type de classification que l'on veut faire
-types = ['r_v']
+types = [' phoneme']
 
 a_ignorer = []
 l_cartes = []
 n_folds = 5
-f_res = open('./resultats_temp/LDA_resultats_fbank_python_conv1-2_dim10_5phones.txt', 'w') # To modify according to the repository
-dim_reduction = 0
+f_res = open('./resultats_temp/LDA_resultats_fbank_python_conv1-2_bestDim_5phones.txt', 'w') # To modify according to the repository
+dim_reduction = -1
 indices_corrects = [0]
 
 for i,dics in enumerate(all_liste_dics):
     for j,ph in enumerate(liste_phonemes):
+      for icat,cat in enumerate(liste_categories):
         for type in types:
-            f_res.write('Dictionnaires :'+labels_dictionnaire[i]+' Phonemes :'+labels_phonemes[j]+' Type de classification :'+type+'\n')
+            f_res.write('Dictionnaires :'+labels_dictionnaire[i]+categories_labels[icat]+' Phonemes :'+labels_phonemes[j]+' Type de classification :'+type+'\n')
             score1,score2 = ldaClassification(dics,liste_phonemes=ph,liste_categories=all_categories,num_cartes=l_cartes,a_ignorer=a_ignorer,n_folds=n_folds,type=type,dim_reduction=dim_reduction,indices_corrects=indices_corrects)
             f_res.write('Score de la classification, une donnee=une carte : '+str(score2)+'\nScore de la classification, une donnee=un ensemble de cartes : '+str(score1)+'\n \n')
 
