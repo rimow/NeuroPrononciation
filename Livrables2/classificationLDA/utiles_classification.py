@@ -238,6 +238,8 @@ def getData_goodmaps(liste_dictionnaires = [], liste_categories = [], liste_phon
     for inddict,dict in enumerate(liste_dictionnaires):
         for indcat,cat in enumerate(liste_categories):
             for indpho,pho in enumerate(liste_phonemes):
+                tableau = np.array(liste_dictionnaires[inddict][liste_categories[indcat]][liste_phonemes[indpho]])
+                nb_exemple,nb_carte,lign,col=tableau.shape
                 for ex in range(nb_exemple):
                     goodmaps = []
                     for map in liste_cartes:
