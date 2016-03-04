@@ -272,20 +272,29 @@ def selectPhones(X,X_phone,Y,phones=[1,1,1,1]):
           new_Y.append(Y[i])
     return np.array(new_X),np.array(new_Y)
 
-def getPhonesLabels(X,X_phone,phones=[1,1,1,1]):
+def getPhonesLabels(X,X_phone,Y,phones=[1,1,1,1],correctOnly=False):
     """
     :param X: data matrix (n_samples x n_phones)
     :param X_phone: matrix (n_sample*n_phones) containing vectors representing phonemes, respectively for each line of X
+    :param Y: labels vector
     :param phones: list (n_phones) containing the phonemes we consider. ex: [1,0,1,1] or [1,0,0,0]
+    :param correctOnly: True if keep only corrects phonemes, false otherwise
     :return: new_X which only contains features of phonemes that interest us, new_Y the labels vector matching with new_X
             (labels are type of phoneme)
     """
     new_X = []
     Y_phone_labels = []
     for i in range(X.shape[0]):
-        if ((np.array(X_phone[i,:])-np.array(phones))<=0).all():
-          new_X.append(X[i,:])
-          Y_phone_labels.append([i for i,j in enumerate(X_phone[i,:]) if j==1][0])
+        if correctOnly:
+            if Y[i]==1:
+                if ((np.array(X_phone[i,:])-np.array(phones))<=0).all():
+                   new_X.append(X[i,:])
+                   Y_phone_labels.append([i for i,j in enumerate(X_phone[i,:]) if j==1][0])
+        else:
+                if ((np.array(X_phone[i,:])-np.array(phones))<=0).all():
+                   new_X.append(X[i,:])
+                   Y_phone_labels.append([i for i,j in enumerate(X_phone[i,:]) if j==1][0])
+
     return np.array(new_X),np.array(Y_phone_labels)
 
 

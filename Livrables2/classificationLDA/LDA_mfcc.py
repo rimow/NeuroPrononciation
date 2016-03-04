@@ -28,9 +28,16 @@ for phones in phone_sets:
     f_res.write('Selected phones :'+str(phones)+' Score : '+str(score)+'\n')
 
 # Phone category classification
-f_res.write('MFCC LDA classification \nnb_phonemes classes (one classe per phone) \n')
+f_res.write('MFCC LDA classification \nnb_phonemes classes (one class per phone) \n')
 for phones in phone_sets:
-    X_t,Y_ph = getPhonesLabels(X,X_phones,phones)
+    X_t,Y_ph = getPhonesLabels(X,X_phones,Y_c_inc,phones,correctOnly=False)
+    score = LDAmeanScore(X_t,Y_ph,n_folds,dim_reduction=dim)
+    f_res.write('Selected phones :'+str(phones)+' Score : '+str(score)+'\n')
+
+# Phone category classification
+f_res.write('MFCC LDA classification (Only on corrects phonemes) \nnb_phonemes classes (one class per phone) \n')
+for phones in phone_sets:
+    X_t,Y_ph = getPhonesLabels(X,X_phones,Y_c_inc,phones,correctOnly=True)
     score = LDAmeanScore(X_t,Y_ph,n_folds,dim_reduction=dim)
     f_res.write('Selected phones :'+str(phones)+' Score : '+str(score)+'\n')
 

@@ -33,3 +33,21 @@ Selected phones :[1, 1, 1, 0] Score : 46.8142431846
 Selected phones :[0, 1, 1, 1] Score : 72.4934381797
 Selected phones :[1, 0, 1, 1] Score : 72.3691426553
 Selected phones :[1, 1, 0, 1] Score : 46.6002472547
+
+MFCC LDA classification (Only on corrects phonemes)
+nb_phonemes classes (one classe per phone)
+Selected phones :[1, 1, 1, 1] Score : 79.0444887118
+Selected phones :[1, 0, 0, 0] Score : 100.0
+Selected phones :[0, 1, 0, 0] Score : 100.0
+Selected phones :[0, 0, 1, 0] Score : 100.0
+Selected phones :[0, 0, 0, 1] Score : 100.0
+Selected phones :[1, 1, 0, 0] Score : 89.684300071
+Selected phones :[0, 1, 1, 0] Score : 94.8836386161
+Selected phones :[0, 0, 1, 1] Score : 92.6770758316
+Selected phones :[1, 0, 0, 1] Score : 89.701897019
+Selected phones :[1, 0, 1, 0] Score : 97.9967651111
+Selected phones :[0, 1, 0, 1] Score : 82.5947717286
+Selected phones :[1, 1, 1, 0] Score : 87.6335139106
+Selected phones :[0, 1, 1, 1] Score : 80.4255834367
+Selected phones :[1, 0, 1, 1] Score : 88.0130343801
+Selected phones :[1, 1, 0, 1] Score : 80.3467134723
