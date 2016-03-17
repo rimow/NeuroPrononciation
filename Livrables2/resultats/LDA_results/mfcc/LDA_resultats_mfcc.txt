@@ -51,3 +51,4 @@ Selected phones :[1, 1, 1, 0] Score : 87.6335139106
 Selected phones :[0, 1, 1, 1] Score : 80.4255834367
 Selected phones :[1, 0, 1, 1] Score : 88.0130343801
 Selected phones :[1, 1, 0, 1] Score : 80.3467134723
+
