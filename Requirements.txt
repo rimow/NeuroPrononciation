@@ -1,0 +1,9 @@
+The required libraries and modules include the following :
+- Matplotlib 1.5.0 
+- Scikit-learn 0.17
+- Librosa 0.4.1
+- Theano 0.7.0 
+- Lasagne 0.1 
+- Numpy 1.10.2
+- Scipy 0.16.1
+- and other classic Python libraries.
