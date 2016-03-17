@@ -1,0 +1,38 @@
+Conv1 
+FR JAP, R : 98.5714285714
+FR JAP, R : 100.0
+FR JAP, R : 80.0
+FR JAP, v : 91.7857142857
+FR JAP, v : 91.0714285714
+FR, R v : 55.3571428571
+JAP, R, correct/incorrect : 75.0
+JAP, R, correct/incorrect : 94.2857142857
+JAP, v , correct/incorrect :70.0
+JAP, v , correct/incorrect :70.0
+JAP, v , correct/incorrect :73.5714285714
+Conv2 
+FR JAP, R : 96.4285714286
+FR JAP, R : 88.9285714286
+FR JAP, R : 92.8571428571
+FR JAP, v : 66.0714285714
+FR JAP, v : 60.7142857143
+FR JAP, v : 87.8571428571
+FR, R v : 68.5714285714
+JAP, v, correct/incorrect : 60.0
+Mp2 
+FR JAP, R : 81.7857142857
+FR JAP, R : 94.2857142857
+FR JAP, R : 92.1428571429
+FR JAP, R : 76.0714285714
+FR JAP, v : 52.8571428571
+FR JAP, v : 84.2857142857
+FR JAP, v : 75.0
+FR, R v : 68.2142857143
+FR, R v : 61.4285714286
+JAP, R, correct/incorrect : 47.8571428571
+JAP, R, correct/incorrect : 57.1428571429
+JAP, v, correct/incorrect : 67.8571428571
+JAP, v, correct/incorrect : 67.1428571429
+JAP, v, correct/incorrect : 66.4285714286
+
+ Score moyen : 76.1688311688
